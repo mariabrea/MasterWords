@@ -7,19 +7,29 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2A5641BECF2BA18A1CE128EF /* Pods_MasterWords.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F2518809EDC80E47CDDC9D5 /* Pods_MasterWords.framework */; };
+		C17D56F420588CE900210586 /* SingleListEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17D56F320588CE900210586 /* SingleListEditViewController.swift */; };
+		C17D56F620588E4700210586 /* SightWord.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17D56F520588E4700210586 /* SightWord.swift */; };
+		C1AE3BAD20583E11005FA6A1 /* SightWordsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1AE3BAC20583E11005FA6A1 /* SightWordsList.swift */; };
+		C1AE3BAF2058412E005FA6A1 /* SwipeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1AE3BAE2058412E005FA6A1 /* SwipeTableViewController.swift */; };
 		C1E94DDC2058336C0077F6EB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1E94DDB2058336C0077F6EB /* AppDelegate.swift */; };
-		C1E94DDE2058336C0077F6EB /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1E94DDD2058336C0077F6EB /* FirstViewController.swift */; };
-		C1E94DE02058336C0077F6EB /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1E94DDF2058336C0077F6EB /* SecondViewController.swift */; };
+		C1E94DDE2058336C0077F6EB /* ListsEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1E94DDD2058336C0077F6EB /* ListsEditViewController.swift */; };
 		C1E94DE32058336C0077F6EB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C1E94DE12058336C0077F6EB /* Main.storyboard */; };
 		C1E94DE52058336C0077F6EB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C1E94DE42058336C0077F6EB /* Assets.xcassets */; };
 		C1E94DE82058336C0077F6EB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C1E94DE62058336C0077F6EB /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4638960242EB8D080C87F084 /* Pods-MasterWords.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MasterWords.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MasterWords/Pods-MasterWords.debug.xcconfig"; sourceTree = "<group>"; };
+		7F2518809EDC80E47CDDC9D5 /* Pods_MasterWords.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MasterWords.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AD04451217AC84B09F8164CF /* Pods-MasterWords.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MasterWords.release.xcconfig"; path = "Pods/Target Support Files/Pods-MasterWords/Pods-MasterWords.release.xcconfig"; sourceTree = "<group>"; };
+		C17D56F320588CE900210586 /* SingleListEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleListEditViewController.swift; sourceTree = "<group>"; };
+		C17D56F520588E4700210586 /* SightWord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SightWord.swift; sourceTree = "<group>"; };
+		C1AE3BAC20583E11005FA6A1 /* SightWordsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SightWordsList.swift; sourceTree = "<group>"; };
+		C1AE3BAE2058412E005FA6A1 /* SwipeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeTableViewController.swift; sourceTree = "<group>"; };
 		C1E94DD82058336C0077F6EB /* MasterWords.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MasterWords.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1E94DDB2058336C0077F6EB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		C1E94DDD2058336C0077F6EB /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
-		C1E94DDF2058336C0077F6EB /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
+		C1E94DDD2058336C0077F6EB /* ListsEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListsEditViewController.swift; sourceTree = "<group>"; };
 		C1E94DE22058336C0077F6EB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C1E94DE42058336C0077F6EB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C1E94DE72058336C0077F6EB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -31,17 +41,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2A5641BECF2BA18A1CE128EF /* Pods_MasterWords.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5338EEC360F39A73A0180D78 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				4638960242EB8D080C87F084 /* Pods-MasterWords.debug.xcconfig */,
+				AD04451217AC84B09F8164CF /* Pods-MasterWords.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		88829625048F22598BEFE54B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				7F2518809EDC80E47CDDC9D5 /* Pods_MasterWords.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		C1E94DCF2058336C0077F6EB = {
 			isa = PBXGroup;
 			children = (
 				C1E94DDA2058336C0077F6EB /* MasterWords */,
 				C1E94DD92058336C0077F6EB /* Products */,
+				5338EEC360F39A73A0180D78 /* Pods */,
+				88829625048F22598BEFE54B /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -56,15 +86,42 @@
 		C1E94DDA2058336C0077F6EB /* MasterWords */ = {
 			isa = PBXGroup;
 			children = (
-				C1E94DDB2058336C0077F6EB /* AppDelegate.swift */,
-				C1E94DDD2058336C0077F6EB /* FirstViewController.swift */,
-				C1E94DDF2058336C0077F6EB /* SecondViewController.swift */,
-				C1E94DE12058336C0077F6EB /* Main.storyboard */,
-				C1E94DE42058336C0077F6EB /* Assets.xcassets */,
-				C1E94DE62058336C0077F6EB /* LaunchScreen.storyboard */,
+				C1E94DEF205833A40077F6EB /* Controller */,
+				C1E94DF0205833CF0077F6EB /* View */,
+				C1E94DF1205833D60077F6EB /* Supporting Files */,
 				C1E94DE92058336C0077F6EB /* Info.plist */,
 			);
 			path = MasterWords;
+			sourceTree = "<group>";
+		};
+		C1E94DEF205833A40077F6EB /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				C17D56F320588CE900210586 /* SingleListEditViewController.swift */,
+				C17D56F520588E4700210586 /* SightWord.swift */,
+				C1AE3BAC20583E11005FA6A1 /* SightWordsList.swift */,
+				C1E94DDB2058336C0077F6EB /* AppDelegate.swift */,
+				C1E94DDD2058336C0077F6EB /* ListsEditViewController.swift */,
+				C1AE3BAE2058412E005FA6A1 /* SwipeTableViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		C1E94DF0205833CF0077F6EB /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C1E94DE12058336C0077F6EB /* Main.storyboard */,
+				C1E94DE62058336C0077F6EB /* LaunchScreen.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		C1E94DF1205833D60077F6EB /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				C1E94DE42058336C0077F6EB /* Assets.xcassets */,
+			);
+			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -74,9 +131,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C1E94DEC2058336C0077F6EB /* Build configuration list for PBXNativeTarget "MasterWords" */;
 			buildPhases = (
+				643A592905F089D769875C18 /* [CP] Check Pods Manifest.lock */,
 				C1E94DD42058336C0077F6EB /* Sources */,
 				C1E94DD52058336C0077F6EB /* Frameworks */,
 				C1E94DD62058336C0077F6EB /* Resources */,
+				C4912B80AC1ABBD6EC0A72F7 /* [CP] Embed Pods Frameworks */,
+				83AC89C54CB17DDD017C460C /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -134,14 +194,77 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		643A592905F089D769875C18 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MasterWords-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		83AC89C54CB17DDD017C460C /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MasterWords/Pods-MasterWords-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C4912B80AC1ABBD6EC0A72F7 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-MasterWords/Pods-MasterWords-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/ChameleonFramework/ChameleonFramework.framework",
+				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
+				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/SwipeCellKit/SwipeCellKit.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ChameleonFramework.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwipeCellKit.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MasterWords/Pods-MasterWords-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		C1E94DD42058336C0077F6EB /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C1E94DE02058336C0077F6EB /* SecondViewController.swift in Sources */,
+				C17D56F620588E4700210586 /* SightWord.swift in Sources */,
+				C1AE3BAD20583E11005FA6A1 /* SightWordsList.swift in Sources */,
+				C17D56F420588CE900210586 /* SingleListEditViewController.swift in Sources */,
 				C1E94DDC2058336C0077F6EB /* AppDelegate.swift in Sources */,
-				C1E94DDE2058336C0077F6EB /* FirstViewController.swift in Sources */,
+				C1E94DDE2058336C0077F6EB /* ListsEditViewController.swift in Sources */,
+				C1AE3BAF2058412E005FA6A1 /* SwipeTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -276,6 +399,7 @@
 		};
 		C1E94DED2058336C0077F6EB /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4638960242EB8D080C87F084 /* Pods-MasterWords.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -291,6 +415,7 @@
 		};
 		C1E94DEE2058336C0077F6EB /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = AD04451217AC84B09F8164CF /* Pods-MasterWords.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
