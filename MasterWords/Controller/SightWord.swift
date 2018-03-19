@@ -10,7 +10,11 @@ import Foundation
 import RealmSwift
 
 class SightWord : Object {
+    @objc dynamic var index : Int = 0
     @objc dynamic var name : String = ""
+    @objc dynamic var numberCorrect : Int = 0
+    @objc dynamic var numberWrong : Int = 0
     var parentList = LinkingObjects(fromType: SightWordsList.self, property: "sightWords")
+    //var parentCategory = LinkingObjects(fromType: Category.self, property: "items")
 }
 

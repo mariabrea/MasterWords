@@ -154,7 +154,7 @@ class ListsEditViewController: SwipeTableViewController{
             //we create a new object of type Item of the dstabase, and we fill its attributes
             let newList = SightWordsList()
             newList.name = textField.text!
-            newList.color = UIColor.randomFlat().hexValue()
+            newList.color = UIColor.randomFlat.hexValue()
 
             self.save(list : newList)
 

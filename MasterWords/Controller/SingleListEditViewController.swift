@@ -8,10 +8,9 @@
 
 import UIKit
 import RealmSwift
+import ChameleonFramework
 
 class SingleListEditViewController: SwipeTableViewController {
-
-    @IBOutlet weak var searchBar: UISearchBar!
     
     let realm = try! Realm()
     
@@ -68,15 +67,14 @@ class SingleListEditViewController: SwipeTableViewController {
 
         if let sightWord = wordsList?[indexPath.row] {
             cell.textLabel?.text = sightWord.name
-            if indexPath.row == 0 {
-                cell.backgroundColor = UIColor(hexString: selectedList!.color)?.lighten(byPercentage: CGFloat(0.3))
-                print(CGFloat(0.3))
+            if indexPath.row % 2 == 0 {
+                cell.backgroundColor = UIColor(hexString: selectedList!.color)?.darken(byPercentage:0.1)
+            } else {
+                cell.backgroundColor = UIColor(hexString: selectedList!.color)?.lighten(byPercentage:0.1)
             }
-            else {
-                cell.backgroundColor = UIColor(hexString: selectedList!.color)?.lighten(byPercentage:CGFloat(indexPath.row) / CGFloat(wordsList!.count))
-                print(CGFloat(indexPath.row) / CGFloat(wordsList!.count))
-            }
-            cell.textLabel?.textColor = UIColor(contrastingBlackOrWhiteColorOn:cell.backgroundColor, isFlat:true)
+            
+            cell.textLabel?.textColor = ContrastColorOf(cell.backgroundColor!, returnFlat: true)
+            
 //            if let color = UIColor(hexString: selectedCategory!.color)?.darken(byPercentage:CGFloat(indexPath.row) / CGFloat(todoItems!.count)){
 //                cell.backgroundColor = color
 //                cell.textLabel?.textColor = UIColor(contrastingBlackOrWhiteColorOn:color, isFlat:true)
@@ -171,6 +169,7 @@ class SingleListEditViewController: SwipeTableViewController {
                     try self.realm.write {
                         let newWord = SightWord()
                         newWord.name = textField.text!
+                        newWord.index = currentList.sightWords.count
                         currentList.sightWords.append(newWord)
                     }
                 } catch {
