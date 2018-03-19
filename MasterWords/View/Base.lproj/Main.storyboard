@@ -294,16 +294,18 @@ Wrong</string>
                         <outlet property="resultsLabel" destination="tzU-WL-mAy" id="zpw-7x-QtF"/>
                         <outlet property="sadButton" destination="zOk-e2-9p9" id="0fn-fL-Be0"/>
                         <outlet property="sadLabel" destination="0dY-7N-zfa" id="Ljf-Hr-mGI"/>
+                        <segue destination="NXb-cE-bAR" kind="unwind" identifier="unwindToLists" unwindAction="prepareForUnwindWithSegue:" id="eiA-rY-npx"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2wM-Pz-X2C" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="NXb-cE-bAR" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="2194.4000000000001" y="356.67166416791605"/>
         </scene>
-        <!--Tab Bar Controller-->
+        <!--Tab Bar View Controller-->
         <scene sceneID="yl2-sM-qoP">
             <objects>
-                <tabBarController id="49e-Tb-3d3" sceneMemberID="viewController">
+                <tabBarController id="49e-Tb-3d3" customClass="TabBarViewController" customModule="MasterWords" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" id="W28-zg-YXA">
                         <rect key="frame" x="0.0" y="975" width="768" height="49"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>

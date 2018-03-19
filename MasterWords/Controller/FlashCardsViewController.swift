@@ -11,7 +11,7 @@ import RealmSwift
 import ChameleonFramework
 import Koloda
 
-class FlashCardsViewController: UIViewController{
+class FlashCardsViewController: UIViewController {
 
     @IBOutlet weak var cardView: KolodaView!
     @IBOutlet weak var sadButton: UIButton!
@@ -89,6 +89,7 @@ class FlashCardsViewController: UIViewController{
 
     }
     
+   
     //MARK: - Navigation Methods
     
     @IBAction func happyButtonTapped(_ sender: UIButton) {
@@ -135,6 +136,7 @@ class FlashCardsViewController: UIViewController{
     @IBAction func cancelButtonTapped(_ sender: UIButton) {
         popupView.alpha = 0
         repeatWrongButton.isHidden = false
+        performSegue(withIdentifier: "unwindToLists", sender: self)
     }
     
     func resetCounters() {

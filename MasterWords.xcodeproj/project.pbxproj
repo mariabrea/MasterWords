@@ -21,6 +21,7 @@
 		C1E94DE32058336C0077F6EB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C1E94DE12058336C0077F6EB /* Main.storyboard */; };
 		C1E94DE52058336C0077F6EB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C1E94DE42058336C0077F6EB /* Assets.xcassets */; };
 		C1E94DE82058336C0077F6EB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C1E94DE62058336C0077F6EB /* LaunchScreen.storyboard */; };
+		C1E99908206022670028564A /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1E99907206022670028564A /* TabBarViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +43,7 @@
 		C1E94DE42058336C0077F6EB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C1E94DE72058336C0077F6EB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C1E94DE92058336C0077F6EB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C1E99907206022670028564A /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +116,7 @@
 		C1E94DEF205833A40077F6EB /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				C1E99907206022670028564A /* TabBarViewController.swift */,
 				C178747D205AB89400C01B71 /* FlashCardsViewController.swift */,
 				C104F5BF205AABD10052A21F /* ListsTableViewController.swift */,
 				C17D56F320588CE900210586 /* SingleListEditViewController.swift */,
@@ -289,6 +292,7 @@
 				C1AE3BAD20583E11005FA6A1 /* SightWordsList.swift in Sources */,
 				C178747E205AB89400C01B71 /* FlashCardsViewController.swift in Sources */,
 				C17D56F420588CE900210586 /* SingleListEditViewController.swift in Sources */,
+				C1E99908206022670028564A /* TabBarViewController.swift in Sources */,
 				C1E94DDC2058336C0077F6EB /* AppDelegate.swift in Sources */,
 				C1E94DDE2058336C0077F6EB /* ListsEditViewController.swift in Sources */,
 				C1AE3BAF2058412E005FA6A1 /* SwipeTableViewController.swift in Sources */,

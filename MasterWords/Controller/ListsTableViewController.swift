@@ -59,6 +59,10 @@ class ListsTableViewController: UITableViewController {
     
     // MARK: - Navigation
 
+    @IBAction func prepareForUnwind(segue: UIStoryboardSegue) {
+        
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let destinationVC = segue.destination as! FlashCardsViewController
         
