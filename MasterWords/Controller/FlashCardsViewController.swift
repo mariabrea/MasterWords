@@ -10,9 +10,12 @@ import UIKit
 import RealmSwift
 import ChameleonFramework
 import Koloda
+import AVFoundation
 
 class FlashCardsViewController: UIViewController {
 
+    
+    
     @IBOutlet weak var cardView: KolodaView!
     @IBOutlet weak var sadButton: UIButton!
     @IBOutlet weak var sadLabel: UILabel!
@@ -26,6 +29,12 @@ class FlashCardsViewController: UIViewController {
     @IBOutlet weak var repeatWrongButton: UIButton!
     @IBOutlet weak var cancelButton: UIButton!
     
+    //variable needed to play sound
+    var audioPlayer : AVAudioPlayer!
+    let correctAnswerSoundFileName : String = "38798943_correct-answer-bell-gliss-01"
+    let wrongAnswerSoundFileName : String = "38806077_wrong-answer-bong-spring-01"
+    let soundFileExtension : String = "wav"
+
     
     var numberCorrect : Int = 0
     var numberWrong : Int = 0
@@ -164,6 +173,22 @@ class FlashCardsViewController: UIViewController {
         
     }
     
+    func playSound(soundFileName: String, soundFileExtension : String) {
+        
+        let soundURL = Bundle.main.url(forResource: soundFileName, withExtension: soundFileExtension)
+        
+        do {
+            audioPlayer = try AVAudioPlayer(contentsOf: soundURL!)
+        }
+        catch {
+            
+            print(error)
+            
+        }
+        
+        audioPlayer.play()
+        
+    }
     //MARK: - Database Methods
     
     func loadSightWords() {
@@ -212,6 +237,7 @@ extension FlashCardsViewController: KolodaViewDelegate {
     func koloda(_ koloda: KolodaView, didSwipeCardAt index: Int, in direction: SwipeResultDirection) {
         if direction == .left {
             print("Left")
+            playSound(soundFileName: wrongAnswerSoundFileName, soundFileExtension: soundFileExtension)
             numberWrong += 1
             sadLabel.text = String(numberWrong)
             updateModel(index: listWordsToPractice[index].index, correct : true)
@@ -219,6 +245,7 @@ extension FlashCardsViewController: KolodaViewDelegate {
             
         } else {
             print("Right")
+            playSound(soundFileName: correctAnswerSoundFileName, soundFileExtension: soundFileExtension)
             numberCorrect += 1
             happyLabel.text = String(numberCorrect)
             updateModel(index: listWordsToPractice[index].index, correct : false)
@@ -240,8 +267,9 @@ extension FlashCardsViewController: KolodaViewDataSource {
     func koloda(_ koloda: KolodaView, viewForCardAt index: Int) -> UIView {
         let view = UIView(frame: CGRect(x: 20, y: self.view.safeAreaInsets.top + 20, width: self.view.frame.width - 40 , height: self.view.safeAreaLayoutGuide.layoutFrame.height*0.85 - 40))
         view.backgroundColor = UIColor.randomFlat
+        view.layer.cornerRadius = 15
         
-        let sightWordLabel = UILabel(frame: CGRect(x: (view.frame.width - 200)/2 , y: (view.frame.height - 100)/2, width: 200, height: 100))
+        let sightWordLabel = UILabel(frame: CGRect(x: 0 , y: (view.frame.height - 100)/2, width: view.frame.width, height: 100))
         sightWordLabel.textAlignment = .center
         sightWordLabel.textColor = ContrastColorOf(view.backgroundColor!, returnFlat: true)
         sightWordLabel.text = listWordsToPractice[index].name

@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		2A5641BECF2BA18A1CE128EF /* Pods_MasterWords.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F2518809EDC80E47CDDC9D5 /* Pods_MasterWords.framework */; };
 		C104F5C0205AABD10052A21F /* ListsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C104F5BF205AABD10052A21F /* ListsTableViewController.swift */; };
+		C16182CE20606EF60025E6D1 /* 38798943_correct-answer-bell-gliss-01.wav in Resources */ = {isa = PBXBuildFile; fileRef = C16182CD20606EF60025E6D1 /* 38798943_correct-answer-bell-gliss-01.wav */; };
+		C16182D020606F070025E6D1 /* 38806077_wrong-answer-bong-spring-01.wav in Resources */ = {isa = PBXBuildFile; fileRef = C16182CF20606F070025E6D1 /* 38806077_wrong-answer-bong-spring-01.wav */; };
 		C178747E205AB89400C01B71 /* FlashCardsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C178747D205AB89400C01B71 /* FlashCardsViewController.swift */; };
 		C17D56F420588CE900210586 /* SingleListEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17D56F320588CE900210586 /* SingleListEditViewController.swift */; };
 		C17D56F620588E4700210586 /* SightWord.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17D56F520588E4700210586 /* SightWord.swift */; };
@@ -29,6 +31,8 @@
 		7F2518809EDC80E47CDDC9D5 /* Pods_MasterWords.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MasterWords.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD04451217AC84B09F8164CF /* Pods-MasterWords.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MasterWords.release.xcconfig"; path = "Pods/Target Support Files/Pods-MasterWords/Pods-MasterWords.release.xcconfig"; sourceTree = "<group>"; };
 		C104F5BF205AABD10052A21F /* ListsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListsTableViewController.swift; sourceTree = "<group>"; };
+		C16182CD20606EF60025E6D1 /* 38798943_correct-answer-bell-gliss-01.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "38798943_correct-answer-bell-gliss-01.wav"; sourceTree = "<group>"; };
+		C16182CF20606F070025E6D1 /* 38806077_wrong-answer-bong-spring-01.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "38806077_wrong-answer-bong-spring-01.wav"; sourceTree = "<group>"; };
 		C178747D205AB89400C01B71 /* FlashCardsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashCardsViewController.swift; sourceTree = "<group>"; };
 		C17D56F320588CE900210586 /* SingleListEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleListEditViewController.swift; sourceTree = "<group>"; };
 		C17D56F520588E4700210586 /* SightWord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SightWord.swift; sourceTree = "<group>"; };
@@ -73,6 +77,15 @@
 				7F2518809EDC80E47CDDC9D5 /* Pods_MasterWords.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C16182D120606F0D0025E6D1 /* Sound */ = {
+			isa = PBXGroup;
+			children = (
+				C16182CD20606EF60025E6D1 /* 38798943_correct-answer-bell-gliss-01.wav */,
+				C16182CF20606F070025E6D1 /* 38806077_wrong-answer-bong-spring-01.wav */,
+			);
+			path = Sound;
 			sourceTree = "<group>";
 		};
 		C1DC04D5205C2DFF00F1BDC3 /* Fonts */ = {
@@ -141,6 +154,7 @@
 		C1E94DF1205833D60077F6EB /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				C16182D120606F0D0025E6D1 /* Sound */,
 				C1DC04D5205C2DFF00F1BDC3 /* Fonts */,
 				C1E94DE42058336C0077F6EB /* Assets.xcassets */,
 			);
@@ -211,9 +225,11 @@
 			files = (
 				C1DC04DB205C33C600F1BDC3 /* GelPen.ttf in Resources */,
 				C1DC04DC205C33C600F1BDC3 /* GelPenHeavy.ttf in Resources */,
+				C16182D020606F070025E6D1 /* 38806077_wrong-answer-bong-spring-01.wav in Resources */,
 				C1E94DE82058336C0077F6EB /* LaunchScreen.storyboard in Resources */,
 				C1E94DE52058336C0077F6EB /* Assets.xcassets in Resources */,
 				C1E94DE32058336C0077F6EB /* Main.storyboard in Resources */,
+				C16182CE20606EF60025E6D1 /* 38798943_correct-answer-bell-gliss-01.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
