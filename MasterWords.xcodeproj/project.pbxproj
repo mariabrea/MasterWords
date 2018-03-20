@@ -9,8 +9,10 @@
 /* Begin PBXBuildFile section */
 		2A5641BECF2BA18A1CE128EF /* Pods_MasterWords.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F2518809EDC80E47CDDC9D5 /* Pods_MasterWords.framework */; };
 		C104F5C0205AABD10052A21F /* ListsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C104F5BF205AABD10052A21F /* ListsTableViewController.swift */; };
+		C128AEB52061696800A47E3F /* Word.swift in Sources */ = {isa = PBXBuildFile; fileRef = C128AEB42061696800A47E3F /* Word.swift */; };
 		C16182CE20606EF60025E6D1 /* 38798943_correct-answer-bell-gliss-01.wav in Resources */ = {isa = PBXBuildFile; fileRef = C16182CD20606EF60025E6D1 /* 38798943_correct-answer-bell-gliss-01.wav */; };
 		C16182D020606F070025E6D1 /* 38806077_wrong-answer-bong-spring-01.wav in Resources */ = {isa = PBXBuildFile; fileRef = C16182CF20606F070025E6D1 /* 38806077_wrong-answer-bong-spring-01.wav */; };
+		C16182D3206075070025E6D1 /* GraphTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16182D2206075060025E6D1 /* GraphTableViewController.swift */; };
 		C178747E205AB89400C01B71 /* FlashCardsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C178747D205AB89400C01B71 /* FlashCardsViewController.swift */; };
 		C17D56F420588CE900210586 /* SingleListEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17D56F320588CE900210586 /* SingleListEditViewController.swift */; };
 		C17D56F620588E4700210586 /* SightWord.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17D56F520588E4700210586 /* SightWord.swift */; };
@@ -31,8 +33,10 @@
 		7F2518809EDC80E47CDDC9D5 /* Pods_MasterWords.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MasterWords.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD04451217AC84B09F8164CF /* Pods-MasterWords.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MasterWords.release.xcconfig"; path = "Pods/Target Support Files/Pods-MasterWords/Pods-MasterWords.release.xcconfig"; sourceTree = "<group>"; };
 		C104F5BF205AABD10052A21F /* ListsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListsTableViewController.swift; sourceTree = "<group>"; };
+		C128AEB42061696800A47E3F /* Word.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Word.swift; sourceTree = "<group>"; };
 		C16182CD20606EF60025E6D1 /* 38798943_correct-answer-bell-gliss-01.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "38798943_correct-answer-bell-gliss-01.wav"; sourceTree = "<group>"; };
 		C16182CF20606F070025E6D1 /* 38806077_wrong-answer-bong-spring-01.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "38806077_wrong-answer-bong-spring-01.wav"; sourceTree = "<group>"; };
+		C16182D2206075060025E6D1 /* GraphTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphTableViewController.swift; sourceTree = "<group>"; };
 		C178747D205AB89400C01B71 /* FlashCardsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashCardsViewController.swift; sourceTree = "<group>"; };
 		C17D56F320588CE900210586 /* SingleListEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleListEditViewController.swift; sourceTree = "<group>"; };
 		C17D56F520588E4700210586 /* SightWord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SightWord.swift; sourceTree = "<group>"; };
@@ -129,11 +133,13 @@
 		C1E94DEF205833A40077F6EB /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				C16182D2206075060025E6D1 /* GraphTableViewController.swift */,
 				C1E99907206022670028564A /* TabBarViewController.swift */,
 				C178747D205AB89400C01B71 /* FlashCardsViewController.swift */,
 				C104F5BF205AABD10052A21F /* ListsTableViewController.swift */,
 				C17D56F320588CE900210586 /* SingleListEditViewController.swift */,
 				C17D56F520588E4700210586 /* SightWord.swift */,
+				C128AEB42061696800A47E3F /* Word.swift */,
 				C1AE3BAC20583E11005FA6A1 /* SightWordsList.swift */,
 				C1E94DDB2058336C0077F6EB /* AppDelegate.swift */,
 				C1E94DDD2058336C0077F6EB /* ListsEditViewController.swift */,
@@ -304,11 +310,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C16182D3206075070025E6D1 /* GraphTableViewController.swift in Sources */,
 				C17D56F620588E4700210586 /* SightWord.swift in Sources */,
 				C1AE3BAD20583E11005FA6A1 /* SightWordsList.swift in Sources */,
 				C178747E205AB89400C01B71 /* FlashCardsViewController.swift in Sources */,
 				C17D56F420588CE900210586 /* SingleListEditViewController.swift in Sources */,
 				C1E99908206022670028564A /* TabBarViewController.swift in Sources */,
+				C128AEB52061696800A47E3F /* Word.swift in Sources */,
 				C1E94DDC2058336C0077F6EB /* AppDelegate.swift in Sources */,
 				C1E94DDE2058336C0077F6EB /* ListsEditViewController.swift in Sources */,
 				C1AE3BAF2058412E005FA6A1 /* SwipeTableViewController.swift in Sources */,

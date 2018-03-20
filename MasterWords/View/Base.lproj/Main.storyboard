@@ -151,7 +151,7 @@
                                                 <rect key="frame" x="-0.5" y="43" width="260" height="142"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="142" id="DVF-op-rPd"/>
-                                                    <constraint firstAttribute="width" constant="260" id="v02-4L-xth"/>
+                                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="260" id="v02-4L-xth"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" name="GelPen" family="GelPen" pointSize="20"/>
                                                 <color key="textColor" red="0.16821733117103577" green="0.30624192953109741" blue="0.18358390033245087" alpha="1" colorSpace="calibratedRGB"/>
@@ -223,7 +223,6 @@ Wrong</string>
                                             <constraint firstAttribute="width" constant="60" id="dGC-Mb-RYa"/>
                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="60" id="fmV-zw-OS6"/>
                                         </constraints>
-                                        <state key="normal" title="Button"/>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5fb-4a-xts">
                                         <rect key="frame" x="307.5" y="0.0" width="67" height="83"/>
@@ -242,7 +241,6 @@ Wrong</string>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="60" id="wDw-hr-rEg"/>
                                         </constraints>
-                                        <state key="normal" title="Button"/>
                                         <connections>
                                             <action selector="happyButtonTapped:" destination="3Mm-9l-E01" eventType="touchUpInside" id="NOI-oe-fzi"/>
                                         </connections>
@@ -314,6 +312,7 @@ Wrong</string>
                     <connections>
                         <segue destination="XOw-cs-JoN" kind="relationship" relationship="viewControllers" id="u7Y-xg-7CH"/>
                         <segue destination="Th0-54-Qd3" kind="relationship" relationship="viewControllers" id="lzU-1b-eKA"/>
+                        <segue destination="7Gl-fE-5aC" kind="relationship" relationship="viewControllers" id="Rns-4R-F3z"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HuB-VB-40B" sceneMemberID="firstResponder"/>
@@ -358,9 +357,133 @@ Wrong</string>
             </objects>
             <point key="canvasLocation" x="748.79999999999995" y="359.82008995502252"/>
         </scene>
+        <!--Graph-->
+        <scene sceneID="Sfr-FB-9QR">
+            <objects>
+                <tableViewController id="7Gl-fE-5aC" customClass="GraphTableViewController" customModule="MasterWords" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="NDa-iW-d7E">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="GraphCell" rowHeight="80" id="pky-cp-FPX" customClass="GraphTableViewCell" customModule="MasterWords" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="375" height="80"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="pky-cp-FPX" id="GIG-dr-kqt">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="79.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Mh-ue-I0l" userLabel="wordLabel">
+                                            <rect key="frame" x="10" y="10" width="355" height="24"/>
+                                            <fontDescription key="fontDescription" name="GelPenHeavy" family="GelPenHeavy" pointSize="20"/>
+                                            <color key="textColor" red="0.23539169132709503" green="0.11543873697519302" blue="0.25115793943405151" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="CWU-e7-o0t">
+                                            <rect key="frame" x="10" y="44" width="355" height="35.5"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="150" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MW2-bj-vBv" userLabel="totalNumber">
+                                                    <rect key="frame" x="0.0" y="8" width="48" height="20"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="48" id="pKN-AX-ptT"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="GelPen" family="GelPen" pointSize="18"/>
+                                                    <color key="textColor" red="0.19376453757286072" green="0.50850099325180054" blue="0.85232251882553101" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="D4K-So-xrN" userLabel="Bars-Percentage Stack View">
+                                                    <rect key="frame" x="48" y="0.0" width="307" height="35.5"/>
+                                                    <subviews>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="FQI-kb-VvP" userLabel="Percentages Stack View">
+                                                            <rect key="frame" x="0.0" y="0.0" width="42" height="35.5"/>
+                                                            <subviews>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="20%" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d7y-14-bnb">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="42" height="15.5"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="42" id="JaV-A8-JHa"/>
+                                                                    </constraints>
+                                                                    <fontDescription key="fontDescription" name="GelPen" family="GelPen" pointSize="14"/>
+                                                                    <color key="textColor" red="0.49744248390197754" green="0.64893847703933716" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="80%" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zp5-x3-GTt">
+                                                                    <rect key="frame" x="0.0" y="20.5" width="42" height="15"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="42" id="Hqy-cR-E1L"/>
+                                                                    </constraints>
+                                                                    <fontDescription key="fontDescription" name="GelPen" family="GelPen" pointSize="14"/>
+                                                                    <color key="textColor" red="0.85043728351593018" green="0.21816034615039825" blue="0.15920260548591614" alpha="1" colorSpace="calibratedRGB"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                            </subviews>
+                                                        </stackView>
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="88h-Pm-vzf" userLabel="Bars View">
+                                                            <rect key="frame" x="47" y="0.0" width="260" height="35.5"/>
+                                                            <subviews>
+                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ODc-fw-5ML">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="260.5" height="15.5"/>
+                                                                    <color key="backgroundColor" red="0.49744248390197754" green="0.64893847703933716" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                                </view>
+                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XFv-xr-QCy">
+                                                                    <rect key="frame" x="0.0" y="20.5" width="260.5" height="15"/>
+                                                                    <color key="backgroundColor" red="0.85043728351593018" green="0.21816034615039825" blue="0.15920260548591614" alpha="1" colorSpace="calibratedRGB"/>
+                                                                </view>
+                                                            </subviews>
+                                                            <color key="backgroundColor" red="0.90823972225189209" green="0.92638683319091797" blue="0.9317171573638916" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <constraints>
+                                                                <constraint firstItem="ODc-fw-5ML" firstAttribute="top" secondItem="88h-Pm-vzf" secondAttribute="top" id="Bae-RK-nZ8"/>
+                                                                <constraint firstAttribute="bottom" secondItem="XFv-xr-QCy" secondAttribute="bottom" id="MLN-oa-hJI"/>
+                                                                <constraint firstItem="ODc-fw-5ML" firstAttribute="width" secondItem="88h-Pm-vzf" secondAttribute="width" id="MfE-hK-jlE"/>
+                                                                <constraint firstItem="XFv-xr-QCy" firstAttribute="height" secondItem="ODc-fw-5ML" secondAttribute="height" id="TDY-kQ-BQD"/>
+                                                                <constraint firstItem="XFv-xr-QCy" firstAttribute="leading" secondItem="88h-Pm-vzf" secondAttribute="leading" id="h0x-db-Jdw"/>
+                                                                <constraint firstItem="XFv-xr-QCy" firstAttribute="top" secondItem="ODc-fw-5ML" secondAttribute="bottom" constant="5" id="mrU-Na-yO3"/>
+                                                                <constraint firstItem="XFv-xr-QCy" firstAttribute="width" secondItem="88h-Pm-vzf" secondAttribute="width" id="ocp-sA-nyk"/>
+                                                                <constraint firstItem="ODc-fw-5ML" firstAttribute="leading" secondItem="88h-Pm-vzf" secondAttribute="leading" id="srW-PA-Y0s"/>
+                                                            </constraints>
+                                                        </view>
+                                                    </subviews>
+                                                </stackView>
+                                            </subviews>
+                                        </stackView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="0Mh-ue-I0l" firstAttribute="height" secondItem="GIG-dr-kqt" secondAttribute="height" multiplier="0.3" id="7o2-Vq-84G"/>
+                                        <constraint firstItem="0Mh-ue-I0l" firstAttribute="top" secondItem="GIG-dr-kqt" secondAttribute="top" constant="10" id="82N-QJ-kSz"/>
+                                        <constraint firstAttribute="bottom" secondItem="CWU-e7-o0t" secondAttribute="bottom" id="D7E-rr-gUF"/>
+                                        <constraint firstAttribute="trailing" secondItem="0Mh-ue-I0l" secondAttribute="trailing" constant="10" id="E2M-6L-B8G"/>
+                                        <constraint firstItem="0Mh-ue-I0l" firstAttribute="leading" secondItem="GIG-dr-kqt" secondAttribute="leading" constant="10" id="IOY-Ts-nsK"/>
+                                        <constraint firstAttribute="trailing" secondItem="CWU-e7-o0t" secondAttribute="trailing" constant="10" id="ZY8-aw-04X"/>
+                                        <constraint firstItem="CWU-e7-o0t" firstAttribute="top" secondItem="0Mh-ue-I0l" secondAttribute="bottom" constant="10" id="sg9-3P-val"/>
+                                        <constraint firstItem="0Mh-ue-I0l" firstAttribute="centerX" secondItem="GIG-dr-kqt" secondAttribute="centerX" id="vbP-S1-rsD"/>
+                                        <constraint firstItem="CWU-e7-o0t" firstAttribute="leading" secondItem="GIG-dr-kqt" secondAttribute="leading" constant="10" id="xz1-CF-ap7"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="barsView" destination="88h-Pm-vzf" id="TUA-RR-O37"/>
+                                    <outlet property="correctBar" destination="ODc-fw-5ML" id="zUh-EJ-tHT"/>
+                                    <outlet property="correctCountLabel" destination="d7y-14-bnb" id="Hah-7L-t28"/>
+                                    <outlet property="totalCountLabel" destination="MW2-bj-vBv" id="Q5q-nh-rsl"/>
+                                    <outlet property="wordLabel" destination="0Mh-ue-I0l" id="eJ1-NY-tZh"/>
+                                    <outlet property="wrongBar" destination="XFv-xr-QCy" id="XKW-Uz-lQV"/>
+                                    <outlet property="wrongCountLabel" destination="Zp5-x3-GTt" id="eug-Is-b8z"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="7Gl-fE-5aC" id="KoG-pw-egK"/>
+                            <outlet property="delegate" destination="7Gl-fE-5aC" id="3MZ-Y8-dLf"/>
+                        </connections>
+                    </tableView>
+                    <tabBarItem key="tabBarItem" title="Graph" image="IconGraph" id="R26-42-WRx"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="BOS-Vq-l2G" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="748" y="1037.6311844077961"/>
+        </scene>
     </scenes>
     <resources>
         <image name="IconCards" width="25" height="25"/>
+        <image name="IconGraph" width="25" height="25"/>
         <image name="IconList" width="25" height="25"/>
     </resources>
 </document>

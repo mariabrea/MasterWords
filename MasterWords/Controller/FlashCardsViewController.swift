@@ -86,15 +86,11 @@ class FlashCardsViewController: UIViewController {
         cancelButton.layer.borderColor = FlatPlum().cgColor
         
         
-        print(wordsList as Any)
         if let numberWordsToPractice = wordsList?.count {
             for i in 0...numberWordsToPractice - 1 {
                 listWordsToPractice.append(wordsList![i])
             }
         }
-        print(listWordsToPractice)
-        
-        
 
     }
     
