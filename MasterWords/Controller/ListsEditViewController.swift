@@ -16,10 +16,17 @@ class ListsEditViewController: SwipeTableViewController{
     
     var lists : Results<SightWordsList>?
     
+    var selectedUser : User? {
+        didSet{
+            loadLists()
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        loadLists()
+        print("ListsEditVC \(selectedUser?.name)")
+        //loadLists()
         
         tableView.rowHeight = 70
         tableView.separatorStyle = .none
@@ -62,6 +69,7 @@ class ListsEditViewController: SwipeTableViewController{
 
         if let indexPath = tableView.indexPathForSelectedRow {
             destinationVC.selectedList = self.lists?[indexPath.row]
+            destinationVC.selectedUser = (selectedUser?.name)!
         }
         
     }
@@ -83,7 +91,11 @@ class ListsEditViewController: SwipeTableViewController{
     
     func loadLists() {
         
-        lists = realm.objects(SightWordsList.self).sorted(byKeyPath: "name", ascending: true)
+        lists = selectedUser?.userLists.sorted(byKeyPath: "name", ascending: true)
+        
+//        let predicate = NSPredicate(format: "parentUser.name = %@", (selectedUser?.name)!)
+//        lists = realm.objects(SightWordsList.self).filter(predicate).sorted(byKeyPath: "name", ascending: true)
+//        //lists = realm.objects(SightWordsList.self).sorted(byKeyPath: "name", ascending: true)
         
         tableView.reloadData()
         
@@ -156,11 +168,26 @@ class ListsEditViewController: SwipeTableViewController{
         let addAction = UIAlertAction(title: "Add List", style: .default) { (action) in
             
             //we create a new object of type Item of the dstabase, and we fill its attributes
-            let newList = SightWordsList()
-            newList.name = textField.text!
-            newList.color = UIColor.randomFlat.hexValue()
-
-            self.save(list : newList)
+//            let newList = SightWordsList()
+//            newList.name = textField.text!
+//            newList.color = UIColor.randomFlat.hexValue()
+            
+            if let currentUser = self.selectedUser {
+                print("user \(self.selectedUser?.name)")
+                do {
+                    try self.realm.write {
+                        let newList = SightWordsList()
+                        newList.name = textField.text!
+                        newList.color = UIColor.randomFlat.hexValue()
+                        currentUser.userLists.append(newList)
+                    }
+                } catch {
+                    print("Error saving word \(error)")
+                }
+                
+            }
+            
+            //self.save(list : newList)
 
             self.tableView.reloadData()
         }

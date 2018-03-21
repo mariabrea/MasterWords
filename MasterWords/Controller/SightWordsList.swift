@@ -16,4 +16,6 @@ class SightWordsList : Object {
 
     var sightWords = List<SightWord>()
 
+    var parentUser = LinkingObjects(fromType: User.self, property: "userLists")
+    
 }

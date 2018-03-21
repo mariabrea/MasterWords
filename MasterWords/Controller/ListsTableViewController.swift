@@ -16,6 +16,12 @@ class ListsTableViewController: UITableViewController {
     
     var lists : Results<SightWordsList>?
     
+    var selectedUser : User? {
+        didSet{
+            loadLists()
+        }
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -80,8 +86,9 @@ class ListsTableViewController: UITableViewController {
     
     func loadLists() {
         
-        lists = realm.objects(SightWordsList.self).sorted(byKeyPath: "name", ascending: true)
-        
+        //lists = realm.objects(SightWordsList.self).sorted(byKeyPath: "name", ascending: true)
+        lists = selectedUser?.userLists.sorted(byKeyPath: "name", ascending: true)
+
         tableView.reloadData()
         
     }

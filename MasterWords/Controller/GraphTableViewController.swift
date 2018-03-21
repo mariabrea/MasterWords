@@ -27,11 +27,19 @@ class GraphTableViewController: UITableViewController {
     @IBOutlet weak var sortUpButton: UIButton!
     @IBOutlet weak var sortDownButton: UIButton!
     @IBOutlet weak var addButton: UIButton!
+    @IBOutlet weak var refreshButton: UIButton!
     
     let realm = try! Realm()
     
+    var lists : Results<SightWordsList>?
     var words : Results<SightWord>?
     
+    var selectedUser : User? {
+        didSet{
+            //loadLists()
+        }
+    }
+
     var wordsNoDuplicates = [Word]()
     
     override func viewDidLoad() {
@@ -53,8 +61,10 @@ class GraphTableViewController: UITableViewController {
     
     func loadWords(){
         
-        words = realm.objects(SightWord.self).sorted(byKeyPath: "name", ascending: true)
-
+        //words = realm.objects(SightWord.self).sorted(byKeyPath: "name", ascending: true)
+        words = realm.objects(SightWord.self).filter("userName = %@", selectedUser?.name as Any).sorted(byKeyPath: "name", ascending: true)
+        //wordsFiltered = selectedUser?.userlists.filter("title CONTAINS[cd] %@", searchBar.text!).sorted(byKeyPath: "dateCreated", ascending: true)
+        
         print(words as Any)
         
         if let numberRows = words?.count {
@@ -134,6 +144,15 @@ class GraphTableViewController: UITableViewController {
         addButton.tintColor = UIColor.white
         addButton.contentMode = .center
         
+        refreshButton.layer.cornerRadius = 5
+        refreshButton.layer.borderWidth = 1
+        refreshButton.layer.borderColor = UIColor.white.cgColor
+        let refreshImage = UIImage(named: "iconRefresh")
+        let refreshImageTinted = refreshImage?.withRenderingMode(.alwaysTemplate)
+        refreshButton.setImage(refreshImageTinted, for: .normal)
+        refreshButton.tintColor = UIColor.white
+        refreshButton.contentMode = .center
+        
         sortUpButton.layer.cornerRadius = 5
         sortUpButton.layer.borderWidth = 1
         sortUpButton.layer.borderColor = UIColor.white.cgColor
@@ -156,6 +175,12 @@ class GraphTableViewController: UITableViewController {
 
     @IBAction func addButtonTapped(_ sender: UIButton) {
         showAddAlert()
+    }
+    
+    @IBAction func refreshButtonTapped(_ sender: UIButton) {
+        wordsNoDuplicates.removeAll()
+        loadWords()
+        tableView.reloadData()
     }
     
     @IBAction func sortUpButtonTapped(_ sender: UIButton) {

@@ -14,7 +14,7 @@ class SightWord : Object {
     @objc dynamic var name : String = ""
     @objc dynamic var numberCorrect : Int = 0
     @objc dynamic var numberWrong : Int = 0
+    @objc dynamic var userName : String = ""
     var parentList = LinkingObjects(fromType: SightWordsList.self, property: "sightWords")
-    //var parentCategory = LinkingObjects(fromType: Category.self, property: "items")
 }
 

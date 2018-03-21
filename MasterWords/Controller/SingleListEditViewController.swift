@@ -16,6 +16,7 @@ class SingleListEditViewController: SwipeTableViewController {
     
     var wordsList : Results<SightWord>?
     
+    var selectedUser : String = ""
     var selectedList : SightWordsList? {
         didSet{
             loadSightWords()
@@ -33,27 +34,12 @@ class SingleListEditViewController: SwipeTableViewController {
     override func viewWillAppear(_ animated: Bool) {
         
         title = selectedList?.name
-//        guard let colorHex = selectedCategory?.color else {fatalError()}
-//        updateNavBar(withHexCode: colorHex)
         
     }
     
-//    override func viewWillDisappear(_ animated: Bool) {
-//        updateNavBar(withHexCode: "1D98F6")
-//    }
     
     //MARK: NavBar Setup Methods
     
-//    func updateNavBar(withHexCode colorHexCode : String){
-//        guard let navBar = navigationController?.navigationBar else {fatalError("Navigation Controller does not exist")}
-//
-//        guard let navBarColor = UIColor(hexString: colorHexCode) else {fatalError()}
-//        navBar.barTintColor = navBarColor
-//        navBar.tintColor = UIColor(contrastingBlackOrWhiteColorOn: navBarColor, isFlat:true)
-//        navBar.largeTitleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor.flatWhite()]
-//        searchBar.barTintColor = navBarColor
-//
-//    }
 //    //MARK - Tableview Datasource Methods
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -75,16 +61,6 @@ class SingleListEditViewController: SwipeTableViewController {
             
             cell.textLabel?.textColor = ContrastColorOf(cell.backgroundColor!, returnFlat: true)
             
-//            if let color = UIColor(hexString: selectedCategory!.color)?.darken(byPercentage:CGFloat(indexPath.row) / CGFloat(todoItems!.count)){
-//                cell.backgroundColor = color
-//                cell.textLabel?.textColor = UIColor(contrastingBlackOrWhiteColorOn:color, isFlat:true)
-//            }
-
-            //Ternary operator ==>
-            //value = condition ? valueTrue : valueFalse
-
-            //cell.accessoryType = item.done == true ? .checkmark : .none
- //           cell.accessoryType = item.done ? .checkmark : .none
         } else {
             cell.textLabel?.text = "No words added"
         }
@@ -170,6 +146,7 @@ class SingleListEditViewController: SwipeTableViewController {
                         let newWord = SightWord()
                         newWord.name = textField.text!
                         newWord.index = currentList.sightWords.count
+                        newWord.userName = self.selectedUser
                         currentList.sightWords.append(newWord)
                     }
                 } catch {

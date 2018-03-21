@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="dpN-uB-nrw">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -44,7 +44,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Lists" id="m1j-Md-jSg">
-                        <barButtonItem key="leftBarButtonItem" style="plain" systemItem="refresh" id="jAw-VK-ONL">
+                        <barButtonItem key="leftBarButtonItem" systemItem="refresh" id="jAw-VK-ONL">
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
                                 <action selector="refreshButtonTapped:" destination="9pv-A4-QxB" id="pLb-go-OTG"/>
@@ -125,7 +125,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Flash Cards" id="sme-EO-EOl">
-                        <barButtonItem key="leftBarButtonItem" style="plain" systemItem="refresh" id="Jtt-xO-OZU">
+                        <barButtonItem key="leftBarButtonItem" systemItem="refresh" id="Jtt-xO-OZU">
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
                                 <action selector="refreshButtonTapped:" destination="8rJ-Kc-sve" id="Q9A-H0-OM6"/>
@@ -316,6 +316,81 @@ Wrong</string>
             </objects>
             <point key="canvasLocation" x="2194.4000000000001" y="356.67166416791605"/>
         </scene>
+        <!--Users View Controller-->
+        <scene sceneID="dRr-3e-v29">
+            <objects>
+                <viewController id="dpN-uB-nrw" customClass="UsersViewController" customModule="MasterWords" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="NDU-4j-DmA">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9eM-JJ-Bun">
+                                <rect key="frame" x="145.5" y="211" width="85" height="85"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="85" id="2l2-LV-Sod"/>
+                                    <constraint firstAttribute="height" constant="85" id="jr6-k2-7hN"/>
+                                </constraints>
+                                <state key="normal" title="Button" image="AvatarMaria"/>
+                                <connections>
+                                    <action selector="user1Tapped:" destination="dpN-uB-nrw" eventType="touchUpInside" id="BQE-EG-x2R"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lq8-2o-ZcV">
+                                <rect key="frame" x="145.5" y="371" width="85" height="85"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="85" id="2YA-R4-Vu2"/>
+                                    <constraint firstAttribute="height" constant="85" id="KDR-Gu-r1q"/>
+                                    <constraint firstAttribute="width" constant="85" id="f6T-pn-uMm"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="85" id="orA-u4-KDJ"/>
+                                </constraints>
+                                <state key="normal" title="Button" image="AvatarSamuel"/>
+                                <connections>
+                                    <action selector="user2Tapped:" destination="dpN-uB-nrw" eventType="touchUpInside" id="I1s-6z-TAz"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Maria" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KmZ-Ci-cN9">
+                                <rect key="frame" x="145" y="306" width="85" height="25"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="25" id="1YH-ru-4un"/>
+                                    <constraint firstAttribute="width" constant="85" id="wgt-Nt-y17"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="GelPenHeavy" family="GelPenHeavy" pointSize="20"/>
+                                <color key="textColor" red="0.23539169132709503" green="0.11543873697519302" blue="0.25115793943405151" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Samuel" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5EI-Dh-wpQ">
+                                <rect key="frame" x="145" y="466" width="85" height="25"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="85" id="ETy-Pf-3dG"/>
+                                    <constraint firstAttribute="width" constant="85" id="Hhc-sI-vc9"/>
+                                    <constraint firstAttribute="height" constant="25" id="riC-FO-DR3"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="GelPenHeavy" family="GelPenHeavy" pointSize="20"/>
+                                <color key="textColor" red="0.23539169130000001" green="0.115438737" blue="0.25115793939999997" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="KmZ-Ci-cN9" firstAttribute="centerX" secondItem="NDU-4j-DmA" secondAttribute="centerX" id="7js-Qf-yGS"/>
+                            <constraint firstItem="9eM-JJ-Bun" firstAttribute="centerX" secondItem="NDU-4j-DmA" secondAttribute="centerX" id="8H6-pc-RF7"/>
+                            <constraint firstItem="5EI-Dh-wpQ" firstAttribute="top" secondItem="Lq8-2o-ZcV" secondAttribute="bottom" constant="10" id="ND2-XS-fB2"/>
+                            <constraint firstItem="9eM-JJ-Bun" firstAttribute="centerY" secondItem="NDU-4j-DmA" secondAttribute="centerY" constant="-80" id="OBn-Pb-nQA"/>
+                            <constraint firstItem="Lq8-2o-ZcV" firstAttribute="centerX" secondItem="NDU-4j-DmA" secondAttribute="centerX" id="Ogd-Hy-NLy"/>
+                            <constraint firstItem="5EI-Dh-wpQ" firstAttribute="centerX" secondItem="NDU-4j-DmA" secondAttribute="centerX" id="YUy-cq-Cnt"/>
+                            <constraint firstItem="KmZ-Ci-cN9" firstAttribute="top" secondItem="9eM-JJ-Bun" secondAttribute="bottom" constant="10" id="pp8-Wm-gYp"/>
+                            <constraint firstItem="Lq8-2o-ZcV" firstAttribute="centerY" secondItem="NDU-4j-DmA" secondAttribute="centerY" constant="80" id="ybv-Ip-Phy"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="mYP-nw-FnC"/>
+                    </view>
+                    <connections>
+                        <segue destination="49e-Tb-3d3" kind="show" identifier="goToTabBarVC" id="wyA-Dy-Jkr"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Z5E-Lu-r7V" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-740" y="-0.44977511244377816"/>
+        </scene>
         <!--Tab Bar View Controller-->
         <scene sceneID="yl2-sM-qoP">
             <objects>
@@ -335,6 +410,7 @@ Wrong</string>
                         <segue destination="XOw-cs-JoN" kind="relationship" relationship="viewControllers" id="u7Y-xg-7CH"/>
                         <segue destination="Th0-54-Qd3" kind="relationship" relationship="viewControllers" id="lzU-1b-eKA"/>
                         <segue destination="7Gl-fE-5aC" kind="relationship" relationship="viewControllers" id="Rns-4R-F3z"/>
+                        <segue destination="fOm-XD-bYP" kind="relationship" relationship="viewControllers" id="ocg-ya-ibX"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HuB-VB-40B" sceneMemberID="firstResponder"/>
@@ -444,10 +520,22 @@ Wrong</string>
                                         <action selector="addButtonTapped:" destination="7Gl-fE-5aC" eventType="touchUpInside" id="aYg-lO-CIi"/>
                                     </connections>
                                 </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a95-Gd-8gD">
+                                    <rect key="frame" x="46" y="8" width="28" height="28"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" secondItem="a95-Gd-8gD" secondAttribute="height" multiplier="1:1" id="EUZ-jZ-FQ9"/>
+                                    </constraints>
+                                    <state key="normal" title="R"/>
+                                    <connections>
+                                        <action selector="refreshButtonTapped:" destination="7Gl-fE-5aC" eventType="touchUpInside" id="nfG-ag-5mm"/>
+                                    </connections>
+                                </button>
                             </subviews>
                             <color key="backgroundColor" red="0.23539169132709503" green="0.11543873697519302" blue="0.25115793943405151" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
+                                <constraint firstItem="a95-Gd-8gD" firstAttribute="top" secondItem="g2D-2u-SW6" secondAttribute="top" constant="8" id="42V-Vs-8Fv"/>
                                 <constraint firstItem="pe7-dU-aey" firstAttribute="top" secondItem="g2D-2u-SW6" secondAttribute="top" constant="8" id="AnL-jV-1yE"/>
+                                <constraint firstItem="a95-Gd-8gD" firstAttribute="leading" secondItem="3Hf-zZ-otg" secondAttribute="trailing" constant="10" id="Eq5-bD-KwM"/>
                                 <constraint firstItem="LGj-3J-FUI" firstAttribute="leading" secondItem="pe7-dU-aey" secondAttribute="trailing" constant="10" id="Gk1-pP-t2R"/>
                                 <constraint firstAttribute="trailing" secondItem="LGj-3J-FUI" secondAttribute="trailing" constant="8" id="T7E-eA-Yll"/>
                                 <constraint firstAttribute="bottom" secondItem="pe7-dU-aey" secondAttribute="bottom" constant="8" id="ZwT-Bn-Mcx"/>
@@ -456,6 +544,7 @@ Wrong</string>
                                 <constraint firstItem="3Hf-zZ-otg" firstAttribute="leading" secondItem="g2D-2u-SW6" secondAttribute="leading" constant="8" id="nFM-Pb-pen"/>
                                 <constraint firstItem="3Hf-zZ-otg" firstAttribute="top" secondItem="g2D-2u-SW6" secondAttribute="top" constant="8" id="pVk-Yb-42N"/>
                                 <constraint firstItem="LGj-3J-FUI" firstAttribute="top" secondItem="g2D-2u-SW6" secondAttribute="top" constant="8" id="ume-6d-Hfp"/>
+                                <constraint firstAttribute="bottom" secondItem="a95-Gd-8gD" secondAttribute="bottom" constant="8" id="yfH-aM-hpG"/>
                             </constraints>
                         </view>
                         <prototypes>
@@ -569,6 +658,7 @@ Wrong</string>
                     <tabBarItem key="tabBarItem" title="Graph" image="IconGraph" id="R26-42-WRx"/>
                     <connections>
                         <outlet property="addButton" destination="3Hf-zZ-otg" id="8kX-8B-NLZ"/>
+                        <outlet property="refreshButton" destination="a95-Gd-8gD" id="bir-kg-kvI"/>
                         <outlet property="sortDownButton" destination="LGj-3J-FUI" id="T51-Hd-Vq3"/>
                         <outlet property="sortUpButton" destination="pe7-dU-aey" id="cjG-Ks-5bq"/>
                     </connections>
@@ -577,11 +667,55 @@ Wrong</string>
             </objects>
             <point key="canvasLocation" x="748" y="1037.6311844077961"/>
         </scene>
+        <!--Logout-->
+        <scene sceneID="7ha-in-K5A">
+            <objects>
+                <viewController id="fOm-XD-bYP" customClass="SwitchUserViewController" customModule="MasterWords" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="0Jz-Ya-YOM">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qL1-Ue-eE7">
+                                <rect key="frame" x="118" y="309" width="139" height="49"/>
+                                <color key="backgroundColor" red="0.90823972225189209" green="0.92638683319091797" blue="0.9317171573638916" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="49" id="Fq0-dX-gTj"/>
+                                    <constraint firstAttribute="width" constant="139" id="mzD-g4-FqD"/>
+                                </constraints>
+                                <state key="normal" title="Logout">
+                                    <color key="titleColor" red="0.23539169132709503" green="0.11543873697519302" blue="0.25115793943405151" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="logoutButtonTapped:" destination="fOm-XD-bYP" eventType="touchUpInside" id="CUE-L0-Zdv"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="qL1-Ue-eE7" firstAttribute="centerY" secondItem="0Jz-Ya-YOM" secondAttribute="centerY" id="R6p-rH-6Af"/>
+                            <constraint firstItem="qL1-Ue-eE7" firstAttribute="centerX" secondItem="0Jz-Ya-YOM" secondAttribute="centerX" id="mH3-m1-FR1"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="8mI-sb-iux"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Logout" image="iconLogout" id="lne-AI-QB8"/>
+                    <connections>
+                        <outlet property="logoutButton" destination="qL1-Ue-eE7" id="qO0-aL-i6D"/>
+                        <segue destination="GSU-FG-PJ4" kind="unwind" identifier="unwindToUsersVC" unwindAction="unwindToUsersMenuWithSegue:" id="Lyu-YN-5IV"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="36J-ei-sJY" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="GSU-FG-PJ4" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="748" y="1707.7961019490256"/>
+        </scene>
     </scenes>
     <resources>
+        <image name="AvatarMaria" width="1042" height="1280"/>
+        <image name="AvatarSamuel" width="942" height="1280"/>
         <image name="IconCards" width="25" height="25"/>
         <image name="IconGraph" width="25" height="25"/>
         <image name="IconList" width="25" height="25"/>
+        <image name="iconLogout" width="24" height="24"/>
         <image name="iconPlus" width="24" height="24"/>
         <image name="iconSortDown" width="25" height="25"/>
         <image name="iconSortUp" width="25" height="25"/>
