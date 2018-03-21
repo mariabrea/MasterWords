@@ -59,6 +59,10 @@ class ListsTableViewController: UITableViewController {
     
     // MARK: - Navigation
 
+    @IBAction func refreshButtonTapped(_ sender: UIBarButtonItem) {
+        tableView.reloadData()
+    }
+    
     @IBAction func prepareForUnwind(segue: UIStoryboardSegue) {
         
     }

@@ -143,6 +143,10 @@ class ListsEditViewController: SwipeTableViewController{
     }
     //MARK - Add new items
     
+    @IBAction func refreshButtonTapped(_ sender: UIBarButtonItem) {
+        tableView.reloadData()
+    }
+    
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
 
         var textField = UITextField()

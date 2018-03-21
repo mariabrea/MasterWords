@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -43,6 +44,11 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Lists" id="m1j-Md-jSg">
+                        <barButtonItem key="leftBarButtonItem" style="plain" systemItem="refresh" id="jAw-VK-ONL">
+                            <connections>
+                                <action selector="refreshButtonTapped:" destination="9pv-A4-QxB" id="pLb-go-OTG"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="nlc-Ks-QDB">
                             <connections>
                                 <action selector="addButtonPressed:" destination="9pv-A4-QxB" id="2nc-A8-6s3"/>
@@ -115,7 +121,13 @@
                             <outlet property="delegate" destination="8rJ-Kc-sve" id="bQI-gD-Grl"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Flash Cards" id="sme-EO-EOl"/>
+                    <navigationItem key="navigationItem" title="Flash Cards" id="sme-EO-EOl">
+                        <barButtonItem key="leftBarButtonItem" style="plain" systemItem="refresh" id="Jtt-xO-OZU">
+                            <connections>
+                                <action selector="refreshButtonTapped:" destination="8rJ-Kc-sve" id="Q9A-H0-OM6"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <segue destination="3Mm-9l-E01" kind="show" identifier="goToFlashCardsVC" id="oEG-md-MjU"/>
                     </connections>
@@ -365,9 +377,62 @@ Wrong</string>
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <view key="tableHeaderView" contentMode="scaleToFill" id="g2D-2u-SW6" userLabel="Header View">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LGj-3J-FUI">
+                                    <rect key="frame" x="339" y="8" width="28" height="28"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" secondItem="LGj-3J-FUI" secondAttribute="height" multiplier="1:1" id="3wt-Fu-UEk"/>
+                                    </constraints>
+                                    <state key="normal" image="iconSortDown">
+                                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="sortDownButtonTapped:" destination="7Gl-fE-5aC" eventType="touchUpInside" id="eax-mW-xqs"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pe7-dU-aey">
+                                    <rect key="frame" x="301" y="8" width="28" height="28"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" secondItem="pe7-dU-aey" secondAttribute="height" multiplier="1:1" id="xVu-ln-bdK"/>
+                                    </constraints>
+                                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <state key="normal" image="iconSortUp">
+                                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="sortUpButtonTapped:" destination="7Gl-fE-5aC" eventType="touchUpInside" id="sIt-L1-PP3"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Hf-zZ-otg">
+                                    <rect key="frame" x="8" y="8" width="28" height="28"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" secondItem="3Hf-zZ-otg" secondAttribute="height" multiplier="1:1" id="EEN-VI-HdF"/>
+                                    </constraints>
+                                    <state key="normal" image="iconPlus"/>
+                                    <connections>
+                                        <action selector="addButtonTapped:" destination="7Gl-fE-5aC" eventType="touchUpInside" id="aYg-lO-CIi"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" red="0.23539169132709503" green="0.11543873697519302" blue="0.25115793943405151" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstItem="pe7-dU-aey" firstAttribute="top" secondItem="g2D-2u-SW6" secondAttribute="top" constant="8" id="AnL-jV-1yE"/>
+                                <constraint firstItem="LGj-3J-FUI" firstAttribute="leading" secondItem="pe7-dU-aey" secondAttribute="trailing" constant="10" id="Gk1-pP-t2R"/>
+                                <constraint firstAttribute="trailing" secondItem="LGj-3J-FUI" secondAttribute="trailing" constant="8" id="T7E-eA-Yll"/>
+                                <constraint firstAttribute="bottom" secondItem="pe7-dU-aey" secondAttribute="bottom" constant="8" id="ZwT-Bn-Mcx"/>
+                                <constraint firstAttribute="bottom" secondItem="LGj-3J-FUI" secondAttribute="bottom" constant="8" id="fuA-Er-Mpg"/>
+                                <constraint firstAttribute="bottom" secondItem="3Hf-zZ-otg" secondAttribute="bottom" constant="8" id="jhj-nu-mYW"/>
+                                <constraint firstItem="3Hf-zZ-otg" firstAttribute="leading" secondItem="g2D-2u-SW6" secondAttribute="leading" constant="8" id="nFM-Pb-pen"/>
+                                <constraint firstItem="3Hf-zZ-otg" firstAttribute="top" secondItem="g2D-2u-SW6" secondAttribute="top" constant="8" id="pVk-Yb-42N"/>
+                                <constraint firstItem="LGj-3J-FUI" firstAttribute="top" secondItem="g2D-2u-SW6" secondAttribute="top" constant="8" id="ume-6d-Hfp"/>
+                            </constraints>
+                        </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="GraphCell" rowHeight="80" id="pky-cp-FPX" customClass="GraphTableViewCell" customModule="MasterWords" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="375" height="80"/>
+                                <rect key="frame" x="0.0" y="72" width="375" height="80"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="pky-cp-FPX" id="GIG-dr-kqt">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="79.5"/>
@@ -429,7 +494,6 @@ Wrong</string>
                                                                     <color key="backgroundColor" red="0.85043728351593018" green="0.21816034615039825" blue="0.15920260548591614" alpha="1" colorSpace="calibratedRGB"/>
                                                                 </view>
                                                             </subviews>
-                                                            <color key="backgroundColor" red="0.90823972225189209" green="0.92638683319091797" blue="0.9317171573638916" alpha="1" colorSpace="calibratedRGB"/>
                                                             <constraints>
                                                                 <constraint firstItem="ODc-fw-5ML" firstAttribute="top" secondItem="88h-Pm-vzf" secondAttribute="top" id="Bae-RK-nZ8"/>
                                                                 <constraint firstAttribute="bottom" secondItem="XFv-xr-QCy" secondAttribute="bottom" id="MLN-oa-hJI"/>
@@ -475,6 +539,11 @@ Wrong</string>
                         </connections>
                     </tableView>
                     <tabBarItem key="tabBarItem" title="Graph" image="IconGraph" id="R26-42-WRx"/>
+                    <connections>
+                        <outlet property="addButton" destination="3Hf-zZ-otg" id="8kX-8B-NLZ"/>
+                        <outlet property="sortDownButton" destination="LGj-3J-FUI" id="T51-Hd-Vq3"/>
+                        <outlet property="sortUpButton" destination="pe7-dU-aey" id="cjG-Ks-5bq"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BOS-Vq-l2G" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -485,5 +554,8 @@ Wrong</string>
         <image name="IconCards" width="25" height="25"/>
         <image name="IconGraph" width="25" height="25"/>
         <image name="IconList" width="25" height="25"/>
+        <image name="iconPlus" width="24" height="24"/>
+        <image name="iconSortDown" width="25" height="25"/>
+        <image name="iconSortUp" width="25" height="25"/>
     </resources>
 </document>
