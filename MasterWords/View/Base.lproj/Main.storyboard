@@ -8,6 +8,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -44,18 +45,20 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Lists" id="m1j-Md-jSg">
-                        <barButtonItem key="leftBarButtonItem" systemItem="refresh" id="jAw-VK-ONL">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <connections>
-                                <action selector="refreshButtonTapped:" destination="9pv-A4-QxB" id="pLb-go-OTG"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="nlc-Ks-QDB">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <connections>
-                                <action selector="addButtonPressed:" destination="9pv-A4-QxB" id="2nc-A8-6s3"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem systemItem="add" id="nlc-Ks-QDB">
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <action selector="addButtonPressed:" destination="9pv-A4-QxB" id="2nc-A8-6s3"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem systemItem="refresh" id="jAw-VK-ONL">
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <action selector="refreshButtonTapped:" destination="9pv-A4-QxB" id="pLb-go-OTG"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
                         <segue destination="bDB-H6-s7T" kind="show" identifier="goToSingleListEditVC" id="DKW-hd-hBX"/>
@@ -125,7 +128,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Flash Cards" id="sme-EO-EOl">
-                        <barButtonItem key="leftBarButtonItem" systemItem="refresh" id="Jtt-xO-OZU">
+                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="Jtt-xO-OZU">
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
                                 <action selector="refreshButtonTapped:" destination="8rJ-Kc-sve" id="Q9A-H0-OM6"/>
@@ -511,7 +514,7 @@ Wrong</string>
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Hf-zZ-otg">
-                                    <rect key="frame" x="8" y="8" width="28" height="28"/>
+                                    <rect key="frame" x="229" y="8" width="28" height="28"/>
                                     <constraints>
                                         <constraint firstAttribute="width" secondItem="3Hf-zZ-otg" secondAttribute="height" multiplier="1:1" id="EEN-VI-HdF"/>
                                     </constraints>
@@ -521,7 +524,7 @@ Wrong</string>
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a95-Gd-8gD">
-                                    <rect key="frame" x="46" y="8" width="28" height="28"/>
+                                    <rect key="frame" x="265" y="8" width="28" height="28"/>
                                     <constraints>
                                         <constraint firstAttribute="width" secondItem="a95-Gd-8gD" secondAttribute="height" multiplier="1:1" id="EUZ-jZ-FQ9"/>
                                     </constraints>
@@ -530,18 +533,30 @@ Wrong</string>
                                         <action selector="refreshButtonTapped:" destination="7Gl-fE-5aC" eventType="touchUpInside" id="nfG-ag-5mm"/>
                                     </connections>
                                 </button>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rX0-HW-lyt">
+                                    <rect key="frame" x="10" y="8" width="80" height="28"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="Zic-My-W66"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
                             </subviews>
                             <color key="backgroundColor" red="0.23539169132709503" green="0.11543873697519302" blue="0.25115793943405151" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
                                 <constraint firstItem="a95-Gd-8gD" firstAttribute="top" secondItem="g2D-2u-SW6" secondAttribute="top" constant="8" id="42V-Vs-8Fv"/>
                                 <constraint firstItem="pe7-dU-aey" firstAttribute="top" secondItem="g2D-2u-SW6" secondAttribute="top" constant="8" id="AnL-jV-1yE"/>
-                                <constraint firstItem="a95-Gd-8gD" firstAttribute="leading" secondItem="3Hf-zZ-otg" secondAttribute="trailing" constant="10" id="Eq5-bD-KwM"/>
                                 <constraint firstItem="LGj-3J-FUI" firstAttribute="leading" secondItem="pe7-dU-aey" secondAttribute="trailing" constant="10" id="Gk1-pP-t2R"/>
+                                <constraint firstItem="a95-Gd-8gD" firstAttribute="leading" secondItem="3Hf-zZ-otg" secondAttribute="trailing" constant="8" id="Gym-fW-aRe"/>
                                 <constraint firstAttribute="trailing" secondItem="LGj-3J-FUI" secondAttribute="trailing" constant="8" id="T7E-eA-Yll"/>
                                 <constraint firstAttribute="bottom" secondItem="pe7-dU-aey" secondAttribute="bottom" constant="8" id="ZwT-Bn-Mcx"/>
+                                <constraint firstItem="pe7-dU-aey" firstAttribute="leading" secondItem="a95-Gd-8gD" secondAttribute="trailing" constant="8" id="avt-bc-yIf"/>
+                                <constraint firstItem="rX0-HW-lyt" firstAttribute="top" secondItem="g2D-2u-SW6" secondAttribute="top" constant="8" id="e8P-xX-h8K"/>
                                 <constraint firstAttribute="bottom" secondItem="LGj-3J-FUI" secondAttribute="bottom" constant="8" id="fuA-Er-Mpg"/>
                                 <constraint firstAttribute="bottom" secondItem="3Hf-zZ-otg" secondAttribute="bottom" constant="8" id="jhj-nu-mYW"/>
-                                <constraint firstItem="3Hf-zZ-otg" firstAttribute="leading" secondItem="g2D-2u-SW6" secondAttribute="leading" constant="8" id="nFM-Pb-pen"/>
+                                <constraint firstItem="rX0-HW-lyt" firstAttribute="leading" secondItem="g2D-2u-SW6" secondAttribute="leading" constant="10" id="kUZ-vw-vth"/>
+                                <constraint firstAttribute="bottom" secondItem="rX0-HW-lyt" secondAttribute="bottom" constant="8" id="lja-Uo-Erl"/>
                                 <constraint firstItem="3Hf-zZ-otg" firstAttribute="top" secondItem="g2D-2u-SW6" secondAttribute="top" constant="8" id="pVk-Yb-42N"/>
                                 <constraint firstItem="LGj-3J-FUI" firstAttribute="top" secondItem="g2D-2u-SW6" secondAttribute="top" constant="8" id="ume-6d-Hfp"/>
                                 <constraint firstAttribute="bottom" secondItem="a95-Gd-8gD" secondAttribute="bottom" constant="8" id="yfH-aM-hpG"/>
@@ -661,6 +676,7 @@ Wrong</string>
                         <outlet property="refreshButton" destination="a95-Gd-8gD" id="bir-kg-kvI"/>
                         <outlet property="sortDownButton" destination="LGj-3J-FUI" id="T51-Hd-Vq3"/>
                         <outlet property="sortUpButton" destination="pe7-dU-aey" id="cjG-Ks-5bq"/>
+                        <outlet property="userNameLabel" destination="rX0-HW-lyt" id="udK-uy-qrC"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BOS-Vq-l2G" userLabel="First Responder" sceneMemberID="firstResponder"/>

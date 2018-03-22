@@ -21,7 +21,7 @@ class UsersViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        writeUsers()
+        //writeUsers()
         loadUsers()
         
         // Do any additional setup after loading the view.
@@ -31,6 +31,7 @@ class UsersViewController: UIViewController {
     func loadUsers(){
         
         users = realm.objects(User.self).sorted(byKeyPath: "name", ascending: true)
+        print(users)
 
     }
     

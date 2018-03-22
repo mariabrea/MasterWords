@@ -37,6 +37,12 @@ class SingleListEditViewController: SwipeTableViewController {
         
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+                
+    }
+
+    
     
     //MARK: NavBar Setup Methods
     

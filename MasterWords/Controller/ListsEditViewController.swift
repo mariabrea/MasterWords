@@ -32,6 +32,15 @@ class ListsEditViewController: SwipeTableViewController{
         tableView.separatorStyle = .none
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        
+        navigationItem.prompt = selectedUser?.name
+        if let navBar = self.navigationController?.navigationBar {
+            navBar.barStyle = UIBarStyle.black
+        }
+
+    }
     
     //MARK: Tableview Datasource Methods
     

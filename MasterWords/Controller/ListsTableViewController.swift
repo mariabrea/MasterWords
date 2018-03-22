@@ -31,6 +31,14 @@ class ListsTableViewController: UITableViewController {
         tableView.separatorStyle = .none
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        navigationItem.prompt = selectedUser?.name
+        if let navBar = self.navigationController?.navigationBar {
+            navBar.barStyle = UIBarStyle.black
+        }
+    }
+
 
     // MARK: - Table view data source
 

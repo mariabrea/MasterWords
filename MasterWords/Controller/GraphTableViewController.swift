@@ -24,6 +24,7 @@ class GraphTableViewCell: UITableViewCell {
 
 class GraphTableViewController: UITableViewController {
 
+    @IBOutlet weak var userNameLabel: UILabel!
     @IBOutlet weak var sortUpButton: UIButton!
     @IBOutlet weak var sortDownButton: UIButton!
     @IBOutlet weak var addButton: UIButton!
@@ -134,6 +135,8 @@ class GraphTableViewController: UITableViewController {
         
         tableView.rowHeight = 70
         tableView.separatorStyle = .singleLine
+        
+        userNameLabel.text = selectedUser?.name
         
         addButton.layer.cornerRadius = 5
         addButton.layer.borderWidth = 1

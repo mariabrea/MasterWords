@@ -58,7 +58,7 @@ class FlashCardsViewController: UIViewController {
         
         cardView.delegate = self
         cardView.dataSource = self
-        
+                
     }
     
     override func viewDidLoad(){
@@ -236,7 +236,7 @@ extension FlashCardsViewController: KolodaViewDelegate {
             playSound(soundFileName: wrongAnswerSoundFileName, soundFileExtension: soundFileExtension)
             numberWrong += 1
             sadLabel.text = String(numberWrong)
-            updateModel(index: listWordsToPractice[index].index, correct : true)
+            updateModel(index: listWordsToPractice[index].index, correct : false)
             listWordsWrong.append(listWordsToPractice[index])
             
         } else {
@@ -244,7 +244,7 @@ extension FlashCardsViewController: KolodaViewDelegate {
             playSound(soundFileName: correctAnswerSoundFileName, soundFileExtension: soundFileExtension)
             numberCorrect += 1
             happyLabel.text = String(numberCorrect)
-            updateModel(index: listWordsToPractice[index].index, correct : false)
+            updateModel(index: listWordsToPractice[index].index, correct : true)
         }
     }
 }
