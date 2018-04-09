@@ -22,6 +22,7 @@ class UsersViewController: UIViewController {
         super.viewDidLoad()
 
         //writeUsers()
+        
         loadUsers()
         
         // Do any additional setup after loading the view.
@@ -32,7 +33,15 @@ class UsersViewController: UIViewController {
         
         users = realm.objects(User.self).sorted(byKeyPath: "name", ascending: true)
         print(users)
-
+//        do {
+//            try realm.write {
+//                realm.delete(users![2])
+////                realm.delete(users![3])
+//            }
+//        } catch {
+//            print("Error saving users \(error)")
+//        }
+//        print(users)
     }
     
     func writeUsers() {

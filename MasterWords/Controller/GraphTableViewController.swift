@@ -76,7 +76,9 @@ class GraphTableViewController: UITableViewController {
                 newWord.numberCorrect = words![0].numberCorrect
                 newWord.numberWrong = words![0].numberWrong
                 newWord.numberTotal = newWord.numberCorrect + newWord.numberWrong
+                
                 wordsNoDuplicates.append(newWord)
+                
                 for i in 1...numberRows-1 {
                     if words![i].name == words![i-1].name {
                         wordsNoDuplicates.last?.numberCorrect += words![i].numberCorrect
@@ -91,6 +93,18 @@ class GraphTableViewController: UITableViewController {
                         wordsNoDuplicates.append(newWord)
                     }
                 }
+                
+                //calculate percentages
+                for word in wordsNoDuplicates{
+                    let totalCount = word.numberWrong + word.numberCorrect
+                    word.numberTotal = totalCount
+                    if totalCount > 0{
+                        word.percentageCorrect = Int(round((Double(word.numberCorrect)/Double(totalCount))*100))
+                        word.percentageWrong = 100 - word.percentageCorrect
+                    }
+                }
+                
+
             }
         }
         
@@ -272,9 +286,15 @@ class GraphTableViewController: UITableViewController {
         let sortByCorrectAction = UIAlertAction(title: "Correct Answered", style: .default) { (action) in
             if sortUp {
                 self.wordsNoDuplicates.sort(by: { $0.percentageCorrect > $1.percentageCorrect })
+                for word in self.wordsNoDuplicates{
+                    print("\(word.name) \(word.percentageCorrect)")
+                }
                 self.tableView.reloadData()
             } else {
                 self.wordsNoDuplicates.sort(by: { $0.percentageCorrect < $1.percentageCorrect })
+                for word in self.wordsNoDuplicates{
+                    print("\(word.name) \(word.percentageCorrect)")
+                }
                 self.tableView.reloadData()
             }
         }
@@ -282,9 +302,16 @@ class GraphTableViewController: UITableViewController {
         let sortByWrongAction = UIAlertAction(title: "Wrong Answered", style: .default) { (action) in
             if sortUp {
                 self.wordsNoDuplicates.sort(by: { $0.percentageWrong > $1.percentageWrong })
+                for word in self.wordsNoDuplicates{
+                    print("\(word.name) \(word.percentageWrong)")
+                }
+                
                 self.tableView.reloadData()
             } else {
                 self.wordsNoDuplicates.sort(by: { $0.percentageWrong < $1.percentageWrong })
+                for word in self.wordsNoDuplicates{
+                    print("\(word.name) \(word.percentageWrong)")
+                }
                 self.tableView.reloadData()
             }
         }
@@ -311,32 +338,30 @@ class GraphTableViewController: UITableViewController {
         //if let word = words?[indexPath.row]{
         let word = wordsNoDuplicates[indexPath.row]
             
-            print("\(word.name) ✅ \(word.numberCorrect) ❌ \(word.numberWrong)")
-            
+        
             cell.wordLabel.text = word.name
-            let totalCount = word.numberWrong + word.numberCorrect
-            var percentageCorrect : Int = 0
-            var percentageWrong : Int = 0
-            if totalCount > 0{
-                percentageCorrect = Int(round((Double(word.numberCorrect)/Double(totalCount))*100))
-                percentageWrong = 100 - percentageCorrect
-            }
+        
+//            let totalCount = word.numberWrong + word.numberCorrect
+//            var percentageCorrect : Int = 0
+//            var percentageWrong : Int = 0
+//            if totalCount > 0{
+//                percentageCorrect = Int(round((Double(word.numberCorrect)/Double(totalCount))*100))
+//                percentageWrong = 100 - percentageCorrect
+//            }
         
             //we update the object with the percentages values
-            word.percentageCorrect = percentageCorrect
-            word.percentageWrong = percentageWrong
+//            word.percentageCorrect = percentageCorrect
+//            word.percentageWrong = percentageWrong
+
+        print("\(word.name) ✅ \(word.numberCorrect) ❌ \(word.numberWrong) %correct: \(word.percentageCorrect) %wrong: \(word.percentageWrong)")
+
+            cell.correctCountLabel.text = String(word.percentageCorrect)+"%"
+            cell.wrongCountLabel.text = String(word.percentageWrong)+"%"
+            cell.totalCountLabel.text = String(word.numberTotal)
             
-            cell.correctCountLabel.text = String(percentageCorrect)+"%"
-            cell.wrongCountLabel.text = String(percentageWrong)+"%"
-            cell.totalCountLabel.text = String(totalCount)
-            
-            print(CGFloat(percentageCorrect)/CGFloat(100))
-            print("cell.barsView.frame.size.width \(cell.barsView.frame.size.width)")
-            cell.correctBar.frame.size.width = (CGFloat(percentageCorrect)/CGFloat(100)) * cell.barsView.frame.size.width
-            print("cell.correctBar.frame.size.width \(cell.correctBar.frame.size.width)")
-            cell.wrongBar.frame.size.width = (CGFloat(percentageWrong)/CGFloat(100)) * cell.barsView.frame.size.width
-            print("cell.wrongBar.frame.size.width \(cell.wrongBar.frame.size.width)")
-            
+            cell.correctBar.frame.size.width = (CGFloat(word.percentageCorrect)/CGFloat(100)) * cell.barsView.frame.size.width
+            cell.wrongBar.frame.size.width = (CGFloat(word.percentageWrong)/CGFloat(100)) * cell.barsView.frame.size.width
+        
         
         
         return cell
