@@ -1,0 +1,41 @@
+PODS:
+  - ChameleonFramework/Default (2.1.0)
+  - ChameleonFramework/Swift (2.1.0):
+    - ChameleonFramework/Default
+  - Koloda (4.3.1):
+    - pop (~> 1.0)
+  - pop (1.0.10)
+  - Realm (3.1.1):
+    - Realm/Headers (= 3.1.1)
+  - Realm/Headers (3.1.1)
+  - RealmSwift (3.1.1):
+    - Realm (= 3.1.1)
+  - SwipeCellKit (2.0.1)
+
+DEPENDENCIES:
+  - ChameleonFramework/Swift (from `https://github.com/ViccAlexander/Chameleon.git`, branch `wip/swift4`)
+  - Koloda (~> 4.3.1)
+  - RealmSwift
+  - SwipeCellKit
+
+EXTERNAL SOURCES:
+  ChameleonFramework:
+    :branch: wip/swift4
+    :git: https://github.com/ViccAlexander/Chameleon.git
+
+CHECKOUT OPTIONS:
+  ChameleonFramework:
+    :commit: db432ca1b1a3d8f83ee1f881208c0c960a325e73
+    :git: https://github.com/ViccAlexander/Chameleon.git
+
+SPEC CHECKSUMS:
+  ChameleonFramework: d21a3cc247abfe5e37609a283a8238b03575cf64
+  Koloda: 0d39b2aa188ccd1fac48d752acaf9802e683c625
+  pop: 82ca6b068ce9278fd350fd9dd09482a0ce9492e6
+  Realm: 42d1c38a5b1bbcc828b48a7ce702cb86fc68adf4
+  RealmSwift: d31937ca6a6ee54acde64ec839523c0a3c04924b
+  SwipeCellKit: 76888d93d1843dc568fdf38fff21b15dbbcf6b28
+
+PODFILE CHECKSUM: 93d9e938d8d81b6797113b157aa0da642f6463f8
+
+COCOAPODS: 1.4.0

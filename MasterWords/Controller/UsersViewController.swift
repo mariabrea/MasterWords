@@ -32,7 +32,7 @@ class UsersViewController: UIViewController {
     func loadUsers(){
         
         users = realm.objects(User.self).sorted(byKeyPath: "name", ascending: true)
-        print(users)
+        //print(users)
 //        do {
 //            try realm.write {
 //                realm.delete(users![2])

@@ -25,7 +25,7 @@ class ListsEditViewController: SwipeTableViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print("ListsEditVC \(selectedUser?.name)")
+        //print("ListsEditVC \(selectedUser?.name)")
         //loadLists()
         
         tableView.rowHeight = 70
@@ -182,7 +182,7 @@ class ListsEditViewController: SwipeTableViewController{
 //            newList.color = UIColor.randomFlat.hexValue()
             
             if let currentUser = self.selectedUser {
-                print("user \(self.selectedUser?.name)")
+                //print("user \(self.selectedUser?.name)")
                 do {
                     try self.realm.write {
                         let newList = SightWordsList()
