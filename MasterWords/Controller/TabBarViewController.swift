@@ -18,10 +18,10 @@ class TabBarViewController: UITabBarController {
     
 
     override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
-        let navigationController1 =  self.viewControllers![0] as? UINavigationController
+        let navigationController1 =  self.viewControllers![1] as? UINavigationController
         navigationController1!.popToRootViewController(animated: false)
         
-        let navigationController2 =  self.viewControllers![1] as? UINavigationController
+        let navigationController2 =  self.viewControllers![2] as? UINavigationController
         navigationController2!.popToRootViewController(animated: false)
     }
 }

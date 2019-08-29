@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0930"
+   LastUpgradeVersion = "1010"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "20151774CE2F5FA6B8126D4F5ED1C5FE"
+               BlueprintIdentifier = "D13A0B8DCA7240C611B372C0C0161178"
                BuildableName = "Koloda.framework"
                BlueprintName = "Koloda"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -45,7 +45,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "20151774CE2F5FA6B8126D4F5ED1C5FE"
+            BlueprintIdentifier = "D13A0B8DCA7240C611B372C0C0161178"
             BuildableName = "Koloda.framework"
             BlueprintName = "Koloda"
             ReferencedContainer = "container:Pods.xcodeproj">

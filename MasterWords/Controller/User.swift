@@ -11,6 +11,7 @@ import RealmSwift
 
 class User : Object {
     @objc dynamic var name : String = ""
+    @objc dynamic var avatar : String = ""
     var userLists = List<SightWordsList>()
 }
 

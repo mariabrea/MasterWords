@@ -15,9 +15,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     
     
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {        //
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {        //
         
-        //print(Realm.Configuration.defaultConfiguration.fileURL)
+        print("in appDelegate")
+        print(Realm.Configuration.defaultConfiguration.fileURL as Any)
         
         do {
             let _ =  try Realm()

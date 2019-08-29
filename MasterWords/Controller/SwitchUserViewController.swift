@@ -7,24 +7,44 @@
 //
 
 import UIKit
+import RealmSwift
 import ChameleonFramework
 
 class SwitchUserViewController: UIViewController {
 
     @IBOutlet weak var logoutButton: UIButton!
     
+    let realm = try! Realm()
+    
+    var lists : Results<SightWordsList>?
+    var words : Results<SightWord>?
+    
+    var selectedUser : User? {
+        didSet{
+            //loadLists()
+        }
+    }
+    
     override func viewDidLoad() {
+        
         super.viewDidLoad()
 
-        logoutButton.layer.borderColor = FlatPlum().cgColor
-        logoutButton.layer.borderWidth = 1
-        logoutButton.layer.cornerRadius = 5
+        updateUI()
         
     }
 
 
     // MARK: - Navigation
 
+    func updateUI() {
+        
+//        logoutButton.layer.borderColor = FlatPlum().cgColor
+//        logoutButton.layer.borderWidth = 1
+//        logoutButton.layer.cornerRadius = 5
+        
+    }
+
+    
      @IBAction func logoutButtonTapped(_ sender: UIButton) {
         performSegue(withIdentifier: "unwindToUsersVC", sender: self)
      }

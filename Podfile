@@ -8,6 +8,7 @@ target 'MasterWords' do
   # Pods for MasterWords
     pod 'RealmSwift'
     pod 'SwipeCellKit', '2.5.4'
-    pod 'ChameleonFramework/Swift', :git => 'https://github.com/ViccAlexander/Chameleon.git', :branch => 'wip/swift4'
+    #pod 'ChameleonFramework/Swift', :git => 'https://github.com/ViccAlexander/Chameleon.git', :branch => 'develop'
+    pod 'ChameleonFramework/Swift', :git => 'https://github.com/ykws/Chameleon.git', :branch => 'develop'
     pod 'Koloda', '~> 5.0'
 end

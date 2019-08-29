@@ -13,12 +13,16 @@
 		C12293B02062BE820080A810 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12293AF2062BE820080A810 /* User.swift */; };
 		C12293B22062CDA00080A810 /* SwitchUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12293B12062CDA00080A810 /* SwitchUserViewController.swift */; };
 		C128AEB52061696800A47E3F /* Word.swift in Sources */ = {isa = PBXBuildFile; fileRef = C128AEB42061696800A47E3F /* Word.swift */; };
+		C12F01F423180EAD00596D25 /* CreditsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12F01F323180EAD00596D25 /* CreditsViewController.swift */; };
+		C12F01F6231821F100596D25 /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12F01F5231821F100596D25 /* RoundedButton.swift */; };
+		C1344A44231573D800BEB28C /* UserEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1344A43231573D800BEB28C /* UserEditViewController.swift */; };
 		C16182CE20606EF60025E6D1 /* 38798943_correct-answer-bell-gliss-01.wav in Resources */ = {isa = PBXBuildFile; fileRef = C16182CD20606EF60025E6D1 /* 38798943_correct-answer-bell-gliss-01.wav */; };
 		C16182D020606F070025E6D1 /* 38806077_wrong-answer-bong-spring-01.wav in Resources */ = {isa = PBXBuildFile; fileRef = C16182CF20606F070025E6D1 /* 38806077_wrong-answer-bong-spring-01.wav */; };
 		C16182D3206075070025E6D1 /* GraphTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16182D2206075060025E6D1 /* GraphTableViewController.swift */; };
 		C178747E205AB89400C01B71 /* FlashCardsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C178747D205AB89400C01B71 /* FlashCardsViewController.swift */; };
 		C17D56F420588CE900210586 /* SingleListEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17D56F320588CE900210586 /* SingleListEditViewController.swift */; };
 		C17D56F620588E4700210586 /* SightWord.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17D56F520588E4700210586 /* SightWord.swift */; };
+		C199749A2316D8B7006467ED /* TextFieldMaxLengths.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19974992316D8B7006467ED /* TextFieldMaxLengths.swift */; };
 		C1AE3BAD20583E11005FA6A1 /* SightWordsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1AE3BAC20583E11005FA6A1 /* SightWordsList.swift */; };
 		C1AE3BAF2058412E005FA6A1 /* SwipeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1AE3BAE2058412E005FA6A1 /* SwipeTableViewController.swift */; };
 		C1DC04DB205C33C600F1BDC3 /* GelPen.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C1DC04DA205C338F00F1BDC3 /* GelPen.ttf */; };
@@ -40,12 +44,16 @@
 		C12293AF2062BE820080A810 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		C12293B12062CDA00080A810 /* SwitchUserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchUserViewController.swift; sourceTree = "<group>"; };
 		C128AEB42061696800A47E3F /* Word.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Word.swift; sourceTree = "<group>"; };
+		C12F01F323180EAD00596D25 /* CreditsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditsViewController.swift; sourceTree = "<group>"; };
+		C12F01F5231821F100596D25 /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
+		C1344A43231573D800BEB28C /* UserEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserEditViewController.swift; sourceTree = "<group>"; };
 		C16182CD20606EF60025E6D1 /* 38798943_correct-answer-bell-gliss-01.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "38798943_correct-answer-bell-gliss-01.wav"; sourceTree = "<group>"; };
 		C16182CF20606F070025E6D1 /* 38806077_wrong-answer-bong-spring-01.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "38806077_wrong-answer-bong-spring-01.wav"; sourceTree = "<group>"; };
 		C16182D2206075060025E6D1 /* GraphTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphTableViewController.swift; sourceTree = "<group>"; };
 		C178747D205AB89400C01B71 /* FlashCardsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashCardsViewController.swift; sourceTree = "<group>"; };
 		C17D56F320588CE900210586 /* SingleListEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleListEditViewController.swift; sourceTree = "<group>"; };
 		C17D56F520588E4700210586 /* SightWord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SightWord.swift; sourceTree = "<group>"; };
+		C19974992316D8B7006467ED /* TextFieldMaxLengths.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldMaxLengths.swift; sourceTree = "<group>"; };
 		C1AE3BAC20583E11005FA6A1 /* SightWordsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SightWordsList.swift; sourceTree = "<group>"; };
 		C1AE3BAE2058412E005FA6A1 /* SwipeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeTableViewController.swift; sourceTree = "<group>"; };
 		C1DC04D9205C338200F1BDC3 /* GelPenHeavy.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = GelPenHeavy.ttf; sourceTree = "<group>"; };
@@ -153,6 +161,10 @@
 				C1AE3BAC20583E11005FA6A1 /* SightWordsList.swift */,
 				C1E94DDB2058336C0077F6EB /* AppDelegate.swift */,
 				C1AE3BAE2058412E005FA6A1 /* SwipeTableViewController.swift */,
+				C1344A43231573D800BEB28C /* UserEditViewController.swift */,
+				C19974992316D8B7006467ED /* TextFieldMaxLengths.swift */,
+				C12F01F323180EAD00596D25 /* CreditsViewController.swift */,
+				C12F01F5231821F100596D25 /* RoundedButton.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -211,6 +223,7 @@
 				TargetAttributes = {
 					C1E94DD72058336C0077F6EB = {
 						CreatedOnToolsVersion = 9.2;
+						LastSwiftMigration = 1010;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -319,16 +332,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C1344A44231573D800BEB28C /* UserEditViewController.swift in Sources */,
 				C12293B02062BE820080A810 /* User.swift in Sources */,
 				C16182D3206075070025E6D1 /* GraphTableViewController.swift in Sources */,
 				C12293AE2062BB3F0080A810 /* UsersViewController.swift in Sources */,
 				C12293B22062CDA00080A810 /* SwitchUserViewController.swift in Sources */,
 				C17D56F620588E4700210586 /* SightWord.swift in Sources */,
+				C12F01F423180EAD00596D25 /* CreditsViewController.swift in Sources */,
 				C1AE3BAD20583E11005FA6A1 /* SightWordsList.swift in Sources */,
 				C178747E205AB89400C01B71 /* FlashCardsViewController.swift in Sources */,
+				C199749A2316D8B7006467ED /* TextFieldMaxLengths.swift in Sources */,
 				C17D56F420588CE900210586 /* SingleListEditViewController.swift in Sources */,
 				C1E99908206022670028564A /* TabBarViewController.swift in Sources */,
 				C128AEB52061696800A47E3F /* Word.swift in Sources */,
+				C12F01F6231821F100596D25 /* RoundedButton.swift in Sources */,
 				C1E94DDC2058336C0077F6EB /* AppDelegate.swift in Sources */,
 				C1E94DDE2058336C0077F6EB /* ListsEditViewController.swift in Sources */,
 				C1AE3BAF2058412E005FA6A1 /* SwipeTableViewController.swift in Sources */,
@@ -481,7 +498,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.mariamartinezguzman.MasterWords;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -498,7 +515,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.mariamartinezguzman.MasterWords;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
