@@ -15,6 +15,7 @@
 		C128AEB52061696800A47E3F /* Word.swift in Sources */ = {isa = PBXBuildFile; fileRef = C128AEB42061696800A47E3F /* Word.swift */; };
 		C12F01F423180EAD00596D25 /* CreditsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12F01F323180EAD00596D25 /* CreditsViewController.swift */; };
 		C12F01F6231821F100596D25 /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12F01F5231821F100596D25 /* RoundedButton.swift */; };
+		C12F01F82319885D00596D25 /* 43162713_comical-rubber-squeak-01.wav in Resources */ = {isa = PBXBuildFile; fileRef = C12F01F72319885A00596D25 /* 43162713_comical-rubber-squeak-01.wav */; };
 		C1344A44231573D800BEB28C /* UserEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1344A43231573D800BEB28C /* UserEditViewController.swift */; };
 		C16182CE20606EF60025E6D1 /* 38798943_correct-answer-bell-gliss-01.wav in Resources */ = {isa = PBXBuildFile; fileRef = C16182CD20606EF60025E6D1 /* 38798943_correct-answer-bell-gliss-01.wav */; };
 		C16182D020606F070025E6D1 /* 38806077_wrong-answer-bong-spring-01.wav in Resources */ = {isa = PBXBuildFile; fileRef = C16182CF20606F070025E6D1 /* 38806077_wrong-answer-bong-spring-01.wav */; };
@@ -46,6 +47,7 @@
 		C128AEB42061696800A47E3F /* Word.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Word.swift; sourceTree = "<group>"; };
 		C12F01F323180EAD00596D25 /* CreditsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditsViewController.swift; sourceTree = "<group>"; };
 		C12F01F5231821F100596D25 /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
+		C12F01F72319885A00596D25 /* 43162713_comical-rubber-squeak-01.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "43162713_comical-rubber-squeak-01.wav"; sourceTree = "<group>"; };
 		C1344A43231573D800BEB28C /* UserEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserEditViewController.swift; sourceTree = "<group>"; };
 		C16182CD20606EF60025E6D1 /* 38798943_correct-answer-bell-gliss-01.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "38798943_correct-answer-bell-gliss-01.wav"; sourceTree = "<group>"; };
 		C16182CF20606F070025E6D1 /* 38806077_wrong-answer-bong-spring-01.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "38806077_wrong-answer-bong-spring-01.wav"; sourceTree = "<group>"; };
@@ -100,6 +102,7 @@
 		C16182D120606F0D0025E6D1 /* Sound */ = {
 			isa = PBXGroup;
 			children = (
+				C12F01F72319885A00596D25 /* 43162713_comical-rubber-squeak-01.wav */,
 				C16182CD20606EF60025E6D1 /* 38798943_correct-answer-bell-gliss-01.wav */,
 				C16182CF20606F070025E6D1 /* 38806077_wrong-answer-bong-spring-01.wav */,
 			);
@@ -258,6 +261,7 @@
 				C1E94DE52058336C0077F6EB /* Assets.xcassets in Resources */,
 				C1E94DE32058336C0077F6EB /* Main.storyboard in Resources */,
 				C16182CE20606EF60025E6D1 /* 38798943_correct-answer-bell-gliss-01.wav in Resources */,
+				C12F01F82319885D00596D25 /* 43162713_comical-rubber-squeak-01.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

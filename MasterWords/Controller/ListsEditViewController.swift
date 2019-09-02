@@ -12,6 +12,8 @@ import ChameleonFramework
 
 class ListsEditViewController: SwipeTableViewController{
 
+    @IBOutlet weak var addButton: UIBarButtonItem!
+    
     let realm = try! Realm()
     
     var lists : Results<SightWordsList>?
@@ -41,6 +43,7 @@ class ListsEditViewController: SwipeTableViewController{
         }
 
     }
+    
     
     //MARK: Tableview Datasource Methods
     
@@ -140,6 +143,8 @@ class ListsEditViewController: SwipeTableViewController{
                 }
                 
                 self.tableView.reloadData()
+                //notify to NotificacionCenter when data has changed
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "loadLists"), object: nil)
             }
             
             let cancelAction = UIAlertAction(title: "Cancel", style: .default) { (action) in
@@ -164,9 +169,9 @@ class ListsEditViewController: SwipeTableViewController{
     }
     //MARK - Add new items
     
-    @IBAction func refreshButtonTapped(_ sender: UIBarButtonItem) {
-        tableView.reloadData()
-    }
+//    @IBAction func refreshButtonTapped(_ sender: UIBarButtonItem) {
+//        tableView.reloadData()
+//    }
     
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
 
@@ -199,6 +204,8 @@ class ListsEditViewController: SwipeTableViewController{
             //self.save(list : newList)
 
             self.tableView.reloadData()
+            //notify to NotificacionCenter when data has changed
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "loadLists"), object: nil)
         }
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .default) { (action) in

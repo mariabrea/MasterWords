@@ -147,18 +147,18 @@ class UsersViewController: UIViewController {
         if segue.identifier == "goToTabBarVC" {
             let barViewControllers = segue.destination as! UITabBarController
             
-            let destinationVC1 = barViewControllers.viewControllers![0] as! UserEditViewController
+            let destinationVC1 = barViewControllers.viewControllers![3] as! UserEditViewController
             destinationVC1.selectedUser = selectedUser
             
-            let nav1 = barViewControllers.viewControllers![1] as! UINavigationController
+            let nav1 = barViewControllers.viewControllers![0] as! UINavigationController
             let destinationVC2 = nav1.topViewController as! ListsEditViewController
             destinationVC2.selectedUser = selectedUser
             
-            let nav2 = barViewControllers.viewControllers![2] as! UINavigationController
+            let nav2 = barViewControllers.viewControllers![1] as! UINavigationController
             let destinationVC3 = nav2.topViewController as! ListsTableViewController
             destinationVC3.selectedUser = selectedUser
             
-            let destinationVC4 = barViewControllers.viewControllers![3] as! GraphTableViewController
+            let destinationVC4 = barViewControllers.viewControllers![2] as! GraphTableViewController
             destinationVC4.selectedUser = selectedUser
             
             let destinationVC5 = barViewControllers.viewControllers![4] as! SwitchUserViewController

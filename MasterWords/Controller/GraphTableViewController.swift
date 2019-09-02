@@ -28,7 +28,7 @@ class GraphTableViewController: UITableViewController {
     @IBOutlet weak var sortUpButton: UIButton!
     @IBOutlet weak var sortDownButton: UIButton!
     @IBOutlet weak var addButton: UIButton!
-    @IBOutlet weak var refreshButton: UIButton!
+    @IBOutlet weak var eraseButton: UIButton!
     
     let realm = try! Realm()
     
@@ -46,6 +46,9 @@ class GraphTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //observer set to notice when Cancel button in FlashCards is tapped
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadGraph), name: NSNotification.Name(rawValue: "loadGraph"), object: nil)
+        
         loadWords()
         
         updateUI()
@@ -58,13 +61,14 @@ class GraphTableViewController: UITableViewController {
         self.tableView.reloadData()
     }
     
+    override var prefersStatusBarHidden: Bool {
+        return true
+    }
     //MARK: - Database Methods
     
     func loadWords(){
         
-        //words = realm.objects(SightWord.self).sorted(byKeyPath: "name", ascending: true)
         words = realm.objects(SightWord.self).filter("userName = %@", selectedUser?.name as Any).sorted(byKeyPath: "name", ascending: true)
-        //wordsFiltered = selectedUser?.userlists.filter("title CONTAINS[cd] %@", searchBar.text!).sorted(byKeyPath: "dateCreated", ascending: true)
         
         print(words as Any)
         
@@ -114,20 +118,29 @@ class GraphTableViewController: UITableViewController {
     
     func addList(name : String, numberOfWords : Int) {
         
-        //we create a new object of type SightWordsList of the database, and we fill its attributes
-        let newList = SightWordsList()
-        newList.name = name
-        newList.color = UIColor.randomFlat.hexValue()
-        
-        for i in 0...numberOfWords-1 {
-            let newWord = SightWord()
-            newWord.name = wordsNoDuplicates[i].name
-            newWord.numberCorrect = wordsNoDuplicates[i].numberCorrect
-            newWord.numberWrong = wordsNoDuplicates[i].numberWrong
-            newList.sightWords.append(newWord)
+        if let currentUser = self.selectedUser {
+            //print("user \(self.selectedUser?.name)")
+            do {
+                try self.realm.write {
+                    let newList = SightWordsList()
+                    newList.name = name
+                    newList.color = UIColor.randomFlat.hexValue()
+                    
+                    for i in 0...numberOfWords-1 {
+                        let newWord = SightWord()
+                        newWord.name = wordsNoDuplicates[i].name
+                        newWord.numberCorrect = 0
+                        newWord.numberWrong = 0
+                        newList.sightWords.append(newWord)
+                    }
+                    
+                    currentUser.userLists.append(newList)
+                }
+            } catch {
+                print("Error saving word \(error)")
+            }
+            
         }
-        
-        self.save(list : newList)
         
     }
     
@@ -143,9 +156,35 @@ class GraphTableViewController: UITableViewController {
         
     }
     
+    func eraseValues() {
+
+        do {
+            try realm.write {
+                words?.setValue(0, forKeyPath: "numberCorrect")
+                words?.setValue(0, forKeyPath: "numberWrong")
+            }
+        } catch {
+            print("Error erasing values \(error)")
+        }
+        
+    }
+    
+    //func called to reload the data when cancel button in FlashCards is clicked
+    @objc func reloadGraph(notification: NSNotification) {
+        
+        print("Reloading Graph")
+        
+        wordsNoDuplicates.removeAll()
+        loadWords()
+        self.tableView.reloadData()
+        
+    }
+    
     //MARK: - Navigation Methods
     
     func updateUI() {
+        
+//        tableView.insetsContentViewsToSafeArea = false
         
         tableView.rowHeight = 70
         tableView.separatorStyle = .singleLine
@@ -161,14 +200,23 @@ class GraphTableViewController: UITableViewController {
         addButton.tintColor = UIColor.white
         addButton.contentMode = .center
         
-        refreshButton.layer.cornerRadius = 5
-        refreshButton.layer.borderWidth = 1
-        refreshButton.layer.borderColor = UIColor.white.cgColor
-        let refreshImage = UIImage(named: "iconRefresh")
-        let refreshImageTinted = refreshImage?.withRenderingMode(.alwaysTemplate)
-        refreshButton.setImage(refreshImageTinted, for: .normal)
-        refreshButton.tintColor = UIColor.white
-        refreshButton.contentMode = .center
+        eraseButton.layer.cornerRadius = 5
+        eraseButton.layer.borderWidth = 1
+        eraseButton.layer.borderColor = UIColor.white.cgColor
+        let eraseImage = UIImage(named: "iconErase")
+        let eraseImageTinted = eraseImage?.withRenderingMode(.alwaysTemplate)
+        eraseButton.setImage(eraseImageTinted, for: .normal)
+        eraseButton.tintColor = UIColor.white
+        eraseButton.contentMode = .center
+        
+//        refreshButton.layer.cornerRadius = 5
+//        refreshButton.layer.borderWidth = 1
+//        refreshButton.layer.borderColor = UIColor.white.cgColor
+//        let refreshImage = UIImage(named: "iconRefresh")
+//        let refreshImageTinted = refreshImage?.withRenderingMode(.alwaysTemplate)
+//        refreshButton.setImage(refreshImageTinted, for: .normal)
+//        refreshButton.tintColor = UIColor.white
+//        refreshButton.contentMode = .center
         
         sortUpButton.layer.cornerRadius = 5
         sortUpButton.layer.borderWidth = 1
@@ -194,11 +242,20 @@ class GraphTableViewController: UITableViewController {
         showAddAlert()
     }
     
-    @IBAction func refreshButtonTapped(_ sender: UIButton) {
+    @IBAction func eraseButtonTapped(_ sender: UIButton) {
+        
+        eraseValues()
         wordsNoDuplicates.removeAll()
         loadWords()
         tableView.reloadData()
+        
     }
+//    
+//    @IBAction func refreshButtonTapped(_ sender: UIButton) {
+//        wordsNoDuplicates.removeAll()
+//        loadWords()
+//        tableView.reloadData()
+//    }
     
     @IBAction func sortUpButtonTapped(_ sender: UIButton) {
         showSortAlert(sortUp : true)

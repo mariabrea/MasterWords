@@ -15,6 +15,7 @@
         
 //        @IBOutlet weak var logoutButton: UIButton!
         
+        @IBOutlet weak var nameBarLabel: UILabel!
         @IBOutlet weak var nameLabel: UILabel!
         @IBOutlet weak var nameTextField: UITextField!
         @IBOutlet weak var imageLabel: UILabel!
@@ -26,8 +27,10 @@
         let userImages = ["Cool", "Crying", "Drooling", "Grumpy", "Happy", "Mad", "Scared", "Sick", "Silly", "Sleepy", "Smily"]
         let realm = try! Realm()
         
-        var lists : Results<SightWordsList>?
-        var words : Results<SightWord>?
+//        var lists : Results<SightWordsList>?
+//        var words : Results<SightWord>?
+        var wordsList : Results<SightWord>?
+        
         
         var selectedUser : User? {
             didSet{
@@ -46,7 +49,7 @@
             
         }
         
-        //Picker View Methods
+//***********Picker View Methods*******************//
         
         // Sets number of columns in picker view
         func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -125,9 +128,31 @@
             
         }
         
+        func updateUserNameInSightWordsTable() {
+            
+            loadSightWords()
+            
+                do {
+                    try self.realm.write {
+                        wordsList?.setValue(nameTextField.text!, forKeyPath: "userName")
+                    }
+                } catch {
+                    print("Error erasing values \(error)")
+                }
+            
+        }
+        
+        func loadSightWords() {
+            
+            wordsList = realm.objects(SightWord.self).filter("userName = %@", selectedUser?.name as Any)
+            
+        }
+        
         //MARK: - Navigation Methods
         
         func updateUI() {
+            
+            nameBarLabel.text = selectedUser?.name
             
             imagePickerView.isHidden = true
             
@@ -143,7 +168,9 @@
         
         @IBAction func saveButtonTapped(_ sender: UIButton) {
             
+            updateUserNameInSightWordsTable()
             updateUser()
+            
             
             performSegue(withIdentifier: "goToUsersVC", sender: self)
             
@@ -162,6 +189,17 @@
             
             nameTextField.resignFirstResponder()
             
+            return true
+            
+        }
+        
+    
+        func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+            
+            //spaces not allowed in textfield
+            if (string == " ") {
+                return false
+            }
             return true
             
         }

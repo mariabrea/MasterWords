@@ -14,6 +14,9 @@ class ListsTableViewController: UITableViewController {
 
     let realm = try! Realm()
     
+    
+    var needToRefresh = false
+    
     var lists : Results<SightWordsList>?
     
     var selectedUser : User? {
@@ -24,6 +27,9 @@ class ListsTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //set observer to detetct when Lists have been added, updated or removed
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadLists), name: NSNotification.Name(rawValue: "loadLists"), object: nil)
         
         loadLists()
         
@@ -73,9 +79,9 @@ class ListsTableViewController: UITableViewController {
     
     // MARK: - Navigation
 
-    @IBAction func refreshButtonTapped(_ sender: UIBarButtonItem) {
-        tableView.reloadData()
-    }
+//    @IBAction func refreshButtonTapped(_ sender: UIBarButtonItem) {
+//        tableView.reloadData()
+//    }
     
     @IBAction func prepareForUnwind(segue: UIStoryboardSegue) {
         
@@ -98,6 +104,14 @@ class ListsTableViewController: UITableViewController {
         lists = selectedUser?.userLists.sorted(byKeyPath: "name", ascending: true)
 
         tableView.reloadData()
+        
+    }
+    
+    //func to reload data when Lists have been added, updated or removed
+    @objc func reloadLists(notification: NSNotification) {
+
+        print("Reloading Lists")
+        self.tableView.reloadData()
         
     }
 

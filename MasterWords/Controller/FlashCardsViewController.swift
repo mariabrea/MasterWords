@@ -32,7 +32,7 @@ class FlashCardsViewController: UIViewController {
     //variable needed to play sound
     var audioPlayer : AVAudioPlayer!
     let correctAnswerSoundFileName : String = "38798943_correct-answer-bell-gliss-01"
-    let wrongAnswerSoundFileName : String = "38806077_wrong-answer-bong-spring-01"
+    let wrongAnswerSoundFileName : String = "43162713_comical-rubber-squeak-01"
     let soundFileExtension : String = "wav"
 
     
@@ -97,10 +97,10 @@ class FlashCardsViewController: UIViewController {
    
     //MARK: - Navigation Methods
     
-    @IBAction func happyButtonTapped(_ sender: UIButton) {
-        cardView.reloadData()
-        //happyButton.isEnabled = false
-    }
+//    @IBAction func happyButtonTapped(_ sender: UIButton) {
+//        cardView.reloadData()
+//        //happyButton.isEnabled = false
+//    }
     
     
     
@@ -141,6 +141,9 @@ class FlashCardsViewController: UIViewController {
     @IBAction func cancelButtonTapped(_ sender: UIButton) {
         popupView.alpha = 0
         repeatWrongButton.isHidden = false
+        
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "loadGraph"), object: nil)
+        
         performSegue(withIdentifier: "unwindToLists", sender: self)
     }
     
@@ -189,6 +192,8 @@ class FlashCardsViewController: UIViewController {
     
     func loadSightWords() {
         wordsList = selectedList?.sightWords.sorted(byKeyPath: "name", ascending: true)
+        print("loadSightWords")
+        print(wordsList)
     }
     
     func updateModel(index: Int, correct : Bool) {
@@ -207,8 +212,30 @@ class FlashCardsViewController: UIViewController {
             }
         }
     }
+    
+    func updateModel2(wordName: String, correct : Bool) {
+        print("name == \(wordName)")
+        print(self.wordsList as Any)
+        if let word = self.wordsList?.filter("name == %@", wordName).first {
+            
+            do{
+                try self.realm.write {
+                    if correct {
+                        word.numberCorrect = word.numberCorrect + 1
+                    } else {
+                        word.numberWrong = word.numberWrong + 1
+                    }
+                    
+                }
+            } catch {
+                print("Error updating word numbers \(error)")
+            }
+        }
+    }
 
 }
+
+//******Koloda Methods**********//
 
 extension FlashCardsViewController: KolodaViewDelegate {
     
@@ -236,7 +263,8 @@ extension FlashCardsViewController: KolodaViewDelegate {
             playSound(soundFileName: wrongAnswerSoundFileName, soundFileExtension: soundFileExtension)
             numberWrong += 1
             sadLabel.text = String(numberWrong)
-            updateModel(index: listWordsToPractice[index].index, correct : false)
+//            updateModel(index: listWordsToPractice[index].index, correct : false)
+            updateModel2(wordName: listWordsToPractice[index].name, correct : false)
             listWordsWrong.append(listWordsToPractice[index])
             
         } else {
@@ -244,7 +272,8 @@ extension FlashCardsViewController: KolodaViewDelegate {
             playSound(soundFileName: correctAnswerSoundFileName, soundFileExtension: soundFileExtension)
             numberCorrect += 1
             happyLabel.text = String(numberCorrect)
-            updateModel(index: listWordsToPractice[index].index, correct : true)
+//            updateModel(index: listWordsToPractice[index].index, correct : true)
+            updateModel2(wordName: listWordsToPractice[index].name, correct : true)
         }
     }
 }

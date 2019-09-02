@@ -13,7 +13,7 @@ import ChameleonFramework
 class SingleListEditViewController: SwipeTableViewController {
     
     let realm = try! Realm()
-    
+  
     var wordsList : Results<SightWord>?
     
     var selectedUser : String = ""
@@ -39,7 +39,7 @@ class SingleListEditViewController: SwipeTableViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
-                
+
     }
 
     
@@ -151,7 +151,8 @@ class SingleListEditViewController: SwipeTableViewController {
                     try self.realm.write {
                         let newWord = SightWord()
                         newWord.name = textField.text!
-                        newWord.index = currentList.sightWords.count
+//                        newWord.index = currentList.sightWords.count
+                        newWord.index = 0
                         newWord.userName = self.selectedUser
                         currentList.sightWords.append(newWord)
                     }
@@ -193,32 +194,5 @@ class SingleListEditViewController: SwipeTableViewController {
 
     }
 
-//
-//}
-
-//MARK: - Search Bar Methods
-//extension TodoListViewController: UISearchBarDelegate{
-//    
-//    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-//        
-//        todoItems = todoItems?.filter("title CONTAINS[cd] %@", searchBar.text!).sorted(byKeyPath: "dateCreated", ascending: true)
-//        
-//        tableView.reloadData()
-//        
-//    }
-//    
-//    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-//        
-//        //no search text
-//        if searchBar.text?.count == 0 {
-//            loadItems() // we fetch all the items
-//            
-//            DispatchQueue.main.async {
-//                //the search bar stops being first responder-> the keyboard dessapears and the cursor desappears from the search bar
-//                searchBar.resignFirstResponder()
-//            }
-//        }
-//    }
-//    
     
 }

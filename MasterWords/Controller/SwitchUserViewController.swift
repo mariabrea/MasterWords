@@ -12,6 +12,7 @@ import ChameleonFramework
 
 class SwitchUserViewController: UIViewController {
 
+    @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var logoutButton: UIButton!
     
     let realm = try! Realm()
@@ -38,6 +39,7 @@ class SwitchUserViewController: UIViewController {
 
     func updateUI() {
         
+        nameLabel.text = selectedUser?.name
 //        logoutButton.layer.borderColor = FlatPlum().cgColor
 //        logoutButton.layer.borderWidth = 1
 //        logoutButton.layer.cornerRadius = 5
