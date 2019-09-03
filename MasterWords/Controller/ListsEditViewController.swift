@@ -44,6 +44,10 @@ class ListsEditViewController: SwipeTableViewController{
 
     }
     
+    //set the text of status bar light
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
     
     //MARK: Tableview Datasource Methods
     

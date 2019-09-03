@@ -9,7 +9,7 @@
 
     import UIKit
     import RealmSwift
-    import ChameleonFramework
+//    import ChameleonFramework
 
     class UserEditViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate {
         
@@ -47,6 +47,11 @@
             
             updateUI()
             
+        }
+        
+        //set the text of status bar light
+        override var preferredStatusBarStyle: UIStatusBarStyle {
+            return .lightContent
         }
         
 //***********Picker View Methods*******************//

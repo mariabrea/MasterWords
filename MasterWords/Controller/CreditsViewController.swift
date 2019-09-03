@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import ChameleonFramework
+//import ChameleonFramework
 
 class CreditsViewController: UIViewController {
 
@@ -20,6 +20,8 @@ class CreditsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        UIApplication.shared.statusBarView?.backgroundColor = UIColor.white
+        
         updateUI()
         
     }

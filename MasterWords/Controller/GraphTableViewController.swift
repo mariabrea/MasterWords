@@ -8,7 +8,7 @@
 
 import UIKit
 import RealmSwift
-import ChameleonFramework
+//import ChameleonFramework
 
 class GraphTableViewCell: UITableViewCell {
     @IBOutlet weak var wordLabel: UILabel!
@@ -61,9 +61,11 @@ class GraphTableViewController: UITableViewController {
         self.tableView.reloadData()
     }
     
-    override var prefersStatusBarHidden: Bool {
-        return true
+    //set the text of status bar light
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
     }
+    
     //MARK: - Database Methods
     
     func loadWords(){

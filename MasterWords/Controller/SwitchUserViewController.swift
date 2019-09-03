@@ -8,7 +8,7 @@
 
 import UIKit
 import RealmSwift
-import ChameleonFramework
+//import ChameleonFramework
 
 class SwitchUserViewController: UIViewController {
 
@@ -34,7 +34,11 @@ class SwitchUserViewController: UIViewController {
         
     }
 
-
+    //set the text of status bar light
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
     // MARK: - Navigation
 
     func updateUI() {

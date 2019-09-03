@@ -45,7 +45,11 @@ class ListsTableViewController: UITableViewController {
         }
     }
 
-
+    //set the text of status bar light
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
     // MARK: - Table view data source
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -63,7 +67,8 @@ class ListsTableViewController: UITableViewController {
             cell.textLabel?.text  = list.name
             guard let listColor = UIColor(hexString: list.color) else {fatalError()}
             cell.backgroundColor = listColor
-            cell.textLabel?.textColor = ContrastColorOf(listColor, returnFlat: true)
+//            cell.textLabel?.textColor = ContrastColorOf(listColor, returnFlat: true)
+            cell.textLabel?.textColor = UIColor.init(contrastingBlackOrWhiteColorOn: listColor, isFlat: true)
             
         }
         

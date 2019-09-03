@@ -8,7 +8,7 @@
 
 import UIKit
 import RealmSwift
-import ChameleonFramework
+//import ChameleonFramework
 import Koloda
 import AVFoundation
 
@@ -66,24 +66,24 @@ class FlashCardsViewController: UIViewController {
         super.viewDidLoad()
         
         sadButton.setImage(UIImage(named: "sadFace") , for: .normal)
-        sadButton.tintColor = FlatRed()
+        sadButton.tintColor = UIColor.flatRed
         happyButton.setImage(UIImage(named: "happyFace") , for: .normal)
-        happyButton.tintColor = FlatLimeDark()
+        happyButton.tintColor = UIColor.flatLime
         
         popupView.alpha = 0
-        popupView.layer.borderColor = FlatPlum().cgColor
+        popupView.layer.borderColor = UIColor.flatPlum.cgColor
         popupView.layer.borderWidth = 1
         
         popupTitle.layer.borderWidth = 1
-        popupTitle.layer.borderColor = FlatPlum().cgColor
+        popupTitle.layer.borderColor = UIColor.flatPlum.cgColor
         
         repeatAllButton.layer.borderWidth = 1
-        repeatAllButton.layer.borderColor = FlatPlum().cgColor
+        repeatAllButton.layer.borderColor = UIColor.flatPlum.cgColor
         repeatAllButton.layer.maskedCorners = [.layerMinXMaxYCorner]
         repeatWrongButton.layer.borderWidth = 1
-        repeatWrongButton.layer.borderColor = FlatPlum().cgColor
+        repeatWrongButton.layer.borderColor = UIColor.flatPlum.cgColor
         cancelButton.layer.borderWidth = 1
-        cancelButton.layer.borderColor = FlatPlum().cgColor
+        cancelButton.layer.borderColor = UIColor.flatPlum.cgColor
         
         
         if let numberWordsToPractice = wordsList?.count {
@@ -94,6 +94,10 @@ class FlashCardsViewController: UIViewController {
 
     }
     
+    //set the text of status bar light
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
    
     //MARK: - Navigation Methods
     
@@ -193,7 +197,7 @@ class FlashCardsViewController: UIViewController {
     func loadSightWords() {
         wordsList = selectedList?.sightWords.sorted(byKeyPath: "name", ascending: true)
         print("loadSightWords")
-        print(wordsList)
+//        print(wordsList)
     }
     
     func updateModel(index: Int, correct : Bool) {
@@ -296,7 +300,8 @@ extension FlashCardsViewController: KolodaViewDataSource {
         
         let sightWordLabel = UILabel(frame: CGRect(x: 0 , y: (view.frame.height - 100)/2, width: view.frame.width, height: 100))
         sightWordLabel.textAlignment = .center
-        sightWordLabel.textColor = ContrastColorOf(view.backgroundColor!, returnFlat: true)
+//        sightWordLabel.textColor = ContrastColorOf(view.backgroundColor!, returnFlat: true)
+        sightWordLabel.textColor = UIColor.init(contrastingBlackOrWhiteColorOn: view.backgroundColor!, isFlat: true)
         sightWordLabel.text = listWordsToPractice[index].name
         sightWordLabel.font = UIFont (name: "GelPenHeavy", size: 80)
         view.addSubview(sightWordLabel)

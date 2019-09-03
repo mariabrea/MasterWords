@@ -8,7 +8,7 @@
 
 import UIKit
 import RealmSwift
-import ChameleonFramework
+//import ChameleonFramework
 
 class UsersViewController: UIViewController {
 
@@ -60,6 +60,11 @@ class UsersViewController: UIViewController {
         
     }
 
+    //set the text of status bar light
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
     //MARK: - Database Methods
     func loadUsers(){
         
@@ -104,11 +109,11 @@ class UsersViewController: UIViewController {
     
     func updateUI() {
         
-        titleLabel.textColor = FlatPlum()
+        titleLabel.textColor = #colorLiteral(red: 0.2862745098, green: 0.1411764706, blue: 0.3058823529, alpha: 1)
         user1Label.text = users![0].name
-        user1Label.textColor = FlatPlum()
+        user1Label.textColor = #colorLiteral(red: 0.2862745098, green: 0.1411764706, blue: 0.3058823529, alpha: 1)
         user2Label.text = users![1].name
-        user2Label.textColor = FlatPlum()
+        user2Label.textColor = #colorLiteral(red: 0.2862745098, green: 0.1411764706, blue: 0.3058823529, alpha: 1)
         user1Button.setImage(UIImage(named: users![0].avatar), for: .normal)
         user2Button.setImage(UIImage(named: users![1].avatar), for: .normal)
         

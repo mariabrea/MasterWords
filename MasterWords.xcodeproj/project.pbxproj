@@ -16,6 +16,8 @@
 		C12F01F423180EAD00596D25 /* CreditsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12F01F323180EAD00596D25 /* CreditsViewController.swift */; };
 		C12F01F6231821F100596D25 /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12F01F5231821F100596D25 /* RoundedButton.swift */; };
 		C12F01F82319885D00596D25 /* 43162713_comical-rubber-squeak-01.wav in Resources */ = {isa = PBXBuildFile; fileRef = C12F01F72319885A00596D25 /* 43162713_comical-rubber-squeak-01.wav */; };
+		C12F0240231EBC4A00596D25 /* ListsNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12F023F231EBC4A00596D25 /* ListsNavigationController.swift */; };
+		C12F0242231EBDA000596D25 /* FlashCardsNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12F0241231EBDA000596D25 /* FlashCardsNavigationController.swift */; };
 		C1344A44231573D800BEB28C /* UserEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1344A43231573D800BEB28C /* UserEditViewController.swift */; };
 		C16182CE20606EF60025E6D1 /* 38798943_correct-answer-bell-gliss-01.wav in Resources */ = {isa = PBXBuildFile; fileRef = C16182CD20606EF60025E6D1 /* 38798943_correct-answer-bell-gliss-01.wav */; };
 		C16182D020606F070025E6D1 /* 38806077_wrong-answer-bong-spring-01.wav in Resources */ = {isa = PBXBuildFile; fileRef = C16182CF20606F070025E6D1 /* 38806077_wrong-answer-bong-spring-01.wav */; };
@@ -48,6 +50,8 @@
 		C12F01F323180EAD00596D25 /* CreditsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditsViewController.swift; sourceTree = "<group>"; };
 		C12F01F5231821F100596D25 /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 		C12F01F72319885A00596D25 /* 43162713_comical-rubber-squeak-01.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "43162713_comical-rubber-squeak-01.wav"; sourceTree = "<group>"; };
+		C12F023F231EBC4A00596D25 /* ListsNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListsNavigationController.swift; sourceTree = "<group>"; };
+		C12F0241231EBDA000596D25 /* FlashCardsNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashCardsNavigationController.swift; sourceTree = "<group>"; };
 		C1344A43231573D800BEB28C /* UserEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserEditViewController.swift; sourceTree = "<group>"; };
 		C16182CD20606EF60025E6D1 /* 38798943_correct-answer-bell-gliss-01.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "38798943_correct-answer-bell-gliss-01.wav"; sourceTree = "<group>"; };
 		C16182CF20606F070025E6D1 /* 38806077_wrong-answer-bong-spring-01.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "38806077_wrong-answer-bong-spring-01.wav"; sourceTree = "<group>"; };
@@ -168,6 +172,8 @@
 				C19974992316D8B7006467ED /* TextFieldMaxLengths.swift */,
 				C12F01F323180EAD00596D25 /* CreditsViewController.swift */,
 				C12F01F5231821F100596D25 /* RoundedButton.swift */,
+				C12F023F231EBC4A00596D25 /* ListsNavigationController.swift */,
+				C12F0241231EBDA000596D25 /* FlashCardsNavigationController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -203,7 +209,6 @@
 				C1E94DD52058336C0077F6EB /* Frameworks */,
 				C1E94DD62058336C0077F6EB /* Resources */,
 				C4912B80AC1ABBD6EC0A72F7 /* [CP] Embed Pods Frameworks */,
-				83AC89C54CB17DDD017C460C /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -286,28 +291,13 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		83AC89C54CB17DDD017C460C /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MasterWords/Pods-MasterWords-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		C4912B80AC1ABBD6EC0A72F7 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-MasterWords/Pods-MasterWords-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-MasterWords/Pods-MasterWords-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/ChameleonFramework/ChameleonFramework.framework",
 				"${BUILT_PRODUCTS_DIR}/Koloda/Koloda.framework",
 				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
@@ -326,7 +316,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MasterWords/Pods-MasterWords-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MasterWords/Pods-MasterWords-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -337,10 +327,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				C1344A44231573D800BEB28C /* UserEditViewController.swift in Sources */,
+				C12F0240231EBC4A00596D25 /* ListsNavigationController.swift in Sources */,
 				C12293B02062BE820080A810 /* User.swift in Sources */,
 				C16182D3206075070025E6D1 /* GraphTableViewController.swift in Sources */,
 				C12293AE2062BB3F0080A810 /* UsersViewController.swift in Sources */,
 				C12293B22062CDA00080A810 /* SwitchUserViewController.swift in Sources */,
+				C12F0242231EBDA000596D25 /* FlashCardsNavigationController.swift in Sources */,
 				C17D56F620588E4700210586 /* SightWord.swift in Sources */,
 				C12F01F423180EAD00596D25 /* CreditsViewController.swift in Sources */,
 				C1AE3BAD20583E11005FA6A1 /* SightWordsList.swift in Sources */,

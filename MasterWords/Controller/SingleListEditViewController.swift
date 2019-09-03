@@ -42,7 +42,10 @@ class SingleListEditViewController: SwipeTableViewController {
 
     }
 
-    
+    //set the text of status bar light
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
     
     //MARK: NavBar Setup Methods
     
@@ -65,7 +68,8 @@ class SingleListEditViewController: SwipeTableViewController {
                 cell.backgroundColor = UIColor(hexString: selectedList!.color)?.lighten(byPercentage:0.1)
             }
             
-            cell.textLabel?.textColor = ContrastColorOf(cell.backgroundColor!, returnFlat: true)
+//            cell.textLabel?.textColor = ContrastColorOf(cell.backgroundColor!, returnFlat: true)
+            cell.textLabel?.textColor = UIColor.init(contrastingBlackOrWhiteColorOn: cell.backgroundColor!, isFlat: true)
             
         } else {
             cell.textLabel?.text = "No words added"

@@ -16,6 +16,11 @@ class SwipeTableViewController: UITableViewController, SwipeTableViewCellDelegat
         
     }
     
+    //set the text of status bar light
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
     //tableview datasource methods
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
