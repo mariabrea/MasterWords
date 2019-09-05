@@ -11,8 +11,9 @@ import RealmSwift
 //import ChameleonFramework
 import Koloda
 import AVFoundation
+import MaterialShowcase
 
-class FlashCardsViewController: UIViewController {
+class FlashCardsViewController: UIViewController, MaterialShowcaseDelegate {
 
     
     
@@ -53,6 +54,12 @@ class FlashCardsViewController: UIViewController {
         }
     }
     
+    let sequenceShowcases = MaterialShowcaseSequence()
+    let showcaseSightWordCard = MaterialShowcase()
+    let showcaseSadFace = MaterialShowcase()
+    let showcaseHappyFace = MaterialShowcase()
+    
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
         
@@ -64,6 +71,11 @@ class FlashCardsViewController: UIViewController {
     override func viewDidLoad(){
         
         super.viewDidLoad()
+        
+        let helpButton = UIBarButtonItem(image: UIImage(named: "iconHelp"), style: .plain, target: self, action: #selector(startShowcase))
+        helpButton.tintColor = .white
+        self.navigationItem.rightBarButtonItem = helpButton
+        
         
         sadButton.setImage(UIImage(named: "sadFace") , for: .normal)
         sadButton.tintColor = UIColor.flatRed
@@ -99,14 +111,40 @@ class FlashCardsViewController: UIViewController {
         return .lightContent
     }
    
-    //MARK: - Navigation Methods
+    //MARK: Navigation Methods
     
-//    @IBAction func happyButtonTapped(_ sender: UIButton) {
-//        cardView.reloadData()
-//        //happyButton.isEnabled = false
-//    }
+    @objc func startShowcase() {
+        
+        showcaseSightWordCard.setTargetView(view: cardView)
+        showcaseSightWordCard.primaryText = "Sight word card"
+        showcaseSightWordCard.secondaryText = "Swipe to the left if the answer is wrong.\nSwipe it to the right if the answer is right."
+        
+        designShowcase(showcase: showcaseSightWordCard)
+        showcaseSightWordCard.delegate = self
+        
+        showcaseSadFace.setTargetView(view: sadButton)
+        showcaseSadFace.primaryText = "Sad face"
+        showcaseSadFace.secondaryText = "Number of wrong answers."
+        
+        designShowcase(showcase: showcaseSadFace)
+        showcaseSadFace.delegate = self
+        
+        showcaseHappyFace.setTargetView(view: happyButton)
+        showcaseHappyFace.primaryText = "Happy face"
+        showcaseHappyFace.secondaryText = "Number of right answers"
+        
+        designShowcase(showcase: showcaseHappyFace)
+        showcaseHappyFace.delegate = self
+        
+            sequenceShowcases.temp(showcaseSightWordCard).temp(showcaseSadFace).temp(showcaseHappyFace).start()
+        
+    }
     
+    func showCaseDidDismiss(showcase: MaterialShowcase, didTapTarget: Bool) {
+        sequenceShowcases.showCaseWillDismis()
+    }
     
+    //MARK: - IBAction Methods
     
     @IBAction func repeatAllButtonTapped(_ sender: UIButton) {
         repeatWrongButton.isHidden = false
@@ -122,7 +160,6 @@ class FlashCardsViewController: UIViewController {
             }
         }
 
-        
         cardView.resetCurrentCardIndex()
     }
     
@@ -150,7 +187,7 @@ class FlashCardsViewController: UIViewController {
         
         performSegue(withIdentifier: "unwindToLists", sender: self)
     }
-    
+
     func resetCounters() {
         numberWrong = 0
         numberCorrect = 0
@@ -192,6 +229,7 @@ class FlashCardsViewController: UIViewController {
         audioPlayer.play()
         
     }
+    
     //MARK: - Database Methods
     
     func loadSightWords() {
@@ -239,7 +277,7 @@ class FlashCardsViewController: UIViewController {
 
 }
 
-//******Koloda Methods**********//
+//MARK: Koloda Methods
 
 extension FlashCardsViewController: KolodaViewDelegate {
     
@@ -249,16 +287,11 @@ extension FlashCardsViewController: KolodaViewDelegate {
         cardView = koloda
         
         hangPopup()
-        
-        //koloda.reloadData()
-        
-//        if listWordsToPractice.count > 0 {
-//            happyButton.isEnabled = true
-//        }
+
     }
     
     func koloda(_ koloda: KolodaView, didSelectCardAt index: Int) {
-        //UIApplication.shared.openURL(URL(string: "https://yalantis.com/")!)
+
     }
     
     func koloda(_ koloda: KolodaView, didSwipeCardAt index: Int, in direction: SwipeResultDirection) {
@@ -267,7 +300,6 @@ extension FlashCardsViewController: KolodaViewDelegate {
             playSound(soundFileName: wrongAnswerSoundFileName, soundFileExtension: soundFileExtension)
             numberWrong += 1
             sadLabel.text = String(numberWrong)
-//            updateModel(index: listWordsToPractice[index].index, correct : false)
             updateModel2(wordName: listWordsToPractice[index].name, correct : false)
             listWordsWrong.append(listWordsToPractice[index])
             
@@ -276,7 +308,6 @@ extension FlashCardsViewController: KolodaViewDelegate {
             playSound(soundFileName: correctAnswerSoundFileName, soundFileExtension: soundFileExtension)
             numberCorrect += 1
             happyLabel.text = String(numberCorrect)
-//            updateModel(index: listWordsToPractice[index].index, correct : true)
             updateModel2(wordName: listWordsToPractice[index].name, correct : true)
         }
     }
@@ -300,7 +331,6 @@ extension FlashCardsViewController: KolodaViewDataSource {
         
         let sightWordLabel = UILabel(frame: CGRect(x: 0 , y: (view.frame.height - 100)/2, width: view.frame.width, height: 100))
         sightWordLabel.textAlignment = .center
-//        sightWordLabel.textColor = ContrastColorOf(view.backgroundColor!, returnFlat: true)
         sightWordLabel.textColor = UIColor.init(contrastingBlackOrWhiteColorOn: view.backgroundColor!, isFlat: true)
         sightWordLabel.text = listWordsToPractice[index].name
         sightWordLabel.font = UIFont (name: "GelPenHeavy", size: 80)

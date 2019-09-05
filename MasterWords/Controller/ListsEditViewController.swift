@@ -9,10 +9,13 @@
 import UIKit
 import RealmSwift
 import ChameleonFramework
+import MaterialShowcase
 
-class ListsEditViewController: SwipeTableViewController{
+class ListsEditViewController: SwipeTableViewController, MaterialShowcaseDelegate{
 
     @IBOutlet weak var addButton: UIBarButtonItem!
+    
+    @IBOutlet weak var helpButton: UIBarButtonItem!
     
     let realm = try! Realm()
     
@@ -23,6 +26,10 @@ class ListsEditViewController: SwipeTableViewController{
             loadLists()
         }
     }
+    
+    let sequenceShowcases = MaterialShowcaseSequence()
+    let showcaseAddButton = MaterialShowcase()
+    let showcaseListRow = MaterialShowcase()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -109,10 +116,6 @@ class ListsEditViewController: SwipeTableViewController{
         
         lists = selectedUser?.userLists.sorted(byKeyPath: "name", ascending: true)
         
-//        let predicate = NSPredicate(format: "parentUser.name = %@", (selectedUser?.name)!)
-//        lists = realm.objects(SightWordsList.self).filter(predicate).sorted(byKeyPath: "name", ascending: true)
-//        //lists = realm.objects(SightWordsList.self).sorted(byKeyPath: "name", ascending: true)
-        
         tableView.reloadData()
         
     }
@@ -169,13 +172,44 @@ class ListsEditViewController: SwipeTableViewController{
 
         }
         
+    }
+    
+    //MARK: Navigation Methods
+    
+    func startShowcase() {
+        
+        showcaseAddButton.setTargetView(barButtonItem: addButton)
+        showcaseAddButton.primaryText = "Add Button"
+        showcaseAddButton.secondaryText = "Click here to create a new list of sight words"
+        
+        designShowcase(showcase: showcaseAddButton)
+        showcaseAddButton.delegate = self
+        
+        if (lists?.count)! > 0 {
+            
+            showcaseListRow.setTargetView(tableView: tableView, section: 0, row: 0)
+            showcaseListRow.primaryText = "List of sight words"
+            showcaseListRow.secondaryText = "Tap on it to see the sight words.\nSwipe it to the left to Edit or Delete the list."
+            
+            designShowcase(showcase: showcaseListRow)
+            showcaseListRow.delegate = self
+            sequenceShowcases.temp(showcaseAddButton).temp(showcaseListRow).start()
+            
+        } else {
+            showcaseAddButton.show {
+                
+            }
+        }
         
     }
-    //MARK - Add new items
     
-//    @IBAction func refreshButtonTapped(_ sender: UIBarButtonItem) {
-//        tableView.reloadData()
-//    }
+    //MARK: Material Showcase Delegate Methods
+    
+    func showCaseDidDismiss(showcase: MaterialShowcase, didTapTarget: Bool) {
+        sequenceShowcases.showCaseWillDismis()
+    }
+    
+    //MARK - IBAction Methods
     
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
 
@@ -184,11 +218,6 @@ class ListsEditViewController: SwipeTableViewController{
         let alert = UIAlertController(title: "New List", message: "", preferredStyle: .alert)
 
         let addAction = UIAlertAction(title: "Add List", style: .default) { (action) in
-            
-            //we create a new object of type Item of the dstabase, and we fill its attributes
-//            let newList = SightWordsList()
-//            newList.name = textField.text!
-//            newList.color = UIColor.randomFlat.hexValue()
             
             if let currentUser = self.selectedUser {
                 //print("user \(self.selectedUser?.name)")
@@ -204,8 +233,6 @@ class ListsEditViewController: SwipeTableViewController{
                 }
                 
             }
-            
-            //self.save(list : newList)
 
             self.tableView.reloadData()
             //notify to NotificacionCenter when data has changed
@@ -229,5 +256,12 @@ class ListsEditViewController: SwipeTableViewController{
         present(alert, animated: true, completion: nil)
 
     }
+    
+    @IBAction func helpButtonTapped(_ sender: UIBarButtonItem) {
+        
+        startShowcase()
+        
+    }
+    
 }
 

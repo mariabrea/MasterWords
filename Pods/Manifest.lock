@@ -4,6 +4,7 @@ PODS:
     - ChameleonFramework/Default
   - Koloda (5.0):
     - pop (~> 1.0)
+  - MaterialShowcase (0.6.6)
   - pop (1.0.12)
   - Realm (3.17.3):
     - Realm/Headers (= 3.17.3)
@@ -15,12 +16,14 @@ PODS:
 DEPENDENCIES:
   - ChameleonFramework/Swift (from `https://github.com/ykws/Chameleon.git`, branch `develop`)
   - Koloda (~> 5.0)
+  - MaterialShowcase
   - RealmSwift
   - SwipeCellKit (= 2.5.4)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Koloda
+    - MaterialShowcase
     - pop
     - Realm
     - RealmSwift
@@ -39,11 +42,12 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   ChameleonFramework: d21a3cc247abfe5e37609a283a8238b03575cf64
   Koloda: 75302d21882cc3e274c1561b1155805ea5919dab
+  MaterialShowcase: 6209b47731e87855cbd19d6a1b04f38672fd3440
   pop: d582054913807fd11fd50bfe6a539d91c7e1a55a
   Realm: 5a1d9d47bfc101dd597668b1a8af4288a2557f6d
   RealmSwift: b7fdc2d18616621c31df5c7a398a45a2163f8eb0
   SwipeCellKit: 4eada3884ab1bbae5e8d2fb9030c242aa23d7f42
 
-PODFILE CHECKSUM: 510b21793de393a6d891cdba43ac140ef20d5b50
+PODFILE CHECKSUM: 86e273d1a099888fd8b485642c044ee473a1f9a1
 
 COCOAPODS: 1.7.5

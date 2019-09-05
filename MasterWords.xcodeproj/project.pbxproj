@@ -18,6 +18,7 @@
 		C12F01F82319885D00596D25 /* 43162713_comical-rubber-squeak-01.wav in Resources */ = {isa = PBXBuildFile; fileRef = C12F01F72319885A00596D25 /* 43162713_comical-rubber-squeak-01.wav */; };
 		C12F0240231EBC4A00596D25 /* ListsNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12F023F231EBC4A00596D25 /* ListsNavigationController.swift */; };
 		C12F0242231EBDA000596D25 /* FlashCardsNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12F0241231EBDA000596D25 /* FlashCardsNavigationController.swift */; };
+		C12F02442320132200596D25 /* ShowcaseFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12F02432320132200596D25 /* ShowcaseFunctions.swift */; };
 		C1344A44231573D800BEB28C /* UserEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1344A43231573D800BEB28C /* UserEditViewController.swift */; };
 		C16182CE20606EF60025E6D1 /* 38798943_correct-answer-bell-gliss-01.wav in Resources */ = {isa = PBXBuildFile; fileRef = C16182CD20606EF60025E6D1 /* 38798943_correct-answer-bell-gliss-01.wav */; };
 		C16182D020606F070025E6D1 /* 38806077_wrong-answer-bong-spring-01.wav in Resources */ = {isa = PBXBuildFile; fileRef = C16182CF20606F070025E6D1 /* 38806077_wrong-answer-bong-spring-01.wav */; };
@@ -52,6 +53,7 @@
 		C12F01F72319885A00596D25 /* 43162713_comical-rubber-squeak-01.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "43162713_comical-rubber-squeak-01.wav"; sourceTree = "<group>"; };
 		C12F023F231EBC4A00596D25 /* ListsNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListsNavigationController.swift; sourceTree = "<group>"; };
 		C12F0241231EBDA000596D25 /* FlashCardsNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashCardsNavigationController.swift; sourceTree = "<group>"; };
+		C12F02432320132200596D25 /* ShowcaseFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowcaseFunctions.swift; sourceTree = "<group>"; };
 		C1344A43231573D800BEB28C /* UserEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserEditViewController.swift; sourceTree = "<group>"; };
 		C16182CD20606EF60025E6D1 /* 38798943_correct-answer-bell-gliss-01.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "38798943_correct-answer-bell-gliss-01.wav"; sourceTree = "<group>"; };
 		C16182CF20606F070025E6D1 /* 38806077_wrong-answer-bong-spring-01.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "38806077_wrong-answer-bong-spring-01.wav"; sourceTree = "<group>"; };
@@ -174,6 +176,7 @@
 				C12F01F5231821F100596D25 /* RoundedButton.swift */,
 				C12F023F231EBC4A00596D25 /* ListsNavigationController.swift */,
 				C12F0241231EBDA000596D25 /* FlashCardsNavigationController.swift */,
+				C12F02432320132200596D25 /* ShowcaseFunctions.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -300,6 +303,7 @@
 				"${PODS_ROOT}/Target Support Files/Pods-MasterWords/Pods-MasterWords-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/ChameleonFramework/ChameleonFramework.framework",
 				"${BUILT_PRODUCTS_DIR}/Koloda/Koloda.framework",
+				"${BUILT_PRODUCTS_DIR}/MaterialShowcase/MaterialShowcase.framework",
 				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
 				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/SwipeCellKit/SwipeCellKit.framework",
@@ -309,6 +313,7 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ChameleonFramework.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Koloda.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MaterialShowcase.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwipeCellKit.framework",
@@ -335,6 +340,7 @@
 				C12F0242231EBDA000596D25 /* FlashCardsNavigationController.swift in Sources */,
 				C17D56F620588E4700210586 /* SightWord.swift in Sources */,
 				C12F01F423180EAD00596D25 /* CreditsViewController.swift in Sources */,
+				C12F02442320132200596D25 /* ShowcaseFunctions.swift in Sources */,
 				C1AE3BAD20583E11005FA6A1 /* SightWordsList.swift in Sources */,
 				C178747E205AB89400C01B71 /* FlashCardsViewController.swift in Sources */,
 				C199749A2316D8B7006467ED /* TextFieldMaxLengths.swift in Sources */,

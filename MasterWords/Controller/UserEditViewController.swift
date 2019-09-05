@@ -9,11 +9,9 @@
 
     import UIKit
     import RealmSwift
-//    import ChameleonFramework
+    import MaterialShowcase
 
-    class UserEditViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate {
-        
-//        @IBOutlet weak var logoutButton: UIButton!
+    class UserEditViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate, MaterialShowcaseDelegate {
         
         @IBOutlet weak var nameBarLabel: UILabel!
         @IBOutlet weak var nameLabel: UILabel!
@@ -23,12 +21,11 @@
         @IBOutlet weak var cancelButton: UIButton!
         @IBOutlet weak var imagePickerView: UIPickerView!
         @IBOutlet weak var avatarButton: UIButton!
+        @IBOutlet weak var helpButton: UIButton!
         
         let userImages = ["Cool", "Crying", "Drooling", "Grumpy", "Happy", "Mad", "Scared", "Sick", "Silly", "Sleepy", "Smily"]
         let realm = try! Realm()
         
-//        var lists : Results<SightWordsList>?
-//        var words : Results<SightWord>?
         var wordsList : Results<SightWord>?
         
         
@@ -39,6 +36,12 @@
         }
         
         var selectedAvatarName = ""
+        
+        let sequenceShowcases = MaterialShowcaseSequence()
+        let showcaseNameTextField = MaterialShowcase()
+        let showcaseImageAvatar = MaterialShowcase()
+        let showcaseSaveButton = MaterialShowcase()
+        let showcaseCancelButton = MaterialShowcase()
         
         override func viewDidLoad() {
             super.viewDidLoad()
@@ -54,7 +57,7 @@
             return .lightContent
         }
         
-//***********Picker View Methods*******************//
+        //MARK: Picker View Methods
         
         // Sets number of columns in picker view
         func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -113,7 +116,7 @@
         }
         
         
-        //DB Methods
+        //MARK: DB Methods
         
         func updateUser() {
             
@@ -155,7 +158,50 @@
         
         //MARK: - Navigation Methods
         
+        func startShowcase() {
+            
+            showcaseNameTextField.setTargetView(view: nameTextField)
+            showcaseNameTextField.primaryText = "Name of the user"
+            showcaseNameTextField.secondaryText = "Write the name of the user you chose."
+            
+            designShowcase(showcase: showcaseNameTextField, sizeHolder: "big")
+            showcaseNameTextField.delegate = self
+            
+            showcaseImageAvatar.setTargetView(view: avatarButton)
+            showcaseImageAvatar.primaryText = "Image of the user"
+            showcaseImageAvatar.secondaryText = "Click here to select an image for the user."
+            
+            designShowcase(showcase: showcaseImageAvatar, sizeHolder: "big")
+            showcaseImageAvatar.delegate = self
+            
+            showcaseSaveButton.setTargetView(view: saveButton)
+            showcaseSaveButton.primaryText = "Save Button"
+            showcaseSaveButton.secondaryText = "click here to save the changes made."
+            
+            designShowcase(showcase: showcaseSaveButton, sizeHolder: "big")
+            showcaseSaveButton.delegate = self
+            
+            showcaseCancelButton.setTargetView(view: cancelButton)
+            showcaseCancelButton.primaryText = "Cancel Button"
+            showcaseCancelButton.secondaryText = "Click here to cancel all the changes."
+            
+            designShowcase(showcase: showcaseCancelButton, sizeHolder: "big")
+            showcaseCancelButton.delegate = self
+            sequenceShowcases.temp(showcaseNameTextField).temp(showcaseImageAvatar).temp(showcaseSaveButton).temp(showcaseCancelButton).start()
+  
+        }
+        
+        
+        func showCaseDidDismiss(showcase: MaterialShowcase, didTapTarget: Bool) {
+            sequenceShowcases.showCaseWillDismis()
+        }
+        
         func updateUI() {
+            
+            let helpImage = UIImage(named: "iconHelp")
+            let helpImageTinted = helpImage?.withRenderingMode(.alwaysTemplate)
+            helpButton.setImage(helpImageTinted, for: .normal)
+            helpButton.tintColor = UIColor.white
             
             nameBarLabel.text = selectedUser?.name
             
@@ -166,6 +212,7 @@
             
         }
         
+        //MARK: IBAction Methods
         
         @IBAction func avatarButtonTapped(_ sender: UIButton) {
             imagePickerView.isHidden = false
@@ -188,7 +235,13 @@
             
         }
         
-        //UITextFieldDelegate Methods
+        @IBAction func helpButtonTapped(_ sender: UIButton) {
+            
+            startShowcase()
+            
+        }
+        
+        //MARK: UITextField Delegate Methods
         
         func textFieldShouldReturn(_ textField: UITextField) -> Bool {
             
@@ -197,8 +250,7 @@
             return true
             
         }
-        
-    
+
         func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
             
             //spaces not allowed in textfield
@@ -208,5 +260,5 @@
             return true
             
         }
-//
+
     }

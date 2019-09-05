@@ -8,7 +8,7 @@
 
 import UIKit
 import RealmSwift
-//import ChameleonFramework
+import MaterialShowcase
 
 class GraphTableViewCell: UITableViewCell {
     @IBOutlet weak var wordLabel: UILabel!
@@ -22,13 +22,14 @@ class GraphTableViewCell: UITableViewCell {
     
 }
 
-class GraphTableViewController: UITableViewController {
+class GraphTableViewController: UITableViewController, MaterialShowcaseDelegate {
 
     @IBOutlet weak var userNameLabel: UILabel!
     @IBOutlet weak var sortUpButton: UIButton!
     @IBOutlet weak var sortDownButton: UIButton!
     @IBOutlet weak var addButton: UIButton!
     @IBOutlet weak var eraseButton: UIButton!
+    @IBOutlet weak var helpButton: UIButton!
     
     let realm = try! Realm()
     
@@ -42,6 +43,13 @@ class GraphTableViewController: UITableViewController {
     }
 
     var wordsNoDuplicates = [Word]()
+    
+    let sequenceShowcases = MaterialShowcaseSequence()
+    let showcaseAddButton = MaterialShowcase()
+    let showcaseEraseButton = MaterialShowcase()
+    let showcaseSortUpButton = MaterialShowcase()
+    let showcaseSortDownButton = MaterialShowcase()
+    let showcaseResultsRow = MaterialShowcase()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -171,6 +179,9 @@ class GraphTableViewController: UITableViewController {
         
     }
     
+    
+    //MARK: - Navigation Methods
+    
     //func called to reload the data when cancel button in FlashCards is clicked
     @objc func reloadGraph(notification: NSNotification) {
         
@@ -181,12 +192,57 @@ class GraphTableViewController: UITableViewController {
         self.tableView.reloadData()
         
     }
-    
-    //MARK: - Navigation Methods
+
+    func startShowcase() {
+        
+        showcaseAddButton.setTargetView(view: addButton)
+        showcaseAddButton.primaryText = "Add Button"
+        showcaseAddButton.secondaryText = "Click here to create a new list of sight words using the list of results"
+        
+        designShowcase(showcase: showcaseAddButton)
+        
+        showcaseEraseButton.setTargetView(view: eraseButton)
+        showcaseEraseButton.primaryText = "Erase Button"
+        showcaseEraseButton.secondaryText = "Click here to erase all the results so you can start over"
+        
+        designShowcase(showcase: showcaseEraseButton)
+        
+        showcaseSortUpButton.setTargetView(view: sortUpButton)
+        showcaseSortUpButton.primaryText = "Sort Up Button"
+        showcaseSortUpButton.secondaryText = "Click here to sort the results in descending order. You can choose to sort the results by:\n\t\u{2022}Number of times the sight word was practiced.\n\t\u{2022}Percentage of wrong answers.\n\t\u{2022}Percentage of right answers."
+        
+        designShowcase(showcase: showcaseSortUpButton)
+        
+        showcaseSortDownButton.setTargetView(view: sortDownButton)
+        showcaseSortDownButton.primaryText = "Sort Down Button"
+        showcaseSortDownButton.secondaryText = "Click here to sort the results in ascending order. You can choose to sort the results by:\n\t\u{2022}Number of times the sight word was practiced.\n\t\u{2022}Percentage of wrong answers.\n\t\u{2022}Percentage of right answers."
+        
+        designShowcase(showcase: showcaseSortDownButton)
+        
+        showcaseAddButton.delegate = self
+        showcaseEraseButton.delegate = self
+        showcaseSortDownButton.delegate = self
+        showcaseSortUpButton.delegate = self
+        
+        if (words?.count)! > 0 {
+            
+            showcaseResultsRow.setTargetView(tableView: tableView, section: 0, row: 0)
+            showcaseResultsRow.primaryText = "Results of the practice of the sight word."
+            showcaseResultsRow.secondaryText = "The results are:\n\t\u{2022}The number on the left shows the number of times the sight word has been practiced.\n\t\u{2022}The green bar shows the percentage of correct answers.\n\t\u{2022}The red bar shows the percentage of wrong answers."
+            
+            designShowcase(showcase: showcaseResultsRow)
+            showcaseResultsRow.delegate = self
+            
+        sequenceShowcases.temp(showcaseAddButton).temp(showcaseEraseButton).temp(showcaseSortUpButton).temp(showcaseSortDownButton).temp(showcaseResultsRow).start()
+            
+        } else {
+            sequenceShowcases.temp(showcaseAddButton).temp(showcaseEraseButton).temp(showcaseSortUpButton).temp(showcaseSortDownButton).start()
+        }
+        
+
+    }
     
     func updateUI() {
-        
-//        tableView.insetsContentViewsToSafeArea = false
         
         tableView.rowHeight = 70
         tableView.separatorStyle = .singleLine
@@ -211,14 +267,14 @@ class GraphTableViewController: UITableViewController {
         eraseButton.tintColor = UIColor.white
         eraseButton.contentMode = .center
         
-//        refreshButton.layer.cornerRadius = 5
-//        refreshButton.layer.borderWidth = 1
-//        refreshButton.layer.borderColor = UIColor.white.cgColor
-//        let refreshImage = UIImage(named: "iconRefresh")
-//        let refreshImageTinted = refreshImage?.withRenderingMode(.alwaysTemplate)
-//        refreshButton.setImage(refreshImageTinted, for: .normal)
-//        refreshButton.tintColor = UIColor.white
-//        refreshButton.contentMode = .center
+        helpButton.layer.cornerRadius = 5
+        helpButton.layer.borderWidth = 1
+        helpButton.layer.borderColor = UIColor.white.cgColor
+        let helpImage = UIImage(named: "iconHelp")
+        let helpImageTinted = helpImage?.withRenderingMode(.alwaysTemplate)
+        helpButton.setImage(helpImageTinted, for: .normal)
+        helpButton.tintColor = UIColor.white
+        helpButton.contentMode = .center
         
         sortUpButton.layer.cornerRadius = 5
         sortUpButton.layer.borderWidth = 1
@@ -240,8 +296,18 @@ class GraphTableViewController: UITableViewController {
         
     }
 
+    //MARK: - Material Showcase Delegate Methods
+    
+    func showCaseDidDismiss(showcase: MaterialShowcase, didTapTarget: Bool) {
+        sequenceShowcases.showCaseWillDismis()
+    }
+    
+    //MARK: - IBAction Methods
+    
     @IBAction func addButtonTapped(_ sender: UIButton) {
+        
         showAddAlert()
+
     }
     
     @IBAction func eraseButtonTapped(_ sender: UIButton) {
@@ -252,12 +318,6 @@ class GraphTableViewController: UITableViewController {
         tableView.reloadData()
         
     }
-//    
-//    @IBAction func refreshButtonTapped(_ sender: UIButton) {
-//        wordsNoDuplicates.removeAll()
-//        loadWords()
-//        tableView.reloadData()
-//    }
     
     @IBAction func sortUpButtonTapped(_ sender: UIButton) {
         showSortAlert(sortUp : true)
@@ -266,6 +326,15 @@ class GraphTableViewController: UITableViewController {
     @IBAction func sortDownButtonTapped(_ sender: UIButton) {
         showSortAlert(sortUp : false)
     }
+    
+    
+    @IBAction func helpButtonTapped(_ sender: UIButton) {
+        
+        startShowcase()
+        
+    }
+    
+    //MARK: - Popup Methods
     
     func showAddAlert() {
         
@@ -384,8 +453,7 @@ class GraphTableViewController: UITableViewController {
         
     }
     
-    
-    // MARK: - Table view data source
+    // MARK: - Tableview Datasource
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return wordsNoDuplicates.count
@@ -394,35 +462,18 @@ class GraphTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "GraphCell", for: indexPath) as! GraphTableViewCell
         
-        //if let word = words?[indexPath.row]{
         let word = wordsNoDuplicates[indexPath.row]
-            
         
-            cell.wordLabel.text = word.name
-        
-//            let totalCount = word.numberWrong + word.numberCorrect
-//            var percentageCorrect : Int = 0
-//            var percentageWrong : Int = 0
-//            if totalCount > 0{
-//                percentageCorrect = Int(round((Double(word.numberCorrect)/Double(totalCount))*100))
-//                percentageWrong = 100 - percentageCorrect
-//            }
-        
-            //we update the object with the percentages values
-//            word.percentageCorrect = percentageCorrect
-//            word.percentageWrong = percentageWrong
+        cell.wordLabel.text = word.name
 
         print("\(word.name) ✅ \(word.numberCorrect) ❌ \(word.numberWrong) %correct: \(word.percentageCorrect) %wrong: \(word.percentageWrong)")
 
-            cell.correctCountLabel.text = String(word.percentageCorrect)+"%"
-            cell.wrongCountLabel.text = String(word.percentageWrong)+"%"
-            cell.totalCountLabel.text = String(word.numberTotal)
-            
-            cell.correctBar.frame.size.width = (CGFloat(word.percentageCorrect)/CGFloat(100)) * cell.barsView.frame.size.width
-            cell.wrongBar.frame.size.width = (CGFloat(word.percentageWrong)/CGFloat(100)) * cell.barsView.frame.size.width
-        
-        
-        
+        cell.correctCountLabel.text = String(word.percentageCorrect)+"%"
+        cell.wrongCountLabel.text = String(word.percentageWrong)+"%"
+        cell.totalCountLabel.text = String(word.numberTotal)
+        cell.correctBar.frame.size.width = (CGFloat(word.percentageCorrect)/CGFloat(100)) * cell.barsView.frame.size.width
+        cell.wrongBar.frame.size.width = (CGFloat(word.percentageWrong)/CGFloat(100)) * cell.barsView.frame.size.width
+
         return cell
     }
     

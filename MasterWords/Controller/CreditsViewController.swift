@@ -7,7 +7,6 @@
 //
 
 import UIKit
-//import ChameleonFramework
 
 class CreditsViewController: UIViewController {
 
@@ -25,16 +24,10 @@ class CreditsViewController: UIViewController {
         updateUI()
         
     }
-    
 
-    
-    // MARK: - Navigation
+    // MARK: - Navigation Methods
 
     func updateUI() {
-        
-//        cancelButton.layer.borderColor = FlatPlum().cgColor
-//        cancelButton.layer.borderWidth = 1
-//        cancelButton.layer.cornerRadius = 5
         
         creditsText.text = creditsTextContent
         

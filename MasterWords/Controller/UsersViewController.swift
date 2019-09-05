@@ -18,7 +18,7 @@ class UsersViewController: UIViewController {
     @IBOutlet weak var user2Label: UILabel!
     @IBOutlet weak var titleLabel: UILabel!
     
-    //CODE FOR DATABASE MIGRATION
+    // MARK: - DB Migration
     let config = Realm.Configuration(
         schemaVersion: 1,
         migrationBlock: { migration, oldSchemaVersion in
@@ -30,8 +30,6 @@ class UsersViewController: UIViewController {
     })
 
     lazy var realm = try! Realm(configuration: config)
-    
-//    let realm = try! Realm()
     
     var user : String = ""
     
@@ -66,6 +64,7 @@ class UsersViewController: UIViewController {
     }
     
     //MARK: - Database Methods
+    
     func loadUsers(){
         
         users = realm.objects(User.self).sorted(byKeyPath: "name", ascending: true)
@@ -107,6 +106,8 @@ class UsersViewController: UIViewController {
         }
     }
     
+    // MARK: - Navigation Methods
+    
     func updateUI() {
         
         titleLabel.textColor = #colorLiteral(red: 0.2862745098, green: 0.1411764706, blue: 0.3058823529, alpha: 1)
@@ -118,14 +119,13 @@ class UsersViewController: UIViewController {
         user2Button.setImage(UIImage(named: users![1].avatar), for: .normal)
         
     }
-    // MARK: - Navigation Methods
+    // MARK: - IBAction Methods
+    
     @IBAction func unwindToUsersMenu(segue: UIStoryboardSegue) {
         
         print("Segue unwindToUsersMenu performed")
         
     }
-
-    
     
     @IBAction func user1Tapped(_ sender: UIButton) {
         selectedUser = users![0]
@@ -137,12 +137,13 @@ class UsersViewController: UIViewController {
         performSegue(withIdentifier: "goToTabBarVC", sender: self)
     }
     
-    
     @IBAction func creditsButtonTapped(_ sender: UIButton) {
         
         performSegue(withIdentifier: "segueToCreditsVC", sender: self)
         
     }
+    
+    // MARK: - Segue Methods
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         

@@ -9,9 +9,12 @@
 import UIKit
 import RealmSwift
 import ChameleonFramework
+import MaterialShowcase
 
 class ListsTableViewController: UITableViewController {
 
+    @IBOutlet weak var helpButton: UIBarButtonItem!
+    
     let realm = try! Realm()
     
     
@@ -25,6 +28,8 @@ class ListsTableViewController: UITableViewController {
         }
     }
 
+    let showcaseListRow = MaterialShowcase()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -50,7 +55,7 @@ class ListsTableViewController: UITableViewController {
         return .lightContent
     }
     
-    // MARK: - Table view data source
+    // MARK: - Tableview Datasource Methods
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return lists?.count ?? 1
@@ -63,11 +68,9 @@ class ListsTableViewController: UITableViewController {
         
         if let list = lists?[indexPath.row]{
             
-            //cell.textLabel?.text  = list.name
             cell.textLabel?.text  = list.name
             guard let listColor = UIColor(hexString: list.color) else {fatalError()}
             cell.backgroundColor = listColor
-//            cell.textLabel?.textColor = ContrastColorOf(listColor, returnFlat: true)
             cell.textLabel?.textColor = UIColor.init(contrastingBlackOrWhiteColorOn: listColor, isFlat: true)
             
         }
@@ -80,13 +83,27 @@ class ListsTableViewController: UITableViewController {
         performSegue(withIdentifier: "goToFlashCardsVC", sender: self)
     }
     
-
+    //MARK: Navigation Methods
     
-    // MARK: - Navigation
-
-//    @IBAction func refreshButtonTapped(_ sender: UIBarButtonItem) {
-//        tableView.reloadData()
-//    }
+    func startShowcase() {
+        
+        if (lists?.count)! > 0 {
+            
+            showcaseListRow.setTargetView(tableView: tableView, section: 0, row: 0)
+            showcaseListRow.primaryText = "List of sight words"
+            showcaseListRow.secondaryText = "Tap on it to practice all the sight words on the list."
+            
+            designShowcase(showcase: showcaseListRow)
+            
+            showcaseListRow.show {
+                
+            }
+            
+        }
+        
+    }
+    
+    // MARK: - Segue Methods
     
     @IBAction func prepareForUnwind(segue: UIStoryboardSegue) {
         
@@ -101,7 +118,7 @@ class ListsTableViewController: UITableViewController {
 
     }
     
-    //MARK: - Database Methods
+    //MARK: - DB Methods
     
     func loadLists() {
         
@@ -120,5 +137,12 @@ class ListsTableViewController: UITableViewController {
         
     }
 
-
+    //MARK: IBAction Methods
+    
+    @IBAction func helpButtonTapped(_ sender: UIBarButtonItem) {
+        
+        startShowcase()
+        
+    }
+    
 }

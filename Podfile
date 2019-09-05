@@ -11,4 +11,5 @@ target 'MasterWords' do
     #pod 'ChameleonFramework/Swift', :git => 'https://github.com/ViccAlexander/Chameleon.git', :branch => 'develop'
     pod 'ChameleonFramework/Swift', :git => 'https://github.com/ykws/Chameleon.git', :branch => 'develop'
     pod 'Koloda', '~> 5.0'
+    pod 'MaterialShowcase'
 end

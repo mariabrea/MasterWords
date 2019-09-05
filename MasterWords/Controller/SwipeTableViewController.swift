@@ -21,7 +21,7 @@ class SwipeTableViewController: UITableViewController, SwipeTableViewCellDelegat
         return .lightContent
     }
     
-    //tableview datasource methods
+    //MARK: Tableview Datasource Methods
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! SwipeTableViewCell

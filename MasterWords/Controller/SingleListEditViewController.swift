@@ -9,8 +9,13 @@
 import UIKit
 import RealmSwift
 import ChameleonFramework
+import MaterialShowcase
 
-class SingleListEditViewController: SwipeTableViewController {
+class SingleListEditViewController: SwipeTableViewController, MaterialShowcaseDelegate {
+    
+    @IBOutlet weak var addButton: UIBarButtonItem!
+    @IBOutlet weak var helpButton: UIBarButtonItem!
+    
     
     let realm = try! Realm()
   
@@ -22,6 +27,10 @@ class SingleListEditViewController: SwipeTableViewController {
             loadSightWords()
         }
     }
+    
+    let sequenceShowcases = MaterialShowcaseSequence()
+    let showcaseAddButton = MaterialShowcase()
+    let showcaseSightWordRow = MaterialShowcase()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,8 +56,6 @@ class SingleListEditViewController: SwipeTableViewController {
         return .lightContent
     }
     
-    //MARK: NavBar Setup Methods
-    
 //    //MARK - Tableview Datasource Methods
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -67,8 +74,7 @@ class SingleListEditViewController: SwipeTableViewController {
             } else {
                 cell.backgroundColor = UIColor(hexString: selectedList!.color)?.lighten(byPercentage:0.1)
             }
-            
-//            cell.textLabel?.textColor = ContrastColorOf(cell.backgroundColor!, returnFlat: true)
+
             cell.textLabel?.textColor = UIColor.init(contrastingBlackOrWhiteColorOn: cell.backgroundColor!, isFlat: true)
             
         } else {
@@ -83,7 +89,16 @@ class SingleListEditViewController: SwipeTableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
-
+    }
+    
+    //MARK: DB Methods
+    
+    func loadSightWords() {
+        
+        wordsList = selectedList?.sightWords.sorted(byKeyPath: "name", ascending: true)
+        
+        tableView.reloadData()
+        
     }
     
     override func updateModel(at indexPath: IndexPath, delete: Bool) {
@@ -135,10 +150,45 @@ class SingleListEditViewController: SwipeTableViewController {
             
         }
         
-        
     }
-//
-    //MARK - Add new items
+
+    //MARK: Navigation Methods
+    
+    func startShowcase() {
+        
+        showcaseAddButton.setTargetView(barButtonItem: addButton)
+        showcaseAddButton.primaryText = "Add Button"
+        showcaseAddButton.secondaryText = "Click here to add a new sight word to the list"
+        
+        designShowcase(showcase: showcaseAddButton)
+        showcaseAddButton.delegate = self
+        
+        if (wordsList?.count)! > 0 {
+            
+            showcaseSightWordRow.setTargetView(tableView: tableView, section: 0, row: 0)
+            showcaseSightWordRow.primaryText = "Sight word"
+            showcaseSightWordRow.secondaryText = "Swipe it to the left to Edit or Delete the sight word."
+            
+            designShowcase(showcase: showcaseSightWordRow)
+            showcaseSightWordRow.delegate = self
+            
+            sequenceShowcases.temp(showcaseAddButton).temp(showcaseSightWordRow).start()
+            
+        } else {
+            showcaseAddButton.show {
+                
+            }
+        }
+
+    }
+    
+    //MARK: Material Showcase Delegate Methods
+    
+    func showCaseDidDismiss(showcase: MaterialShowcase, didTapTarget: Bool) {
+        sequenceShowcases.showCaseWillDismis()
+    }
+    
+    //MARK - IBAction Methods
     
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
 
@@ -155,7 +205,6 @@ class SingleListEditViewController: SwipeTableViewController {
                     try self.realm.write {
                         let newWord = SightWord()
                         newWord.name = textField.text!
-//                        newWord.index = currentList.sightWords.count
                         newWord.index = 0
                         newWord.userName = self.selectedUser
                         currentList.sightWords.append(newWord)
@@ -187,16 +236,11 @@ class SingleListEditViewController: SwipeTableViewController {
 
     }
 
-    //MARK - Model Manipulation Methods
     
-    
-    func loadSightWords() {
-
-        wordsList = selectedList?.sightWords.sorted(byKeyPath: "name", ascending: true)
-
-        tableView.reloadData()
-
+    @IBAction func helpButtonTapped(_ sender: UIBarButtonItem) {
+        
+        startShowcase()
+        
     }
 
-    
 }

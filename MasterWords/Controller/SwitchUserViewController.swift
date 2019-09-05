@@ -8,12 +8,14 @@
 
 import UIKit
 import RealmSwift
-//import ChameleonFramework
+import MaterialShowcase
+
 
 class SwitchUserViewController: UIViewController {
 
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var logoutButton: UIButton!
+    @IBOutlet weak var helpButton: UIButton!
     
     let realm = try! Realm()
     
@@ -25,6 +27,8 @@ class SwitchUserViewController: UIViewController {
             //loadLists()
         }
     }
+    
+    let showcaseLogoutButton = MaterialShowcase()
     
     override func viewDidLoad() {
         
@@ -39,20 +43,42 @@ class SwitchUserViewController: UIViewController {
         return .lightContent
     }
     
-    // MARK: - Navigation
+    // MARK: - Navigation Methods
 
+    func startShowcase() {
+        
+        showcaseLogoutButton.setTargetView(view: logoutButton)
+        showcaseLogoutButton.primaryText = "Logout Button"
+        showcaseLogoutButton.secondaryText = "Click here to switch the user."
+        
+        designShowcase(showcase: showcaseLogoutButton, sizeHolder: "big")
+        
+        showcaseLogoutButton.show {
+            
+        }
+        
+    }
+    
     func updateUI() {
         
+        let helpImage = UIImage(named: "iconHelp")
+        let helpImageTinted = helpImage?.withRenderingMode(.alwaysTemplate)
+        helpButton.setImage(helpImageTinted, for: .normal)
+        helpButton.tintColor = UIColor.white
+        
         nameLabel.text = selectedUser?.name
-//        logoutButton.layer.borderColor = FlatPlum().cgColor
-//        logoutButton.layer.borderWidth = 1
-//        logoutButton.layer.cornerRadius = 5
         
     }
 
+    // MARK: - IBAction Methods
     
      @IBAction func logoutButtonTapped(_ sender: UIButton) {
         performSegue(withIdentifier: "unwindToUsersVC", sender: self)
      }
     
+    @IBAction func helpButtonTapped(_ sender: UIButton) {
+        
+        startShowcase()
+        
+    }
 }
