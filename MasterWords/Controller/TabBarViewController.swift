@@ -12,10 +12,12 @@ class TabBarViewController: UITabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: UIFont(name: "Montserrat-Regular", size: 10)!], for: .normal)
+        UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: UIFont(name: "Montserrat-Regular", size: 10)!], for: .selected)
 
     }
     
-
     override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
         let navigationController1 =  self.viewControllers![0] as? UINavigationController
         navigationController1!.popToRootViewController(animated: false)

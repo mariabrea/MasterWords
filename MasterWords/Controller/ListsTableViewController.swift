@@ -21,6 +21,7 @@ class ListsTableViewController: UITableViewController {
     var needToRefresh = false
     
     var lists : Results<SightWordsList>?
+    var wordsList : Results<SightWord>?
     
     var selectedUser : User? {
         didSet{
@@ -33,6 +34,8 @@ class ListsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.navigationItem.title = "\(selectedUser!.name)'s Lists"
+        
         //set observer to detetct when Lists have been added, updated or removed
         NotificationCenter.default.addObserver(self, selector: #selector(reloadLists), name: NSNotification.Name(rawValue: "loadLists"), object: nil)
         
@@ -44,7 +47,7 @@ class ListsTableViewController: UITableViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
-        navigationItem.prompt = selectedUser?.name
+//        navigationItem.prompt = selectedUser?.name
         if let navBar = self.navigationController?.navigationBar {
             navBar.barStyle = UIBarStyle.black
         }
@@ -72,6 +75,7 @@ class ListsTableViewController: UITableViewController {
             guard let listColor = UIColor(hexString: list.color) else {fatalError()}
             cell.backgroundColor = listColor
             cell.textLabel?.textColor = UIColor.init(contrastingBlackOrWhiteColorOn: listColor, isFlat: true)
+            cell.textLabel?.font = UIFont(name: "Montserrat-Regular", size: 17)
             
         }
         
@@ -80,7 +84,37 @@ class ListsTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        performSegue(withIdentifier: "goToFlashCardsVC", sender: self)
+        
+        //we check if the list has sight words to practice
+        let selectedList = self.lists?[indexPath.row]
+        wordsList = selectedList?.sightWords.sorted(byKeyPath: "name", ascending: true)
+
+        if wordsList?.count == 0 {
+            print("Lista vacia")
+            
+            self.tableView.reloadData()
+            
+            let alert = UIAlertController(title: "List empty", message: "Add some sight words to the list", preferredStyle: .alert)
+
+            // Change font and color of title
+            alert.setTitle(font: UIFont.boldSystemFont(ofSize: 20), color: UIColor(hexString: "49244E"))
+            
+            // Change font and color of message
+            alert.setMessage(font: UIFont.systemFont(ofSize: 16), color: UIColor(hexString: "49244E"))
+            
+            // Change background color of UIAlertController
+            alert.setBackgroundColor(color: UIColor(hexString: "E8ECEE")!)
+
+            alert.view.tintColor = UIColor(hexString: "EF626C")
+            
+            let closeAction = UIAlertAction(title: "Close", style: .default) { (action) in
+                alert.dismiss(animated: true, completion: nil)}
+            alert.addAction(closeAction)
+            present(alert, animated: true, completion: nil)
+        } else {
+            performSegue(withIdentifier: "goToFlashCardsVC", sender: self)
+        }
+        
     }
     
     //MARK: Navigation Methods

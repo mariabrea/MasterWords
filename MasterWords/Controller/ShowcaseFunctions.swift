@@ -12,16 +12,16 @@ import MaterialShowcase
 public func designShowcase(showcase: MaterialShowcase) {
     
     // Background
-    showcase.backgroundPromptColor = UIColor(hexString: "84DCCF")
+    showcase.backgroundPromptColor = UIColor(named: "colorShowcaseBackground")
     showcase.backgroundPromptColorAlpha = 0.9
     showcase.backgroundViewType = .full // default is .circle
     // Target
     //        showcase.targetTintColor = UIColor.green
     showcase.targetHolderRadius = 25
-    showcase.targetHolderColor = UIColor(hexString: "EF626C")
+    showcase.targetHolderColor = UIColor(named: "colorShowcaseHolder")
     // Text
-    showcase.primaryTextColor = UIColor(hexString: "EF626C")
-    showcase.secondaryTextColor = UIColor(hexString: "EF626C")
+    showcase.primaryTextColor = UIColor(named: "colorShowcaseHolder")
+    showcase.secondaryTextColor = UIColor(named: "colorShowcaseHolder")
     showcase.primaryTextSize = 20
     showcase.secondaryTextSize = 15
     showcase.primaryTextFont = UIFont.boldSystemFont(ofSize: showcase.primaryTextSize)
@@ -34,7 +34,7 @@ public func designShowcase(showcase: MaterialShowcase) {
     showcase.aniComeInDuration = 0.5 // unit: second
     showcase.aniGoOutDuration = 0.5 // unit: second
     showcase.aniRippleScale = 1.5
-    showcase.aniRippleColor = UIColor(hexString: "EF626C")
+    showcase.aniRippleColor = UIColor(named: "colorShowcaseHolder")
     showcase.aniRippleAlpha = 0.2
     
 }
@@ -42,8 +42,8 @@ public func designShowcase(showcase: MaterialShowcase) {
 public func designShowcase(showcase: MaterialShowcase, sizeHolder: String) {
     
     // Background
-    showcase.backgroundPromptColor = UIColor(hexString: "84DCCF")
-    showcase.backgroundPromptColorAlpha = 0.9
+    showcase.backgroundPromptColor = UIColor(named: "colorShowcaseBackground")
+    showcase.backgroundPromptColorAlpha = 0.7
     showcase.backgroundViewType = .full // default is .circle
     // Target
     //        showcase.targetTintColor = UIColor.green
@@ -53,14 +53,16 @@ public func designShowcase(showcase: MaterialShowcase, sizeHolder: String) {
         showcase.targetHolderRadius = 45
     }
     
-    showcase.targetHolderColor = UIColor(hexString: "EF626C")
+    showcase.targetHolderColor = UIColor(named: "colorShowcaseHolder")
     // Text
-    showcase.primaryTextColor = UIColor(hexString: "EF626C")
-    showcase.secondaryTextColor = UIColor(hexString: "EF626C")
+    showcase.primaryTextColor = UIColor(named: "colorShowcaseHolder")
+    showcase.secondaryTextColor = UIColor(named: "colorShowcaseHolder")
     showcase.primaryTextSize = 20
     showcase.secondaryTextSize = 15
-    showcase.primaryTextFont = UIFont.boldSystemFont(ofSize: showcase.primaryTextSize)
-    showcase.secondaryTextFont = UIFont.systemFont(ofSize: showcase.secondaryTextSize)
+    showcase.primaryTextFont = UIFont.init(name: "Montserrat-SemiBold", size: 20)
+//    showcase.primaryTextFont = UIFont.boldSystemFont(ofSize: showcase.primaryTextSize)
+    showcase.secondaryTextFont = UIFont.init(name: "Montserrat-Regular", size: 15)
+//    showcase.secondaryTextFont = UIFont.systemFont(ofSize: showcase.secondaryTextSize)
     //Alignment
     showcase.primaryTextAlignment = .justified
     showcase.secondaryTextAlignment = .justified
@@ -69,7 +71,7 @@ public func designShowcase(showcase: MaterialShowcase, sizeHolder: String) {
     showcase.aniComeInDuration = 0.5 // unit: second
     showcase.aniGoOutDuration = 0.5 // unit: second
     showcase.aniRippleScale = 1.5
-    showcase.aniRippleColor = UIColor(hexString: "EF626C")
+    showcase.aniRippleColor = UIColor(named: "colorShowcaseHolder")
     showcase.aniRippleAlpha = 0.2
     
 }

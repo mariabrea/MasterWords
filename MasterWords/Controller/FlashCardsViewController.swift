@@ -13,6 +13,7 @@ import Koloda
 import AVFoundation
 import MaterialShowcase
 
+
 class FlashCardsViewController: UIViewController, MaterialShowcaseDelegate {
 
     
@@ -72,6 +73,7 @@ class FlashCardsViewController: UIViewController, MaterialShowcaseDelegate {
         
         super.viewDidLoad()
         
+    
         let helpButton = UIBarButtonItem(image: UIImage(named: "iconHelp"), style: .plain, target: self, action: #selector(startShowcase))
         helpButton.tintColor = .white
         self.navigationItem.rightBarButtonItem = helpButton
@@ -83,19 +85,20 @@ class FlashCardsViewController: UIViewController, MaterialShowcaseDelegate {
         happyButton.tintColor = UIColor.flatLime
         
         popupView.alpha = 0
-        popupView.layer.borderColor = UIColor.flatPlum.cgColor
+        popupView.layer.borderColor = UIColor(named: "colorButtonBackground")?.cgColor
         popupView.layer.borderWidth = 1
+        popupView.layer.cornerRadius = 5
         
         popupTitle.layer.borderWidth = 1
-        popupTitle.layer.borderColor = UIColor.flatPlum.cgColor
+        popupTitle.layer.borderColor = UIColor(named: "colorButtonBackground")?.cgColor
         
-        repeatAllButton.layer.borderWidth = 1
-        repeatAllButton.layer.borderColor = UIColor.flatPlum.cgColor
-        repeatAllButton.layer.maskedCorners = [.layerMinXMaxYCorner]
-        repeatWrongButton.layer.borderWidth = 1
-        repeatWrongButton.layer.borderColor = UIColor.flatPlum.cgColor
-        cancelButton.layer.borderWidth = 1
-        cancelButton.layer.borderColor = UIColor.flatPlum.cgColor
+//        repeatAllButton.layer.borderWidth = 1
+//        repeatAllButton.layer.borderColor = UIColor(named: "colorButtonBackground")?.cgColor
+//        repeatAllButton.layer.maskedCorners = [.layerMinXMaxYCorner]
+//        repeatWrongButton.layer.borderWidth = 1
+//        repeatWrongButton.layer.borderColor = UIColor(named: "colorButtonBackground")?.cgColor
+//        cancelButton.layer.borderWidth = 1
+//        cancelButton.layer.borderColor = UIColor.flatPlum.cgColor
         
         
         if let numberWordsToPractice = wordsList?.count {
@@ -161,6 +164,9 @@ class FlashCardsViewController: UIViewController, MaterialShowcaseDelegate {
         }
 
         cardView.resetCurrentCardIndex()
+        
+        popupView.alpha = 0
+
     }
     
     @IBAction func repeatWrongButtonTapped(_ sender: UIButton) {
@@ -177,10 +183,14 @@ class FlashCardsViewController: UIViewController, MaterialShowcaseDelegate {
         resetCounters()
         cardView.resetCurrentCardIndex()
         
+        popupView.alpha = 0
+
+        
     }
     
     @IBAction func cancelButtonTapped(_ sender: UIButton) {
         popupView.alpha = 0
+
         repeatWrongButton.isHidden = false
         
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "loadGraph"), object: nil)
@@ -209,6 +219,7 @@ class FlashCardsViewController: UIViewController, MaterialShowcaseDelegate {
             self.popupView.transform = CGAffineTransform(scaleX: 1, y: 1)
         }, completion: nil)
         
+
         popupView.alpha = 1
         
     }
@@ -334,6 +345,8 @@ extension FlashCardsViewController: KolodaViewDataSource {
         sightWordLabel.textColor = UIColor.init(contrastingBlackOrWhiteColorOn: view.backgroundColor!, isFlat: true)
         sightWordLabel.text = listWordsToPractice[index].name
         sightWordLabel.font = UIFont (name: "GelPenHeavy", size: 80)
+        //adjust font size to fit in the card view, in case of too long words
+        sightWordLabel.adjustsFontSizeToFitWidth = true
         view.addSubview(sightWordLabel)
         
         return view

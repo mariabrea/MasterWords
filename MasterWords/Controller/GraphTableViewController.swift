@@ -9,6 +9,7 @@
 import UIKit
 import RealmSwift
 import MaterialShowcase
+import SCLAlertView
 
 class GraphTableViewCell: UITableViewCell {
     @IBOutlet weak var wordLabel: UILabel!
@@ -22,7 +23,7 @@ class GraphTableViewCell: UITableViewCell {
     
 }
 
-class GraphTableViewController: UITableViewController, MaterialShowcaseDelegate {
+class GraphTableViewController: UITableViewController, MaterialShowcaseDelegate, UITextFieldDelegate {
 
     @IBOutlet weak var userNameLabel: UILabel!
     @IBOutlet weak var sortUpButton: UIButton!
@@ -336,72 +337,183 @@ class GraphTableViewController: UITableViewController, MaterialShowcaseDelegate 
     
     //MARK: - Popup Methods
     
+//    func showAddAlert() {
+//
+//        let alert = UIAlertController(title: "Create List", message: "Write the name of the new list", preferredStyle: .alert)
+//
+//        var listNameTextField = UITextField()
+//        //we set a default name
+//        listNameTextField.text = "New List"
+//
+//        alert.addTextField(configurationHandler: { textField in
+//            textField.placeholder = "Write New List Name"
+//            listNameTextField = textField
+//        })
+//
+//
+//        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (action) in
+//            alert.dismiss(animated: true, completion: nil)
+//        }
+//
+//        let addActionAll = UIAlertAction(title: "Use All", style: .default) { (action) in
+//            self.addList(name : listNameTextField.text!, numberOfWords : self.wordsNoDuplicates.count)
+//        }
+//
+//        let addActionTop5 = UIAlertAction(title: "Use Top 5", style: .default) { (action) in
+//            self.addList(name : listNameTextField.text!, numberOfWords : 5)
+//        }
+//
+//        let addActionTop10 = UIAlertAction(title: "Use Top 10", style: .default) { (action) in
+//            self.addList(name : listNameTextField.text!, numberOfWords : 10)
+//        }
+//
+//        let addActionTop15 = UIAlertAction(title: "Use Top 15", style: .default) { (action) in
+//            self.addList(name : listNameTextField.text!, numberOfWords : 15)
+//        }
+//
+//        let addActionTop20 = UIAlertAction(title: "Use Top 20", style: .default) { (action) in
+//            self.addList(name : listNameTextField.text!, numberOfWords : 20)
+//        }
+//
+//        if wordsNoDuplicates.count > 5 {
+//            alert.addAction(addActionTop5)
+//        }
+//        if wordsNoDuplicates.count > 10 {
+//            alert.addAction(addActionTop10)
+//        }
+//        if wordsNoDuplicates.count > 15 {
+//            alert.addAction(addActionTop15)
+//        }
+//        if wordsNoDuplicates.count > 20 {
+//            alert.addAction(addActionTop20)
+//        }
+//        alert.addAction(addActionAll)
+//        alert.addAction(cancelAction)
+//
+//        present(alert, animated: true, completion: nil)
+//
+//    }
+    
     func showAddAlert() {
         
-        let alert = UIAlertController(title: "Create List", message: "Write the name of the new list", preferredStyle: .alert)
+        let appearance = SCLAlertView.SCLAppearance(
+            kButtonHeight: 50,
+            kTitleFont: UIFont(name: "Montserrat-SemiBold", size: 17)!,
+            kTextFont: UIFont(name: "Montserrat-Regular", size: 16)!,
+            kButtonFont: UIFont(name: "Montserrat-SemiBold", size: 17)!
+            
+        )
+        let alert = SCLAlertView(appearance: appearance)
         
-        var listNameTextField = UITextField()
-        //we set a default name
-        listNameTextField.text = "New List"
+        let listNameTextField = alert.addTextField("Enter list name")
+        listNameTextField.autocapitalizationType = .none
         
-        alert.addTextField(configurationHandler: { textField in
-            textField.placeholder = "Write New List Name"
-            listNameTextField = textField
-        })
-        
-        
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (action) in
-            alert.dismiss(animated: true, completion: nil)
-        }
-        
-        let addActionAll = UIAlertAction(title: "Use All", style: .default) { (action) in
+        alert.addButton("Use All") {
             self.addList(name : listNameTextField.text!, numberOfWords : self.wordsNoDuplicates.count)
         }
-        
-        let addActionTop5 = UIAlertAction(title: "Use Top 5", style: .default) { (action) in
-            self.addList(name : listNameTextField.text!, numberOfWords : 5)
-        }
-        
-        let addActionTop10 = UIAlertAction(title: "Use Top 10", style: .default) { (action) in
-            self.addList(name : listNameTextField.text!, numberOfWords : 10)
-        }
-        
-        let addActionTop15 = UIAlertAction(title: "Use Top 15", style: .default) { (action) in
-            self.addList(name : listNameTextField.text!, numberOfWords : 15)
-        }
-        
-        let addActionTop20 = UIAlertAction(title: "Use Top 20", style: .default) { (action) in
-            self.addList(name : listNameTextField.text!, numberOfWords : 20)
-        }
-        
+
         if wordsNoDuplicates.count > 5 {
-            alert.addAction(addActionTop5)
+            alert.addButton("Use Top 5")  {
+                self.addList(name : listNameTextField.text!, numberOfWords : 5)
+            }
         }
         if wordsNoDuplicates.count > 10 {
-            alert.addAction(addActionTop10)
+            alert.addButton("Use Top 10") {
+                self.addList(name : listNameTextField.text!, numberOfWords : 10)
+            }
         }
         if wordsNoDuplicates.count > 15 {
-            alert.addAction(addActionTop15)
+            alert.addButton("Use Top 15") {
+                self.addList(name : listNameTextField.text!, numberOfWords : 15)
+            }
         }
         if wordsNoDuplicates.count > 20 {
-            alert.addAction(addActionTop20)
+            alert.addButton("Use Top 20")  {
+                self.addList(name : listNameTextField.text!, numberOfWords : 20)
+            }
         }
-        alert.addAction(addActionAll)
-        alert.addAction(cancelAction)
         
-        present(alert, animated: true, completion: nil)
+        let colorAlert = UIColor(named: "colorAlertEdit")
+        let iconAlert = UIImage(named: "icon-list")
+        
+        alert.showCustom("Create List", subTitle: "Write the name of the new list", color: colorAlert!, icon: iconAlert!)
+        
+        listNameTextField.delegate = self
         
     }
     
+//    func showSortAlert(sortUp : Bool) {
+//
+//        let alert = UIAlertController(title: "Sort", message: "What do you want to sort by?", preferredStyle: .actionSheet)
+//
+//        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (action) in
+//            alert.dismiss(animated: true, completion: nil)
+//        }
+//
+//        let sortByTotalAction = UIAlertAction(title: "Total Answered", style: .default) { (action) in
+//            if sortUp {
+//                self.wordsNoDuplicates.sort(by: { $0.numberTotal > $1.numberTotal })
+//                self.tableView.reloadData()
+//            } else {
+//                self.wordsNoDuplicates.sort(by: { $0.numberTotal < $1.numberTotal })
+//                self.tableView.reloadData()
+//            }
+//        }
+//
+//        let sortByCorrectAction = UIAlertAction(title: "Correct Answered", style: .default) { (action) in
+//            if sortUp {
+//                self.wordsNoDuplicates.sort(by: { $0.percentageCorrect > $1.percentageCorrect })
+//                for word in self.wordsNoDuplicates{
+//                    print("\(word.name) \(word.percentageCorrect)")
+//                }
+//                self.tableView.reloadData()
+//            } else {
+//                self.wordsNoDuplicates.sort(by: { $0.percentageCorrect < $1.percentageCorrect })
+//                for word in self.wordsNoDuplicates{
+//                    print("\(word.name) \(word.percentageCorrect)")
+//                }
+//                self.tableView.reloadData()
+//            }
+//        }
+//
+//        let sortByWrongAction = UIAlertAction(title: "Wrong Answered", style: .default) { (action) in
+//            if sortUp {
+//                self.wordsNoDuplicates.sort(by: { $0.percentageWrong > $1.percentageWrong })
+//                for word in self.wordsNoDuplicates{
+//                    print("\(word.name) \(word.percentageWrong)")
+//                }
+//
+//                self.tableView.reloadData()
+//            } else {
+//                self.wordsNoDuplicates.sort(by: { $0.percentageWrong < $1.percentageWrong })
+//                for word in self.wordsNoDuplicates{
+//                    print("\(word.name) \(word.percentageWrong)")
+//                }
+//                self.tableView.reloadData()
+//            }
+//        }
+//
+//        alert.addAction(sortByTotalAction)
+//        alert.addAction(sortByCorrectAction)
+//        alert.addAction(sortByWrongAction)
+//        alert.addAction(cancelAction)
+//
+//        present(alert, animated: true, completion: nil)
+//
+//    }
+    
     func showSortAlert(sortUp : Bool) {
         
-        let alert = UIAlertController(title: "Sort", message: "What do you want to sort by?", preferredStyle: .actionSheet)
+        let appearance = SCLAlertView.SCLAppearance(
+            kButtonHeight: 50,
+            kTitleFont: UIFont(name: "Montserrat-SemiBold", size: 17)!,
+            kTextFont: UIFont(name: "Montserrat-Regular", size: 16)!,
+            kButtonFont: UIFont(name: "Montserrat-SemiBold", size: 17)!
+            
+        )
+        let alert = SCLAlertView(appearance: appearance)
         
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (action) in
-            alert.dismiss(animated: true, completion: nil)
-        }
-        
-        let sortByTotalAction = UIAlertAction(title: "Total Answered", style: .default) { (action) in
+        alert.addButton("Total Answered")  {
             if sortUp {
                 self.wordsNoDuplicates.sort(by: { $0.numberTotal > $1.numberTotal })
                 self.tableView.reloadData()
@@ -411,7 +523,7 @@ class GraphTableViewController: UITableViewController, MaterialShowcaseDelegate 
             }
         }
         
-        let sortByCorrectAction = UIAlertAction(title: "Correct Answered", style: .default) { (action) in
+        alert.addButton("Correct Answered"){
             if sortUp {
                 self.wordsNoDuplicates.sort(by: { $0.percentageCorrect > $1.percentageCorrect })
                 for word in self.wordsNoDuplicates{
@@ -427,7 +539,7 @@ class GraphTableViewController: UITableViewController, MaterialShowcaseDelegate 
             }
         }
         
-        let sortByWrongAction = UIAlertAction(title: "Wrong Answered", style: .default) { (action) in
+    alert.addButton("Wrong Answered") {
             if sortUp {
                 self.wordsNoDuplicates.sort(by: { $0.percentageWrong > $1.percentageWrong })
                 for word in self.wordsNoDuplicates{
@@ -444,15 +556,13 @@ class GraphTableViewController: UITableViewController, MaterialShowcaseDelegate 
             }
         }
         
-        alert.addAction(sortByTotalAction)
-        alert.addAction(sortByCorrectAction)
-        alert.addAction(sortByWrongAction)
-        alert.addAction(cancelAction)
+        let colorAlert = UIColor(named: "colorAlertEdit")
+        let iconAlert = UIImage(named: "icon-sort")
         
-        present(alert, animated: true, completion: nil)
+        alert.showCustom("Sort", subTitle: "What do you want to sort by?", color: colorAlert!, icon: iconAlert!)
+        
         
     }
-    
     // MARK: - Tableview Datasource
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -477,6 +587,8 @@ class GraphTableViewController: UITableViewController, MaterialShowcaseDelegate 
         return cell
     }
     
- 
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 90
+    }
 
 }

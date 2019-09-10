@@ -10,8 +10,9 @@ import UIKit
 import RealmSwift
 import ChameleonFramework
 import MaterialShowcase
+import SCLAlertView
 
-class SingleListEditViewController: SwipeTableViewController, MaterialShowcaseDelegate {
+class SingleListEditViewController: SwipeTableViewController, MaterialShowcaseDelegate, UITextFieldDelegate {
     
     @IBOutlet weak var addButton: UIBarButtonItem!
     @IBOutlet weak var helpButton: UIBarButtonItem!
@@ -76,6 +77,7 @@ class SingleListEditViewController: SwipeTableViewController, MaterialShowcaseDe
             }
 
             cell.textLabel?.textColor = UIColor.init(contrastingBlackOrWhiteColorOn: cell.backgroundColor!, isFlat: true)
+            cell.textLabel?.font = UIFont(name: "Montserrat-Regular", size: 17)
             
         } else {
             cell.textLabel?.text = "No words added"
@@ -91,6 +93,21 @@ class SingleListEditViewController: SwipeTableViewController, MaterialShowcaseDe
 
     }
     
+    //MARK: TextField Delegate Methods
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        
+        print("textfield delegate called")
+        let currentText = textField.text ?? ""
+        guard let stringRange = Range(range, in: currentText) else { return false }
+        
+        let updatedText = currentText.replacingCharacters(in: stringRange, with: string)
+        
+        return updatedText.count <= 15
+        
+    }
+    
+    
     //MARK: DB Methods
     
     func loadSightWords() {
@@ -100,6 +117,59 @@ class SingleListEditViewController: SwipeTableViewController, MaterialShowcaseDe
         tableView.reloadData()
         
     }
+    
+//    override func updateModel(at indexPath: IndexPath, delete: Bool) {
+//        if delete {
+//            if let word = self.wordsList?[indexPath.row] {
+//                do{
+//                    try self.realm.write {
+//                        self.realm.delete(word)
+//                    }
+//                } catch {
+//                    print("Error deleting sight word \(error)")
+//                }
+//            }
+//        } else {
+//            var textField = UITextField()
+//
+//            let alert = UIAlertController(title: "Update", message: "", preferredStyle: .alert)
+//
+//            let updateAction = UIAlertAction(title: "Update", style: .default) { (action) in
+//
+//                if let word = self.wordsList?[indexPath.row] {
+//                    do{
+//                        try self.realm.write {
+//                            word.name = textField.text!
+//                        }
+//                    } catch {
+//                        print("Error updating word list \(error)")
+//                    }
+//                }
+//
+//                self.tableView.reloadData()
+//            }
+//
+//            let cancelAction = UIAlertAction(title: "Cancel", style: .default) { (action) in
+//                alert.dismiss(animated: true, completion: nil)
+//            }
+//
+//            //we add a textfield to the UIalert
+//            alert.addTextField { (alertTextField) in
+//                alertTextField.placeholder = "New"
+//                textField = alertTextField
+//            }
+//
+//            //we add the action to the UIalert
+//            alert.addAction(updateAction)
+//            alert.addAction(cancelAction)
+//
+//            textField.delegate = self
+//
+//            present(alert, animated: true, completion: nil)
+//
+//        }
+//
+//    }
     
     override func updateModel(at indexPath: IndexPath, delete: Bool) {
         if delete {
@@ -113,11 +183,18 @@ class SingleListEditViewController: SwipeTableViewController, MaterialShowcaseDe
                 }
             }
         } else {
-            var textField = UITextField()
+            let appearance = SCLAlertView.SCLAppearance(
+                kButtonHeight: 50,
+                kTitleFont: UIFont(name: "Montserrat-SemiBold", size: 17)!,
+                kTextFont: UIFont(name: "Montserrat-Regular", size: 16)!,
+                kButtonFont: UIFont(name: "Montserrat-SemiBold", size: 17)!
+                
+            )
+            let alert = SCLAlertView(appearance: appearance)
             
-            let alert = UIAlertController(title: "Update", message: "", preferredStyle: .alert)
-            
-            let updateAction = UIAlertAction(title: "Update", style: .default) { (action) in
+            let textField = alert.addTextField("Enter new sight word")
+            textField.autocapitalizationType = .none
+            alert.addButton("Update") {
                 
                 if let word = self.wordsList?[indexPath.row] {
                     do{
@@ -132,25 +209,17 @@ class SingleListEditViewController: SwipeTableViewController, MaterialShowcaseDe
                 self.tableView.reloadData()
             }
             
-            let cancelAction = UIAlertAction(title: "Cancel", style: .default) { (action) in
-                alert.dismiss(animated: true, completion: nil)
-            }
+            let colorAlert = UIColor(named: "colorAlertEdit")
+            let iconAlert = UIImage(named: "edit-icon")
             
-            //we add a textfield to the UIalert
-            alert.addTextField { (alertTextField) in
-                alertTextField.placeholder = "New"
-                textField = alertTextField
-            }
+            alert.showCustom("Update", subTitle: "Update the name of the sight word", color: colorAlert!, icon: iconAlert!)
             
-            //we add the action to the UIalert
-            alert.addAction(updateAction)
-            alert.addAction(cancelAction)
-            
-            present(alert, animated: true, completion: nil)
+            textField.delegate = self
             
         }
         
     }
+
 
     //MARK: Navigation Methods
     
@@ -190,16 +259,71 @@ class SingleListEditViewController: SwipeTableViewController, MaterialShowcaseDe
     
     //MARK - IBAction Methods
     
+//    @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
+//
+//        var textField = UITextField()
+//
+//        let alert = UIAlertController(title: "Add New Sight Word", message: "", preferredStyle: .alert)
+//
+//        let addAction = UIAlertAction(title: "Add", style: .default) { (action) in
+//
+//            //we create a new object of type Item of the dstabase, and we fill its attributes
+//
+//            if let currentList = self.selectedList {
+//                do {
+//                    try self.realm.write {
+//                        let newWord = SightWord()
+//                        newWord.name = textField.text!
+//                        newWord.index = 0
+//                        newWord.userName = self.selectedUser
+//                        currentList.sightWords.append(newWord)
+//                    }
+//                } catch {
+//                    print("Error saving word \(error)")
+//                }
+//
+//            }
+//
+//            self.tableView.reloadData()
+//        }
+//
+//        let cancelAction = UIAlertAction(title: "Cancel", style: .default) { (action) in
+//            alert.dismiss(animated: true, completion: nil)
+//        }
+//
+//        //we add a textfield to the UIalert
+//        alert.addTextField { (alertTextField) in
+//            alertTextField.placeholder = "Create new sight word"
+//            textField = alertTextField
+//        }
+//
+//        //we add the action to the UIalert
+//        alert.addAction(addAction)
+//        alert.addAction(cancelAction)
+//
+//        textField.delegate = self
+//
+//        present(alert, animated: true, completion: nil)
+//
+//    }
+
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
-
-        var textField = UITextField()
-
-        let alert = UIAlertController(title: "Add New Sight Word", message: "", preferredStyle: .alert)
-
-        let addAction = UIAlertAction(title: "Add", style: .default) { (action) in
-
+        
+        let appearance = SCLAlertView.SCLAppearance(
+            kButtonHeight: 50,
+            kTitleFont: UIFont(name: "Montserrat-SemiBold", size: 17)!,
+            kTextFont: UIFont(name: "Montserrat-Regular", size: 16)!,
+            kButtonFont: UIFont(name: "Montserrat-SemiBold", size: 17)!
+            
+        )
+        let alert = SCLAlertView(appearance: appearance)
+        
+        let textField = alert.addTextField("Enter sight word")
+        textField.autocapitalizationType = .none
+        alert.addButton("Add") {
+            
             //we create a new object of type Item of the dstabase, and we fill its attributes
-
+            
             if let currentList = self.selectedList {
                 do {
                     try self.realm.write {
@@ -212,30 +336,20 @@ class SingleListEditViewController: SwipeTableViewController, MaterialShowcaseDe
                 } catch {
                     print("Error saving word \(error)")
                 }
-
+                
             }
-
+            
             self.tableView.reloadData()
         }
         
-        let cancelAction = UIAlertAction(title: "Cancel", style: .default) { (action) in
-            alert.dismiss(animated: true, completion: nil)
-        }
-            
-        //we add a textfield to the UIalert
-        alert.addTextField { (alertTextField) in
-            alertTextField.placeholder = "Create new sight word"
-            textField = alertTextField
-        }
-
-        //we add the action to the UIalert
-        alert.addAction(addAction)
-        alert.addAction(cancelAction)
-
-        present(alert, animated: true, completion: nil)
-
+        let colorAlert = UIColor(named: "colorAlertEdit")
+        let iconAlert = UIImage(named: "icon-word")
+        
+        alert.showCustom("Add", subTitle: "Add a new sight word to the list", color: colorAlert!, icon: iconAlert!)
+        
+        textField.delegate = self
+        
     }
-
     
     @IBAction func helpButtonTapped(_ sender: UIBarButtonItem) {
         

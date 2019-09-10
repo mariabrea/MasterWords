@@ -223,15 +223,18 @@
             updateUserNameInSightWordsTable()
             updateUser()
             
+            selectedUser?.name == nameTextField.text
             
-            performSegue(withIdentifier: "goToUsersVC", sender: self)
+//            performSegue(withIdentifier: "goToUsersVC", sender: self)
+            
+            performSegue(withIdentifier: "goToListsTab", sender: self)
             
         }
         
         @IBAction func cancelButtonTapped(_ sender: UIButton) {
             
-            print("Calling performSegue withIdentifier: unwindToUsersVC")
-            performSegue(withIdentifier: "unwindToUsersVC", sender: self)
+//            performSegue(withIdentifier: "unwindToUsersVC", sender: self)
+            performSegue(withIdentifier: "goToListsTab", sender: self)
             
         }
         
@@ -256,8 +259,44 @@
             //spaces not allowed in textfield
             if (string == " ") {
                 return false
+            } else {
+                let currentText = textField.text ?? ""
+                guard let stringRange = Range(range, in: currentText) else { return false }
+                
+                let updatedText = currentText.replacingCharacters(in: stringRange, with: string)
+                
+                return updatedText.count <= 10
             }
-            return true
+//            return true
+            
+        }
+
+        
+        //MARK: Segue Methods
+        
+        override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+            
+            if segue.identifier == "goToListsTab" {
+                let barViewControllers = segue.destination as! UITabBarController
+                
+                let destinationVC1 = barViewControllers.viewControllers![3] as! UserEditViewController
+                destinationVC1.selectedUser = selectedUser
+                
+                let nav1 = barViewControllers.viewControllers![0] as! UINavigationController
+                let destinationVC2 = nav1.topViewController as! ListsEditViewController
+                destinationVC2.selectedUser = selectedUser
+                
+                let nav2 = barViewControllers.viewControllers![1] as! UINavigationController
+                let destinationVC3 = nav2.topViewController as! ListsTableViewController
+                destinationVC3.selectedUser = selectedUser
+                
+                let destinationVC4 = barViewControllers.viewControllers![2] as! GraphTableViewController
+                destinationVC4.selectedUser = selectedUser
+                
+                let destinationVC5 = barViewControllers.viewControllers![4] as! SwitchUserViewController
+                destinationVC5.selectedUser = selectedUser
+                
+            }
             
         }
 
