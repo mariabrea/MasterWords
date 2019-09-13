@@ -23,7 +23,8 @@ class FlashCardsViewController: UIViewController, MaterialShowcaseDelegate {
     @IBOutlet weak var sadLabel: UILabel!
     @IBOutlet weak var happyButton: UIButton!
     @IBOutlet weak var happyLabel: UILabel!
-
+    @IBOutlet weak var leftCardsButton: RoundButton!
+    
     @IBOutlet weak var popupView: UIView!
     @IBOutlet weak var popupTitle: UILabel!
     @IBOutlet weak var resultsLabel: UILabel!
@@ -40,6 +41,7 @@ class FlashCardsViewController: UIViewController, MaterialShowcaseDelegate {
     
     var numberCorrect : Int = 0
     var numberWrong : Int = 0
+    var leftCardsToPractice : Int = 0
     
     let realm = try! Realm()
     
@@ -59,6 +61,7 @@ class FlashCardsViewController: UIViewController, MaterialShowcaseDelegate {
     let showcaseSightWordCard = MaterialShowcase()
     let showcaseSadFace = MaterialShowcase()
     let showcaseHappyFace = MaterialShowcase()
+    let showcaseLeftCards = MaterialShowcase()
     
     
     override func viewDidAppear(_ animated: Bool) {
@@ -92,21 +95,19 @@ class FlashCardsViewController: UIViewController, MaterialShowcaseDelegate {
         popupTitle.layer.borderWidth = 1
         popupTitle.layer.borderColor = UIColor(named: "colorButtonBackground")?.cgColor
         
-//        repeatAllButton.layer.borderWidth = 1
-//        repeatAllButton.layer.borderColor = UIColor(named: "colorButtonBackground")?.cgColor
-//        repeatAllButton.layer.maskedCorners = [.layerMinXMaxYCorner]
-//        repeatWrongButton.layer.borderWidth = 1
-//        repeatWrongButton.layer.borderColor = UIColor(named: "colorButtonBackground")?.cgColor
-//        cancelButton.layer.borderWidth = 1
-//        cancelButton.layer.borderColor = UIColor.flatPlum.cgColor
-        
-        
         if let numberWordsToPractice = wordsList?.count {
+            leftCardsToPractice = numberWordsToPractice
+            
             for i in 0...numberWordsToPractice - 1 {
                 listWordsToPractice.append(wordsList![i])
             }
         }
 
+        leftCardsButton.setTitle(String(leftCardsToPractice), for: .normal)
+//        leftCardsButton.layer.borderWidth = 2
+//        leftCardsButton.layer.borderColor = UIColor(named: "F6ED02")?.cgColor
+//        leftCardsButton.layer.cornerRadius = leftCardsLabel.frame.width/2
+        
     }
     
     //set the text of status bar light
@@ -139,7 +140,14 @@ class FlashCardsViewController: UIViewController, MaterialShowcaseDelegate {
         designShowcase(showcase: showcaseHappyFace)
         showcaseHappyFace.delegate = self
         
-            sequenceShowcases.temp(showcaseSightWordCard).temp(showcaseSadFace).temp(showcaseHappyFace).start()
+        showcaseLeftCards.setTargetView(view: leftCardsButton)
+        showcaseLeftCards.primaryText = "Left Cards"
+        showcaseLeftCards.secondaryText = "Number of remaining cards to practice"
+        
+        designShowcase(showcase: showcaseLeftCards)
+        showcaseLeftCards.delegate = self
+        
+            sequenceShowcases.temp(showcaseSightWordCard).temp(showcaseSadFace).temp(showcaseLeftCards).temp(showcaseHappyFace).start()
         
     }
     
@@ -158,6 +166,8 @@ class FlashCardsViewController: UIViewController, MaterialShowcaseDelegate {
         listWordsWrong.removeAll()
         
         if let numberWordsToPractice = wordsList?.count {
+            leftCardsToPractice = numberWordsToPractice
+            leftCardsButton.setTitle(String(leftCardsToPractice), for: .normal)
             for i in 0...numberWordsToPractice - 1 {
                 listWordsToPractice.append(wordsList![i])
             }
@@ -173,6 +183,8 @@ class FlashCardsViewController: UIViewController, MaterialShowcaseDelegate {
         
         listWordsToPractice.removeAll()
         let numberWordsToPractice = listWordsWrong.count
+        leftCardsToPractice = numberWordsToPractice
+        leftCardsButton.setTitle(String(leftCardsToPractice), for: .normal)
         
         for i in 0...numberWordsToPractice - 1 {
             listWordsToPractice.append(listWordsWrong[i])
@@ -306,6 +318,8 @@ extension FlashCardsViewController: KolodaViewDelegate {
     }
     
     func koloda(_ koloda: KolodaView, didSwipeCardAt index: Int, in direction: SwipeResultDirection) {
+        leftCardsToPractice -= 1
+        leftCardsButton.setTitle(String(leftCardsToPractice), for: .normal)
         if direction == .left {
             print("Left")
             playSound(soundFileName: wrongAnswerSoundFileName, soundFileExtension: soundFileExtension)

@@ -10,6 +10,7 @@
     import UIKit
     import RealmSwift
     import MaterialShowcase
+    import SCLAlertView
 
     class UserEditViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate, MaterialShowcaseDelegate {
         
@@ -23,11 +24,13 @@
         @IBOutlet weak var avatarButton: UIButton!
         @IBOutlet weak var helpButton: UIButton!
         
-        let userImages = ["Cool", "Crying", "Drooling", "Grumpy", "Happy", "Mad", "Scared", "Sick", "Silly", "Sleepy", "Smily"]
+        var action = String()
+        
+        let userImages = ["coolAvatar", "cryingAvatar", "droolingAvatar", "grumpyAvatar", "happyAvatar", "madAvatar", "scaredAvatar", "sickAvatar", "sillyAvatar", "sleepyAvatar", "smilyAvatar"]
         let realm = try! Realm()
         
         var wordsList : Results<SightWord>?
-        
+        var users : Results<User>?
         
         var selectedUser : User? {
             didSet{
@@ -69,41 +72,71 @@
         }
 
         // This function sets the text of the picker view to the content of the "userImages" array
-        func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-            return userImages[row]
+//        func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+//            //in case the pickerView is not used (with the first avatar) the function didSelectRow won't be called, then we assign the first avatar as a default value
+//            selectedAvatarName = "coolAvatar"
+//            return userImages[row]
+//        }
+        
+        func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
+            
+            return 100
+            
+        }
+        
+        func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
+            
+            let userView = UIView(frame: CGRect(x: 0, y: 20, width: self.view.frame.width, height: 100))
+            
+//                    userView.backgroundColor = UIColor.blue
+            
+            let userImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 100))
+//                    userImageView.backgroundColor = UIColor.red
+            userImageView.contentMode = .scaleAspectFit
+            userView.addSubview(userImageView)
+            
+            //        userImageView.image = UIImage(named: "coolAvatar")
+            userImageView.image = UIImage(named: userImages[row])
+
+//            in case the pickerView is not used (with the first avatar) the function didSelectRow won't be called, then we assign the first avatar as a default value
+            selectedAvatarName = "coolAvatar"
+            
+            return userView
+            
         }
         
         // When user selects an option, this function will set the text of the text field to reflect
         // the selected option.
         func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
             
+            selectedAvatarName = userImages[row]
             
-            switch userImages[row] {
-            case "Cool":
-                selectedAvatarName = "coolAvatar"
-            case "Crying":
-                selectedAvatarName = "cryingAvatar"
-            case "Drooling":
-                selectedAvatarName = "droolingAvatar"
-            case "Grumpy":
-                selectedAvatarName = "grumpyAvatar"
-            case "Happy":
-                selectedAvatarName = "happyAvatar"
-            case "Mad":
-                selectedAvatarName = "madAvatar"
-            case "Scared":
-                selectedAvatarName = "scaredAvatar"
-            case "Sick":
-                selectedAvatarName = "sickAvatar"
-            case "Silly":
-                selectedAvatarName = "sillyAvatar"
-            case "Sleepy":
-                selectedAvatarName = "sleepyAvatar"
-            case "Smily":
-                selectedAvatarName = "smilyAvatar"
-            default:
-                selectedAvatarName = "happyAvatar"
-            }
+//            switch userImages[row] {
+//            case "Cool":
+//                selectedAvatarName = "coolAvatar"
+//            case "Crying":
+//                selectedAvatarName = "cryingAvatar"
+//            case "Drooling":
+//                selectedAvatarName = "droolingAvatar"
+//            case "Grumpy":
+//                selectedAvatarName = "grumpyAvatar"
+//            case "Happy":
+//                selectedAvatarName = "happyAvatar"
+//            case "Mad":
+//                selectedAvatarName = "madAvatar"
+//            case "Scared":
+//                selectedAvatarName = "scaredAvatar"
+//            case "Sick":
+//                selectedAvatarName = "sickAvatar"
+//            case "Silly":
+//                selectedAvatarName = "sillyAvatar"
+//            case "Sleepy":
+//                selectedAvatarName = "sleepyAvatar"
+//            case "Smily":
+//                selectedAvatarName = "smilyAvatar"
+//            default:
+//                selectedAvatarName = "happyAvatar"
+//            }
             
             print(selectedAvatarName)
 
@@ -117,6 +150,25 @@
         
         
         //MARK: DB Methods
+        func loadUsers(){
+            
+            users = realm.objects(User.self).sorted(byKeyPath: "name", ascending: true)
+            
+            print(users?.count as Any)
+            print(users as Any)
+            
+        }
+        
+        func checkUserExist() -> Bool {
+            
+            users = realm.objects(User.self).filter("name = %@", nameTextField.text! as Any).sorted(byKeyPath: "name", ascending: true)
+            if users?.count == 1 {
+                return true
+            } else {
+                return false
+            }
+            
+        }
         
         func updateUser() {
             
@@ -134,6 +186,23 @@
                 }
             }
             
+        }
+        
+        func createUser() {
+ 
+            print("createUser: \(nameTextField.text!) \(selectedAvatarName)")
+            
+            do {
+                try self.realm.write {
+                    let newUser = User()
+                    newUser.name = nameTextField.text!
+                    newUser.avatar = selectedAvatarName
+                    realm.add(newUser)
+                }
+            } catch {
+                print("Error creating user \(error)")
+            }
+
         }
         
         func updateUserNameInSightWordsTable() {
@@ -203,12 +272,13 @@
             helpButton.setImage(helpImageTinted, for: .normal)
             helpButton.tintColor = UIColor.white
             
-            nameBarLabel.text = selectedUser?.name
+            if self.action != "create" {
+                nameBarLabel.text = selectedUser?.name
+                nameTextField.text = selectedUser?.name
+                avatarButton.setImage(UIImage(named: selectedUser!.avatar), for: .normal)
+            }
             
             imagePickerView.isHidden = true
-            
-            nameTextField.text = selectedUser?.name
-            avatarButton.setImage(UIImage(named: selectedUser!.avatar), for: .normal)
             
         }
         
@@ -220,21 +290,74 @@
         
         @IBAction func saveButtonTapped(_ sender: UIButton) {
             
-            updateUserNameInSightWordsTable()
-            updateUser()
+            print("action: \(self.action)")
             
-            selectedUser?.name == nameTextField.text
-            
-//            performSegue(withIdentifier: "goToUsersVC", sender: self)
-            
-            performSegue(withIdentifier: "goToListsTab", sender: self)
+            if self.action == "create" {
+                //check that there is no other user with the same name
+                if checkUserExist() {
+                    print("User exists")
+                    let appearance = SCLAlertView.SCLAppearance(
+                        kButtonHeight: 50,
+                        kTitleFont: UIFont(name: "Montserrat-SemiBold", size: 17)!,
+                        kTextFont: UIFont(name: "Montserrat-Regular", size: 16)!,
+                        kButtonFont: UIFont(name: "Montserrat-SemiBold", size: 17)!
+                        
+                    )
+                    let alert = SCLAlertView(appearance: appearance)
+                    let colorAlert = UIColor(named: "colorAlertEdit")
+                    let iconAlert = UIImage(named: "icon-warning")
+                    
+                    alert.showCustom("User exists", subTitle: "The user already exists, choose a different user name", color: colorAlert!, icon: iconAlert!, closeButtonTitle: "Close", animationStyle: .topToBottom)
+                } else {
+
+                    createUser()
+                    self.action = ""
+                    performSegue(withIdentifier: "goToUsersVC", sender: self)
+                }
+           
+            } else {
+                //if the name is changed check that there is no other user with that name
+                if selectedUser?.name != nameTextField.text {
+                    print("a")
+                    if checkUserExist() {
+                        print("User exists")
+                        let appearance = SCLAlertView.SCLAppearance(
+                            kButtonHeight: 50,
+                            kTitleFont: UIFont(name: "Montserrat-SemiBold", size: 17)!,
+                            kTextFont: UIFont(name: "Montserrat-Regular", size: 16)!,
+                            kButtonFont: UIFont(name: "Montserrat-SemiBold", size: 17)!
+                            
+                        )
+                        let alert = SCLAlertView(appearance: appearance)
+                        let colorAlert = UIColor(named: "colorAlertEdit")
+                        let iconAlert = UIImage(named: "icon-warning")
+                        
+                        alert.showCustom("User exists", subTitle: "The user already exists, choose a different user name", color: colorAlert!, icon: iconAlert!, closeButtonTitle: "Close", animationStyle: .topToBottom)
+                    } else {
+                        print("b")
+                        updateUserNameInSightWordsTable()
+                        updateUser()
+                        selectedUser?.name == nameTextField.text
+                        performSegue(withIdentifier: "goToListsTab", sender: self)
+                    }
+                } else {
+                    print("c")
+                    updateUser()
+                    performSegue(withIdentifier: "goToListsTab", sender: self)
+                }
+                
+            }
             
         }
         
         @IBAction func cancelButtonTapped(_ sender: UIButton) {
             
-//            performSegue(withIdentifier: "unwindToUsersVC", sender: self)
-            performSegue(withIdentifier: "goToListsTab", sender: self)
+            if self.action == "create" {
+                self.action = ""
+                performSegue(withIdentifier: "goToUsersVC", sender: self)
+            } else {
+                performSegue(withIdentifier: "goToListsTab", sender: self)
+            }
             
         }
         

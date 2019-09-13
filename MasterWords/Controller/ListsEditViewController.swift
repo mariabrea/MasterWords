@@ -21,7 +21,8 @@ class ListsEditViewController: SwipeTableViewController, MaterialShowcaseDelegat
     let realm = try! Realm()
     
     var lists : Results<SightWordsList>?
-//    var lists : List<SightWordsList>?
+    var listsCheck : Results<SightWordsList>?
+    var wordsList : Results<SightWord>?
     
     var selectedUser : User? {
         didSet{
@@ -35,6 +36,9 @@ class ListsEditViewController: SwipeTableViewController, MaterialShowcaseDelegat
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //set observer to detetct when Lists have been added through the Graph window
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadLists), name: NSNotification.Name(rawValue: "loadLists"), object: nil)
         
         self.navigationItem.title = "\(selectedUser!.name)'s Lists"
         tableView.rowHeight = 70
@@ -123,66 +127,50 @@ class ListsEditViewController: SwipeTableViewController, MaterialShowcaseDelegat
         
     }
     
-//    override func updateModel(at indexPath: IndexPath, delete: Bool) {
-//
-//        if delete {
-//            if let list = self.lists?[indexPath.row] {
-//                do{
-//                    try self.realm.write {
-//                        self.realm.delete(list)
-//                    }
-//                } catch {
-//                    print("Error deleting list \(error)")
-//                }
-//            }
-//        } else {
-//            var textField = UITextField()
-//
-//            let alert = UIAlertController(title: "Update", message: "", preferredStyle: .alert)
-//
-//            let updateAction = UIAlertAction(title: "Update", style: .default) { (action) in
-//
-//                if let list = self.lists?[indexPath.row] {
-//                    do{
-//                        try self.realm.write {
-//                            list.name = textField.text!
-//                        }
-//                    } catch {
-//                        print("Error updating list \(error)")
-//                    }
-//                }
-//
-//                self.tableView.reloadData()
-//                //notify to NotificacionCenter when data has changed
-//                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "loadLists"), object: nil)
-//            }
-//
-//            let cancelAction = UIAlertAction(title: "Cancel", style: .default) { (action) in
-//                alert.dismiss(animated: true, completion: nil)
-//            }
-//
-//            //we add a textfield to the UIalert
-//            alert.addTextField { (alertTextField) in
-//                alertTextField.placeholder = "New"
-//                textField = alertTextField
-//            }
-//
-//            //we add the action to the UIalert
-//            alert.addAction(updateAction)
-//            alert.addAction(cancelAction)
-//
-//            textField.delegate = self
-//
-//            present(alert, animated: true, completion: nil)
-//
-//        }
-//
-//    }
+    //func to reload data when Lists have been added through the Graph window
+    @objc func reloadLists(notification: NSNotification) {
+        
+        print("Reloading Lists")
+        self.tableView.reloadData()
+        
+    }
+    
+    func loadSightWords(selectedList: SightWordsList) {
+        
+        wordsList = selectedList.sightWords.sorted(byKeyPath: "name", ascending: true)
+        
+        tableView.reloadData()
+        
+    }
+    
+    //function to check is a List name already exists for the user
+    func checkListExist(listName: String) -> Bool {
+        
+        listsCheck = selectedUser?.userLists.filter("name = %@", listName)
+        if listsCheck?.count ?? 0 >= 1 {
+            return true
+        } else {
+            return false
+        }
+        
+    }
     
     override func updateModel(at indexPath: IndexPath, delete: Bool) {
         
         if delete {
             if let list = self.lists?[indexPath.row] {
+                //first we delete all the sight words of the list
+                loadSightWords(selectedList: list)
+                wordsList?.forEach { wordToDelete in
+                    do {
+                        try realm.write {
+                            realm.delete(wordToDelete)
+                        }
+                    } catch {
+                        print("Error deleting sight word \(error)")
+                    }
+                }
+                //second we delete the list
                 do{
                     try self.realm.write {
                         self.realm.delete(list)
@@ -191,6 +179,8 @@ class ListsEditViewController: SwipeTableViewController, MaterialShowcaseDelegat
                     print("Error deleting list \(error)")
                 }
             }
+            //we post in the notification Center 'loadGraph' so the graph is updated
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "loadGraph"), object: nil)
         } else {
 
             let appearance = SCLAlertView.SCLAppearance(
@@ -224,7 +214,7 @@ class ListsEditViewController: SwipeTableViewController, MaterialShowcaseDelegat
             let colorAlert = UIColor(named: "colorAlertEdit")
             let iconAlert = UIImage(named: "edit-icon")
             
-            alert.showCustom("Update", subTitle: "Update the name of the list", color: colorAlert!, icon: iconAlert!)
+            alert.showCustom("Update", subTitle: "Update the name of the list", color: colorAlert!, icon: iconAlert!, closeButtonTitle: "Close", animationStyle: .topToBottom)
             
             textField.delegate = self
             
@@ -284,55 +274,6 @@ class ListsEditViewController: SwipeTableViewController, MaterialShowcaseDelegat
     
     //MARK - IBAction Methods
     
-//    @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
-//
-//        var textField = UITextField()
-//
-//
-//        let alert = UIAlertController(title: "New List", message: "", preferredStyle: .alert)
-//
-//        let addAction = UIAlertAction(title: "Add List", style: .default) { (action) in
-//
-//            if let currentUser = self.selectedUser {
-//                //print("user \(self.selectedUser?.name)")
-//                do {
-//                    try self.realm.write {
-//                        let newList = SightWordsList()
-//                        newList.name = textField.text!
-//                        newList.color = UIColor.randomFlat.hexValue()
-//                        currentUser.userLists.append(newList)
-//                    }
-//                } catch {
-//                    print("Error saving word \(error)")
-//                }
-//
-//            }
-//
-//            self.tableView.reloadData()
-//            //notify to NotificacionCenter when data has changed
-//            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "loadLists"), object: nil)
-//        }
-//
-//        let cancelAction = UIAlertAction(title: "Cancel", style: .default) { (action) in
-//            alert.dismiss(animated: true, completion: nil)
-//        }
-//
-//        //we add a textfield to the UIalert
-//        alert.addTextField { (alertTextField) in
-//            alertTextField.placeholder = "Create new list"
-//            textField = alertTextField
-//        }
-//
-//        //we add the action to the UIalert
-//        alert.addAction(addAction)
-//        alert.addAction(cancelAction)
-//
-//        textField.delegate = self
-//
-//        present(alert, animated: true, completion: nil)
-//
-//    }
-    
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
         
         let appearance = SCLAlertView.SCLAppearance(
@@ -349,30 +290,49 @@ class ListsEditViewController: SwipeTableViewController, MaterialShowcaseDelegat
         
         alert.addButton("Create") {
             
-            if let currentUser = self.selectedUser {
-                //print("user \(self.selectedUser?.name)")
-                do {
-                    try self.realm.write {
-                        let newList = SightWordsList()
-                        newList.name = textField.text!
-                        newList.color = UIColor.randomFlat.hexValue()
-                        currentUser.userLists.append(newList)
+            //first check if the user has another list with that name
+            if self.checkListExist(listName: textField.text!) {
+                //create alert saying that that list name already exists for the user
+                let appearance = SCLAlertView.SCLAppearance(
+                    kButtonHeight: 50,
+                    kTitleFont: UIFont(name: "Montserrat-SemiBold", size: 17)!,
+                    kTextFont: UIFont(name: "Montserrat-Regular", size: 16)!,
+                    kButtonFont: UIFont(name: "Montserrat-SemiBold", size: 17)!
+                    
+                )
+                let alert = SCLAlertView(appearance: appearance)
+                let colorAlert = UIColor(named: "colorAlertEdit")
+                let iconAlert = UIImage(named: "icon-warning")
+                
+                alert.showCustom("List exists", subTitle: "There is another list with that name. Chose a different name.", color: colorAlert!, icon: iconAlert!, closeButtonTitle: "Close", animationStyle: .topToBottom)
+            } else {
+                //create the new list
+                if let currentUser = self.selectedUser {
+                    //print("user \(self.selectedUser?.name)")
+                    do {
+                        try self.realm.write {
+                            let newList = SightWordsList()
+                            newList.name = textField.text!
+                            newList.color = UIColor.randomFlat.hexValue()
+                            currentUser.userLists.append(newList)
+                        }
+                    } catch {
+                        print("Error saving list \(error)")
                     }
-                } catch {
-                    print("Error saving word \(error)")
+                    
                 }
                 
+                self.tableView.reloadData()
+                //notify to NotificacionCenter when data has changed
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "loadLists"), object: nil)
             }
-            
-            self.tableView.reloadData()
-            //notify to NotificacionCenter when data has changed
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "loadLists"), object: nil)
+
         }
         
         let colorAlert = UIColor(named: "colorAlertEdit")
         let iconAlert = UIImage(named: "icon-list")
         
-        alert.showCustom("Create", subTitle: "Create a new list", color: colorAlert!, icon: iconAlert!)
+        alert.showCustom("Create", subTitle: "Create a new list", color: colorAlert!, icon: iconAlert!, closeButtonTitle: "Close", animationStyle: .topToBottom)
         
         textField.delegate = self
         

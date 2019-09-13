@@ -21,6 +21,7 @@ class SingleListEditViewController: SwipeTableViewController, MaterialShowcaseDe
     let realm = try! Realm()
   
     var wordsList : Results<SightWord>?
+    var wordsCheck : Results<SightWord>?
     
     var selectedUser : String = ""
     var selectedList : SightWordsList? {
@@ -118,58 +119,18 @@ class SingleListEditViewController: SwipeTableViewController, MaterialShowcaseDe
         
     }
     
-//    override func updateModel(at indexPath: IndexPath, delete: Bool) {
-//        if delete {
-//            if let word = self.wordsList?[indexPath.row] {
-//                do{
-//                    try self.realm.write {
-//                        self.realm.delete(word)
-//                    }
-//                } catch {
-//                    print("Error deleting sight word \(error)")
-//                }
-//            }
-//        } else {
-//            var textField = UITextField()
-//
-//            let alert = UIAlertController(title: "Update", message: "", preferredStyle: .alert)
-//
-//            let updateAction = UIAlertAction(title: "Update", style: .default) { (action) in
-//
-//                if let word = self.wordsList?[indexPath.row] {
-//                    do{
-//                        try self.realm.write {
-//                            word.name = textField.text!
-//                        }
-//                    } catch {
-//                        print("Error updating word list \(error)")
-//                    }
-//                }
-//
-//                self.tableView.reloadData()
-//            }
-//
-//            let cancelAction = UIAlertAction(title: "Cancel", style: .default) { (action) in
-//                alert.dismiss(animated: true, completion: nil)
-//            }
-//
-//            //we add a textfield to the UIalert
-//            alert.addTextField { (alertTextField) in
-//                alertTextField.placeholder = "New"
-//                textField = alertTextField
-//            }
-//
-//            //we add the action to the UIalert
-//            alert.addAction(updateAction)
-//            alert.addAction(cancelAction)
-//
-//            textField.delegate = self
-//
-//            present(alert, animated: true, completion: nil)
-//
-//        }
-//
-//    }
+    //function to check is a Word name already exists for the list
+    func checkWordExist(wordName: String) -> Bool {
+        
+        wordsCheck = selectedList?.sightWords.filter("name = %@", wordName)
+        if wordsCheck?.count ?? 0 >= 1 {
+            return true
+        } else {
+            return false
+        }
+        
+    }
+    
     
     override func updateModel(at indexPath: IndexPath, delete: Bool) {
         if delete {
@@ -182,6 +143,8 @@ class SingleListEditViewController: SwipeTableViewController, MaterialShowcaseDe
                     print("Error deleting sight word \(error)")
                 }
             }
+            //we post in the notification Center 'loadGraph' so the graph is updated
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "loadGraph"), object: nil)
         } else {
             let appearance = SCLAlertView.SCLAppearance(
                 kButtonHeight: 50,
@@ -212,7 +175,7 @@ class SingleListEditViewController: SwipeTableViewController, MaterialShowcaseDe
             let colorAlert = UIColor(named: "colorAlertEdit")
             let iconAlert = UIImage(named: "edit-icon")
             
-            alert.showCustom("Update", subTitle: "Update the name of the sight word", color: colorAlert!, icon: iconAlert!)
+            alert.showCustom("Update", subTitle: "Update the name of the sight word", color: colorAlert!, icon: iconAlert!, closeButtonTitle: "Close", animationStyle: .topToBottom)
             
             textField.delegate = self
             
@@ -259,53 +222,6 @@ class SingleListEditViewController: SwipeTableViewController, MaterialShowcaseDe
     
     //MARK - IBAction Methods
     
-//    @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
-//
-//        var textField = UITextField()
-//
-//        let alert = UIAlertController(title: "Add New Sight Word", message: "", preferredStyle: .alert)
-//
-//        let addAction = UIAlertAction(title: "Add", style: .default) { (action) in
-//
-//            //we create a new object of type Item of the dstabase, and we fill its attributes
-//
-//            if let currentList = self.selectedList {
-//                do {
-//                    try self.realm.write {
-//                        let newWord = SightWord()
-//                        newWord.name = textField.text!
-//                        newWord.index = 0
-//                        newWord.userName = self.selectedUser
-//                        currentList.sightWords.append(newWord)
-//                    }
-//                } catch {
-//                    print("Error saving word \(error)")
-//                }
-//
-//            }
-//
-//            self.tableView.reloadData()
-//        }
-//
-//        let cancelAction = UIAlertAction(title: "Cancel", style: .default) { (action) in
-//            alert.dismiss(animated: true, completion: nil)
-//        }
-//
-//        //we add a textfield to the UIalert
-//        alert.addTextField { (alertTextField) in
-//            alertTextField.placeholder = "Create new sight word"
-//            textField = alertTextField
-//        }
-//
-//        //we add the action to the UIalert
-//        alert.addAction(addAction)
-//        alert.addAction(cancelAction)
-//
-//        textField.delegate = self
-//
-//        present(alert, animated: true, completion: nil)
-//
-//    }
 
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
         
@@ -321,31 +237,48 @@ class SingleListEditViewController: SwipeTableViewController, MaterialShowcaseDe
         let textField = alert.addTextField("Enter sight word")
         textField.autocapitalizationType = .none
         alert.addButton("Add") {
-            
-            //we create a new object of type Item of the dstabase, and we fill its attributes
-            
-            if let currentList = self.selectedList {
-                do {
-                    try self.realm.write {
-                        let newWord = SightWord()
-                        newWord.name = textField.text!
-                        newWord.index = 0
-                        newWord.userName = self.selectedUser
-                        currentList.sightWords.append(newWord)
+            //first we check if the word already exists in the list
+            if self.checkWordExist(wordName: textField.text!.lowercased()) {
+                //create alert saying that that word name already exists for the list
+                let appearance = SCLAlertView.SCLAppearance(
+                    kButtonHeight: 50,
+                    kTitleFont: UIFont(name: "Montserrat-SemiBold", size: 17)!,
+                    kTextFont: UIFont(name: "Montserrat-Regular", size: 16)!,
+                    kButtonFont: UIFont(name: "Montserrat-SemiBold", size: 17)!
+                    
+                )
+                let alert = SCLAlertView(appearance: appearance)
+                let colorAlert = UIColor(named: "colorAlertEdit")
+                let iconAlert = UIImage(named: "icon-warning")
+                
+                alert.showCustom("Word exists", subTitle: "The sight word already exists in this list.", color: colorAlert!, icon: iconAlert!, closeButtonTitle: "Close", animationStyle: .topToBottom)
+            } else {
+                //we add the word to the list
+                //we create a new object of type Item of the database, and we fill its attributes
+                if let currentList = self.selectedList {
+                    do {
+                        try self.realm.write {
+                            let newWord = SightWord()
+                            newWord.name = textField.text!.lowercased()
+                            newWord.index = 0
+                            newWord.userName = self.selectedUser
+                            currentList.sightWords.append(newWord)
+                        }
+                    } catch {
+                        print("Error saving word \(error)")
                     }
-                } catch {
-                    print("Error saving word \(error)")
+                    
                 }
                 
+                self.tableView.reloadData()
             }
             
-            self.tableView.reloadData()
         }
         
         let colorAlert = UIColor(named: "colorAlertEdit")
         let iconAlert = UIImage(named: "icon-word")
         
-        alert.showCustom("Add", subTitle: "Add a new sight word to the list", color: colorAlert!, icon: iconAlert!)
+        alert.showCustom("Add", subTitle: "Add a new sight word to the list", color: colorAlert!, icon: iconAlert!, closeButtonTitle: "Close", animationStyle: .topToBottom)
         
         textField.delegate = self
         

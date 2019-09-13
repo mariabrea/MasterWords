@@ -10,6 +10,7 @@ import UIKit
 import RealmSwift
 import ChameleonFramework
 import MaterialShowcase
+import SCLAlertView
 
 class ListsTableViewController: UITableViewController {
 
@@ -94,23 +95,20 @@ class ListsTableViewController: UITableViewController {
             
             self.tableView.reloadData()
             
-            let alert = UIAlertController(title: "List empty", message: "Add some sight words to the list", preferredStyle: .alert)
+            //create alert
+            let appearance = SCLAlertView.SCLAppearance(
+                kButtonHeight: 50,
+                kTitleFont: UIFont(name: "Montserrat-SemiBold", size: 17)!,
+                kTextFont: UIFont(name: "Montserrat-Regular", size: 16)!,
+                kButtonFont: UIFont(name: "Montserrat-SemiBold", size: 17)!
+                
+            )
+            let alert = SCLAlertView(appearance: appearance)
+            let colorAlert = UIColor(named: "colorAlertEdit")
+            let iconAlert = UIImage(named: "icon-warning")
 
-            // Change font and color of title
-            alert.setTitle(font: UIFont.boldSystemFont(ofSize: 20), color: UIColor(hexString: "49244E"))
+            alert.showCustom("List empty", subTitle: "Add some sight words to the list", color: colorAlert!, icon: iconAlert!, closeButtonTitle: "Close", animationStyle: .topToBottom)
             
-            // Change font and color of message
-            alert.setMessage(font: UIFont.systemFont(ofSize: 16), color: UIColor(hexString: "49244E"))
-            
-            // Change background color of UIAlertController
-            alert.setBackgroundColor(color: UIColor(hexString: "E8ECEE")!)
-
-            alert.view.tintColor = UIColor(hexString: "EF626C")
-            
-            let closeAction = UIAlertAction(title: "Close", style: .default) { (action) in
-                alert.dismiss(animated: true, completion: nil)}
-            alert.addAction(closeAction)
-            present(alert, animated: true, completion: nil)
         } else {
             performSegue(withIdentifier: "goToFlashCardsVC", sender: self)
         }

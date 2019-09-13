@@ -24,6 +24,7 @@
 		C12F024C2327E54A00596D25 /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C12F024B2327E54900596D25 /* Montserrat-Regular.ttf */; };
 		C12F024E2327FAFF00596D25 /* GelPenHeavy.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C12F024D2327FAFD00596D25 /* GelPenHeavy.ttf */; };
 		C1344A44231573D800BEB28C /* UserEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1344A43231573D800BEB28C /* UserEditViewController.swift */; };
+		C15EEB88232C2C4600FB6770 /* defaultCompactedMasterWords_v1.0.realm in Resources */ = {isa = PBXBuildFile; fileRef = C15EEB87232C2C4600FB6770 /* defaultCompactedMasterWords_v1.0.realm */; };
 		C16182CE20606EF60025E6D1 /* 38798943_correct-answer-bell-gliss-01.wav in Resources */ = {isa = PBXBuildFile; fileRef = C16182CD20606EF60025E6D1 /* 38798943_correct-answer-bell-gliss-01.wav */; };
 		C16182D020606F070025E6D1 /* 38806077_wrong-answer-bong-spring-01.wav in Resources */ = {isa = PBXBuildFile; fileRef = C16182CF20606F070025E6D1 /* 38806077_wrong-answer-bong-spring-01.wav */; };
 		C16182D3206075070025E6D1 /* GraphTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16182D2206075060025E6D1 /* GraphTableViewController.swift */; };
@@ -61,6 +62,7 @@
 		C12F024B2327E54900596D25 /* Montserrat-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Regular.ttf"; sourceTree = "<group>"; };
 		C12F024D2327FAFD00596D25 /* GelPenHeavy.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = GelPenHeavy.ttf; sourceTree = "<group>"; };
 		C1344A43231573D800BEB28C /* UserEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserEditViewController.swift; sourceTree = "<group>"; };
+		C15EEB87232C2C4600FB6770 /* defaultCompactedMasterWords_v1.0.realm */ = {isa = PBXFileReference; lastKnownFileType = file; path = defaultCompactedMasterWords_v1.0.realm; sourceTree = "<group>"; };
 		C16182CD20606EF60025E6D1 /* 38798943_correct-answer-bell-gliss-01.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "38798943_correct-answer-bell-gliss-01.wav"; sourceTree = "<group>"; };
 		C16182CF20606F070025E6D1 /* 38806077_wrong-answer-bong-spring-01.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "38806077_wrong-answer-bong-spring-01.wav"; sourceTree = "<group>"; };
 		C16182D2206075060025E6D1 /* GraphTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphTableViewController.swift; sourceTree = "<group>"; };
@@ -109,6 +111,26 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		C15EEB81232BF23700FB6770 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				C17D56F520588E4700210586 /* SightWord.swift */,
+				C12293AF2062BE820080A810 /* User.swift */,
+				C128AEB42061696800A47E3F /* Word.swift */,
+				C1AE3BAC20583E11005FA6A1 /* SightWordsList.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		C15EEB82232BF28000FB6770 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				C12F01F5231821F100596D25 /* RoundedButton.swift */,
+				C19974992316D8B7006467ED /* TextFieldMaxLengths.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
 		C16182D120606F0D0025E6D1 /* Sound */ = {
 			isa = PBXGroup;
 			children = (
@@ -151,6 +173,8 @@
 		C1E94DDA2058336C0077F6EB /* MasterWords */ = {
 			isa = PBXGroup;
 			children = (
+				C15EEB82232BF28000FB6770 /* Extension */,
+				C15EEB81232BF23700FB6770 /* Model */,
 				C1E94DEF205833A40077F6EB /* Controller */,
 				C1E94DF0205833CF0077F6EB /* View */,
 				C1E94DF1205833D60077F6EB /* Supporting Files */,
@@ -170,16 +194,10 @@
 				C17D56F320588CE900210586 /* SingleListEditViewController.swift */,
 				C104F5BF205AABD10052A21F /* ListsTableViewController.swift */,
 				C178747D205AB89400C01B71 /* FlashCardsViewController.swift */,
-				C17D56F520588E4700210586 /* SightWord.swift */,
-				C12293AF2062BE820080A810 /* User.swift */,
-				C128AEB42061696800A47E3F /* Word.swift */,
-				C1AE3BAC20583E11005FA6A1 /* SightWordsList.swift */,
 				C1E94DDB2058336C0077F6EB /* AppDelegate.swift */,
 				C1AE3BAE2058412E005FA6A1 /* SwipeTableViewController.swift */,
 				C1344A43231573D800BEB28C /* UserEditViewController.swift */,
-				C19974992316D8B7006467ED /* TextFieldMaxLengths.swift */,
 				C12F01F323180EAD00596D25 /* CreditsViewController.swift */,
-				C12F01F5231821F100596D25 /* RoundedButton.swift */,
 				C12F023F231EBC4A00596D25 /* ListsNavigationController.swift */,
 				C12F0241231EBDA000596D25 /* FlashCardsNavigationController.swift */,
 				C12F02432320132200596D25 /* ShowcaseFunctions.swift */,
@@ -199,6 +217,7 @@
 		C1E94DF1205833D60077F6EB /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				C15EEB87232C2C4600FB6770 /* defaultCompactedMasterWords_v1.0.realm */,
 				C16182D120606F0D0025E6D1 /* Sound */,
 				C1DC04D5205C2DFF00F1BDC3 /* Fonts */,
 				C1E94DE42058336C0077F6EB /* Assets.xcassets */,
@@ -270,6 +289,7 @@
 			files = (
 				C12F024C2327E54A00596D25 /* Montserrat-Regular.ttf in Resources */,
 				C16182D020606F070025E6D1 /* 38806077_wrong-answer-bong-spring-01.wav in Resources */,
+				C15EEB88232C2C4600FB6770 /* defaultCompactedMasterWords_v1.0.realm in Resources */,
 				C12F02482327E50600596D25 /* Montserrat-Black.ttf in Resources */,
 				C1E94DE82058336C0077F6EB /* LaunchScreen.storyboard in Resources */,
 				C1E94DE52058336C0077F6EB /* Assets.xcassets in Resources */,

@@ -9,7 +9,11 @@
 import UIKit
 import RealmSwift
 
+//MARK: - Copy default Realm Database
 
+func bundleURL(_ name: String) -> URL? {
+    return Bundle.main.url(forResource: name, withExtension: "realm")
+}
 
 //extension to chamge background color of status bar
 extension UIApplication {
@@ -31,10 +35,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UIApplication.shared.statusBarView?.backgroundColor = UIColor(named: "colorBarBackground")
         //set the text of status bar light
         
+        //copy bundled realm file if it doesn't exist already
+        print("1")
+        let initialURL = Bundle.main.url(forResource: "defaultCompactedMasterWords_v1.0", withExtension: "realm")
+        print("2")
+        let defaultURL = Realm.Configuration.defaultConfiguration.fileURL!
+        print("3")
+        print(FileManager.default)
+        
+        do {
+            try defaultURL.checkResourceIsReachable()
+            print("The realm file already exists")
+        } catch {
+            print("The file does not exist")
+            print("4")
+            do {
+                print("5")
+                try FileManager.default.copyItem(at: initialURL!, to: defaultURL)
+            } catch {
+                print("Error copying bundled realm file")
+            }
+        }
+        
         print(Realm.Configuration.defaultConfiguration.fileURL as Any)
         
         do {
             let _ =  try Realm()
+            print("Realm initialized")
         } catch {
             print("Error initialising realm \(error)")
         }

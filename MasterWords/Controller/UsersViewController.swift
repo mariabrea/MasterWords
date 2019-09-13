@@ -8,15 +8,18 @@
 
 import UIKit
 import RealmSwift
-//import ChameleonFramework
+import MaterialShowcase
+import SCLAlertView
 
-class UsersViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+class UsersViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, MaterialShowcaseDelegate {
 
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var usersPickerView: UIPickerView!
     @IBOutlet weak var startButton: RoundButton!
-    
-    
+    @IBOutlet weak var createButton: UIButton!
+    @IBOutlet weak var deleteButton: UIButton!
+    @IBOutlet weak var helpButton: UIButton!
+   
     // MARK: - DB Migration
     let config = Realm.Configuration(
         schemaVersion: 1,
@@ -29,30 +32,41 @@ class UsersViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
     })
 
     lazy var realm = try! Realm(configuration: config)
+    
+    
 //    lazy var realm = try! Realm()
     
     var user : String = ""
     
     var users : Results<User>?
     var selectedUser = User()
+    var lists : Results<SightWordsList>?
+    var wordsList : Results<SightWord>?
     
     var rotationAnglePositive: CGFloat!
     var rotationAngleNegative: CGFloat!
+    
+    let sequenceShowcases = MaterialShowcaseSequence()
+    let showcaseStartButton = MaterialShowcase()
+    let showcaseCreateButton = MaterialShowcase()
+    let showcaseDeleteButton = MaterialShowcase()
     
     override func viewDidLoad() {
         print("in pre viewDidLoad")
 
         super.viewDidLoad()
 
-//        UIApplication.shared.statusBarView?.backgroundColor = UIColor(named: "colorButtonBackground")
-        
 
 //        createDefaultDB()
         
         loadUsers()
 
         updateUI()
-        
+    
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+//        helpButton.isUserInteractionEnabled = true
     }
 
     //set the text of status bar light
@@ -146,6 +160,7 @@ class UsersViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
         for i in [1,2] {
             usersPickerView.subviews[i].isHidden = true
         }
+
     }
     
     //MARK: - Database Methods
@@ -154,9 +169,21 @@ class UsersViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
         
         users = realm.objects(User.self).sorted(byKeyPath: "name", ascending: true)
         
-        print(users?.count as Any)
-        print(users as Any)
+//        print(users?.count as Any)
+//        print(users as Any)
 
+    }
+    
+    func loadLists() {
+        
+        lists = selectedUser.userLists.sorted(byKeyPath: "name", ascending: true)
+        
+    }
+    
+    func loadSightWords() {
+        
+        wordsList = realm.objects(SightWord.self).filter("userName = %@", selectedUser.name as Any)
+        
     }
     
     func deleteUsers() {
@@ -183,30 +210,50 @@ class UsersViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
 
     }
     
+    func deleteUser() {
+        
+        //we delete all the sight words of the user
+        loadSightWords()
+        wordsList?.forEach { wordToDelete in
+            do {
+                try realm.write {
+                    realm.delete(wordToDelete)
+                }
+            } catch {
+                print("Error deleting sight word \(error)")
+            }
+        }
+        //we delete all the lists of the user
+        loadLists()
+        lists?.forEach { listToDelete in
+            do {
+                try realm.write {
+                    realm.delete(listToDelete)
+                }
+            } catch {
+                print("Error deleting list \(error)")
+            }
+        }
+        //we delete the user
+        do {
+            try realm.write {
+                realm.delete(selectedUser)
+            }
+        } catch {
+            print("Error deleting user \(error)")
+        }
+        
+    }
+    
     func writeUsers() {
         
         let user1 = User()
-        user1.name = "User 1"
+        user1.name = "User"
         user1.avatar = "happyAvatar"
-        
-        let user2 = User()
-        user2.name = "User 2"
-        user2.avatar = "happyAvatar"
-        
-        let user3 = User()
-        user3.name = "User 3"
-        user3.avatar = "happyAvatar"
-        
-        let user4 = User()
-        user4.name = "User 4"
-        user4.avatar = "happyAvatar"
         
         do {
             try realm.write {
                 realm.add(user1)
-                realm.add(user2)
-                realm.add(user3)
-                realm.add(user4)
             }
         } catch {
             print("Error saving users \(error)")
@@ -216,6 +263,21 @@ class UsersViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
     // MARK: - Navigation Methods
     
     func updateUI() {
+        
+        let helpImage = UIImage(named: "iconHelp")
+        let helpImageTinted = helpImage?.withRenderingMode(.alwaysTemplate)
+        helpButton.setImage(helpImageTinted, for: .normal)
+        helpButton.tintColor = UIColor.white
+        
+        let createImage = UIImage(named: "iconPlus")
+        let createImageTinted = createImage?.withRenderingMode(.alwaysTemplate)
+        createButton.setImage(createImageTinted, for: .normal)
+        createButton.tintColor = UIColor.white
+        
+        let deleteImage = UIImage(named: "iconErase")
+        let deleteImageTinted = deleteImage?.withRenderingMode(.alwaysTemplate)
+        deleteButton.setImage(deleteImageTinted, for: .normal)
+        deleteButton.tintColor = UIColor.white
         
         usersPickerView.delegate = self
         usersPickerView.dataSource = self
@@ -228,6 +290,42 @@ class UsersViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
         usersPickerView.transform = CGAffineTransform(rotationAngle: rotationAngleNegative)
         
     }
+    
+    func startShowcase() {
+
+        showcaseStartButton.setTargetView(view: startButton)
+        showcaseStartButton.primaryText = "Start Button"
+        showcaseStartButton.secondaryText = "Click here to start practicing."
+
+        designShowcase(showcase: showcaseStartButton, sizeHolder: "big")
+        
+
+        showcaseCreateButton.setTargetView(view: createButton)
+        showcaseCreateButton.primaryText = "Create Button"
+        showcaseCreateButton.secondaryText = "Click here to create a new user. A maximun of 4 users are allowed."
+
+        designShowcase(showcase: showcaseCreateButton)
+        
+
+        showcaseDeleteButton.setTargetView(view: deleteButton)
+        showcaseDeleteButton.primaryText = "Delete Button"
+        showcaseDeleteButton.secondaryText = "Click here to delete the user."
+
+        designShowcase(showcase: showcaseDeleteButton)
+        
+        showcaseStartButton.delegate = self
+        showcaseCreateButton.delegate = self
+        showcaseDeleteButton.delegate = self
+    sequenceShowcases.temp(showcaseCreateButton).temp(showcaseDeleteButton).temp(showcaseStartButton).start()
+
+    }
+    
+    //MARK: Material Showcase Delegate Methods
+    
+    func showCaseDidDismiss(showcase: MaterialShowcase, didTapTarget: Bool) {
+        sequenceShowcases.showCaseWillDismis()
+    }
+    
     // MARK: - IBAction Methods
     
     @IBAction func unwindToUsersMenu(segue: UIStoryboardSegue) {
@@ -238,18 +336,74 @@ class UsersViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
     
     
     @IBAction func startButtonTapped(_ sender: RoundButton) {
-//        selectedUser = users![0]
+
         performSegue(withIdentifier: "goToTabBarVC", sender: self)
     }
     
-//    @IBAction func user1Tapped(_ sender: UIButton) {
-//        selectedUser = users![0]
-//        performSegue(withIdentifier: "goToTabBarVC", sender: self)
-//    }
+
     
     @IBAction func creditsButtonTapped(_ sender: UIButton) {
         
         performSegue(withIdentifier: "segueToCreditsVC", sender: self)
+        
+    }
+    
+    @IBAction func createButtonTapped(_ sender: UIButton) {
+        
+        //check that there are less than 4 users
+        if users?.count == 4 {
+            //create alert: no more than 4 users allowed
+            let appearance = SCLAlertView.SCLAppearance(
+                kButtonHeight: 50,
+                kTitleFont: UIFont(name: "Montserrat-SemiBold", size: 17)!,
+                kTextFont: UIFont(name: "Montserrat-Regular", size: 16)!,
+                kButtonFont: UIFont(name: "Montserrat-SemiBold", size: 17)!
+                
+            )
+            let alert = SCLAlertView(appearance: appearance)
+            let colorAlert = UIColor(named: "colorAlertEdit")
+            let iconAlert = UIImage(named: "icon-warning")
+            
+            alert.showCustom("Limit reached", subTitle: "Only 4 users allowed", color: colorAlert!, icon: iconAlert!, closeButtonTitle: "Close", animationStyle: .topToBottom)
+            
+        } else {
+
+            performSegue(withIdentifier: "segueToUsersEditVC", sender: self)
+            
+        }
+        
+    }
+    
+    @IBAction func deleteButtonTapped(_ sender: UIButton) {
+        
+        //check that there are at least 2 users
+        if users?.count == 1 {
+            //create alert: at least 1 user must exist
+            let appearance = SCLAlertView.SCLAppearance(
+                kButtonHeight: 50,
+                kTitleFont: UIFont(name: "Montserrat-SemiBold", size: 17)!,
+                kTextFont: UIFont(name: "Montserrat-Regular", size: 16)!,
+                kButtonFont: UIFont(name: "Montserrat-SemiBold", size: 17)!
+                
+            )
+            let alert = SCLAlertView(appearance: appearance)
+            let colorAlert = UIColor(named: "colorAlertEdit")
+            let iconAlert = UIImage(named: "icon-warning")
+            
+            alert.showCustom("Last user", subTitle: "At least one user must exist", color: colorAlert!, icon: iconAlert!, closeButtonTitle: "Close", animationStyle: .topToBottom)
+            
+        } else {
+            
+            deleteUser()
+            usersPickerView.reloadAllComponents()
+            
+        }
+        
+    }
+    
+    @IBAction func helpButtonTapped(_ sender: UIButton) {
+        
+        startShowcase()
         
     }
     
@@ -276,6 +430,13 @@ class UsersViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
             
             let destinationVC5 = barViewControllers.viewControllers![4] as! SwitchUserViewController
             destinationVC5.selectedUser = selectedUser
+            
+        }
+        
+        if segue.identifier == "segueToUsersEditVC" {
+            
+            let destinationVC = segue.destination as? UserEditViewController
+            destinationVC?.action = "create"
             
         }
         

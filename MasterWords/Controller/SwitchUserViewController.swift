@@ -73,7 +73,7 @@ class SwitchUserViewController: UIViewController {
     // MARK: - IBAction Methods
     
      @IBAction func logoutButtonTapped(_ sender: UIButton) {
-        performSegue(withIdentifier: "unwindToUsersVC", sender: self)
+//        performSegue(withIdentifier: "unwindToUsersVC", sender: self)
      }
     
     @IBAction func helpButtonTapped(_ sender: UIButton) {

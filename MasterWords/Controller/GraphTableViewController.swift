@@ -94,18 +94,20 @@ class GraphTableViewController: UITableViewController, MaterialShowcaseDelegate,
                 
                 wordsNoDuplicates.append(newWord)
                 
-                for i in 1...numberRows-1 {
-                    if words![i].name == words![i-1].name {
-                        wordsNoDuplicates.last?.numberCorrect += words![i].numberCorrect
-                        wordsNoDuplicates.last?.numberWrong += words![i].numberWrong
-                        wordsNoDuplicates.last?.numberTotal = (wordsNoDuplicates.last?.numberCorrect)! + (wordsNoDuplicates.last?.numberWrong)!
-                    } else {
-                        let newWord = Word()
-                        newWord.name = words![i].name
-                        newWord.numberCorrect = words![i].numberCorrect
-                        newWord.numberWrong = words![i].numberWrong
-                        newWord.numberTotal = newWord.numberCorrect + newWord.numberWrong
-                        wordsNoDuplicates.append(newWord)
+                if numberRows > 1 {
+                    for i in 1...numberRows-1 {
+                        if words![i].name == words![i-1].name {
+                            wordsNoDuplicates.last?.numberCorrect += words![i].numberCorrect
+                            wordsNoDuplicates.last?.numberWrong += words![i].numberWrong
+                            wordsNoDuplicates.last?.numberTotal = (wordsNoDuplicates.last?.numberCorrect)! + (wordsNoDuplicates.last?.numberWrong)!
+                        } else {
+                            let newWord = Word()
+                            newWord.name = words![i].name
+                            newWord.numberCorrect = words![i].numberCorrect
+                            newWord.numberWrong = words![i].numberWrong
+                            newWord.numberTotal = newWord.numberCorrect + newWord.numberWrong
+                            wordsNoDuplicates.append(newWord)
+                        }
                     }
                 }
                 
@@ -152,6 +154,9 @@ class GraphTableViewController: UITableViewController, MaterialShowcaseDelegate,
             }
             
         }
+        
+        //notify to NotificacionCenter when data has changed
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "loadLists"), object: nil)
         
     }
     
@@ -250,45 +255,45 @@ class GraphTableViewController: UITableViewController, MaterialShowcaseDelegate,
         
         userNameLabel.text = selectedUser?.name
         
-        addButton.layer.cornerRadius = 5
-        addButton.layer.borderWidth = 1
-        addButton.layer.borderColor = UIColor.white.cgColor
+//        addButton.layer.cornerRadius = 5
+//        addButton.layer.borderWidth = 1
+//        addButton.layer.borderColor = UIColor.white.cgColor
         let addImage = UIImage(named: "iconPlus")
         let addImageTinted = addImage?.withRenderingMode(.alwaysTemplate)
         addButton.setImage(addImageTinted, for: .normal)
         addButton.tintColor = UIColor.white
         addButton.contentMode = .center
         
-        eraseButton.layer.cornerRadius = 5
-        eraseButton.layer.borderWidth = 1
-        eraseButton.layer.borderColor = UIColor.white.cgColor
+//        eraseButton.layer.cornerRadius = 5
+//        eraseButton.layer.borderWidth = 1
+//        eraseButton.layer.borderColor = UIColor.white.cgColor
         let eraseImage = UIImage(named: "iconErase")
         let eraseImageTinted = eraseImage?.withRenderingMode(.alwaysTemplate)
         eraseButton.setImage(eraseImageTinted, for: .normal)
         eraseButton.tintColor = UIColor.white
         eraseButton.contentMode = .center
         
-        helpButton.layer.cornerRadius = 5
-        helpButton.layer.borderWidth = 1
-        helpButton.layer.borderColor = UIColor.white.cgColor
+//        helpButton.layer.cornerRadius = 5
+//        helpButton.layer.borderWidth = 1
+//        helpButton.layer.borderColor = UIColor.white.cgColor
         let helpImage = UIImage(named: "iconHelp")
         let helpImageTinted = helpImage?.withRenderingMode(.alwaysTemplate)
         helpButton.setImage(helpImageTinted, for: .normal)
         helpButton.tintColor = UIColor.white
         helpButton.contentMode = .center
         
-        sortUpButton.layer.cornerRadius = 5
-        sortUpButton.layer.borderWidth = 1
-        sortUpButton.layer.borderColor = UIColor.white.cgColor
+//        sortUpButton.layer.cornerRadius = 5
+//        sortUpButton.layer.borderWidth = 1
+//        sortUpButton.layer.borderColor = UIColor.white.cgColor
         let sortUpImage = UIImage(named: "iconSortUp")
         let sortUpImageTinted = sortUpImage?.withRenderingMode(.alwaysTemplate)
         sortUpButton.setImage(sortUpImageTinted, for: .normal)
         sortUpButton.tintColor = UIColor.white
         sortUpButton.contentMode = .center
         
-        sortDownButton.layer.cornerRadius = 5
-        sortDownButton.layer.borderWidth = 1
-        sortDownButton.layer.borderColor = UIColor.white.cgColor
+//        sortDownButton.layer.cornerRadius = 5
+//        sortDownButton.layer.borderWidth = 1
+//        sortDownButton.layer.borderColor = UIColor.white.cgColor
         let sortDownImage = UIImage(named: "iconSortDown")
         let sortDownImageTinted = sortDownImage?.withRenderingMode(.alwaysTemplate)
         sortDownButton.setImage(sortDownImageTinted, for: .normal)
@@ -313,10 +318,26 @@ class GraphTableViewController: UITableViewController, MaterialShowcaseDelegate,
     
     @IBAction func eraseButtonTapped(_ sender: UIButton) {
         
-        eraseValues()
-        wordsNoDuplicates.removeAll()
-        loadWords()
-        tableView.reloadData()
+        //show alert to confirm that the results want to be deleted
+        let appearance = SCLAlertView.SCLAppearance(
+            kButtonHeight: 50,
+            kTitleFont: UIFont(name: "Montserrat-SemiBold", size: 17)!,
+            kTextFont: UIFont(name: "Montserrat-Regular", size: 16)!,
+            kButtonFont: UIFont(name: "Montserrat-SemiBold", size: 17)!
+            
+        )
+        let alert = SCLAlertView(appearance: appearance)
+        let colorAlert = UIColor(named: "colorAlertEdit")
+        let iconAlert = UIImage(named: "icon-warning")
+        
+        alert.addButton("Yes"){
+            self.eraseValues()
+            self.wordsNoDuplicates.removeAll()
+            self.loadWords()
+            self.tableView.reloadData()
+        }
+        
+        alert.showCustom("Delete All", subTitle: "Do you want to delete all the history of results and start over?", color: colorAlert!, icon: iconAlert!, closeButtonTitle: "No", animationStyle: .topToBottom)
         
     }
     
@@ -336,63 +357,6 @@ class GraphTableViewController: UITableViewController, MaterialShowcaseDelegate,
     }
     
     //MARK: - Popup Methods
-    
-//    func showAddAlert() {
-//
-//        let alert = UIAlertController(title: "Create List", message: "Write the name of the new list", preferredStyle: .alert)
-//
-//        var listNameTextField = UITextField()
-//        //we set a default name
-//        listNameTextField.text = "New List"
-//
-//        alert.addTextField(configurationHandler: { textField in
-//            textField.placeholder = "Write New List Name"
-//            listNameTextField = textField
-//        })
-//
-//
-//        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (action) in
-//            alert.dismiss(animated: true, completion: nil)
-//        }
-//
-//        let addActionAll = UIAlertAction(title: "Use All", style: .default) { (action) in
-//            self.addList(name : listNameTextField.text!, numberOfWords : self.wordsNoDuplicates.count)
-//        }
-//
-//        let addActionTop5 = UIAlertAction(title: "Use Top 5", style: .default) { (action) in
-//            self.addList(name : listNameTextField.text!, numberOfWords : 5)
-//        }
-//
-//        let addActionTop10 = UIAlertAction(title: "Use Top 10", style: .default) { (action) in
-//            self.addList(name : listNameTextField.text!, numberOfWords : 10)
-//        }
-//
-//        let addActionTop15 = UIAlertAction(title: "Use Top 15", style: .default) { (action) in
-//            self.addList(name : listNameTextField.text!, numberOfWords : 15)
-//        }
-//
-//        let addActionTop20 = UIAlertAction(title: "Use Top 20", style: .default) { (action) in
-//            self.addList(name : listNameTextField.text!, numberOfWords : 20)
-//        }
-//
-//        if wordsNoDuplicates.count > 5 {
-//            alert.addAction(addActionTop5)
-//        }
-//        if wordsNoDuplicates.count > 10 {
-//            alert.addAction(addActionTop10)
-//        }
-//        if wordsNoDuplicates.count > 15 {
-//            alert.addAction(addActionTop15)
-//        }
-//        if wordsNoDuplicates.count > 20 {
-//            alert.addAction(addActionTop20)
-//        }
-//        alert.addAction(addActionAll)
-//        alert.addAction(cancelAction)
-//
-//        present(alert, animated: true, completion: nil)
-//
-//    }
     
     func showAddAlert() {
         
@@ -436,71 +400,11 @@ class GraphTableViewController: UITableViewController, MaterialShowcaseDelegate,
         let colorAlert = UIColor(named: "colorAlertEdit")
         let iconAlert = UIImage(named: "icon-list")
         
-        alert.showCustom("Create List", subTitle: "Write the name of the new list", color: colorAlert!, icon: iconAlert!)
+        alert.showCustom("Create List", subTitle: "Write the name of the new list", color: colorAlert!, icon: iconAlert!, closeButtonTitle: "Close", animationStyle: .topToBottom)
         
         listNameTextField.delegate = self
         
     }
-    
-//    func showSortAlert(sortUp : Bool) {
-//
-//        let alert = UIAlertController(title: "Sort", message: "What do you want to sort by?", preferredStyle: .actionSheet)
-//
-//        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (action) in
-//            alert.dismiss(animated: true, completion: nil)
-//        }
-//
-//        let sortByTotalAction = UIAlertAction(title: "Total Answered", style: .default) { (action) in
-//            if sortUp {
-//                self.wordsNoDuplicates.sort(by: { $0.numberTotal > $1.numberTotal })
-//                self.tableView.reloadData()
-//            } else {
-//                self.wordsNoDuplicates.sort(by: { $0.numberTotal < $1.numberTotal })
-//                self.tableView.reloadData()
-//            }
-//        }
-//
-//        let sortByCorrectAction = UIAlertAction(title: "Correct Answered", style: .default) { (action) in
-//            if sortUp {
-//                self.wordsNoDuplicates.sort(by: { $0.percentageCorrect > $1.percentageCorrect })
-//                for word in self.wordsNoDuplicates{
-//                    print("\(word.name) \(word.percentageCorrect)")
-//                }
-//                self.tableView.reloadData()
-//            } else {
-//                self.wordsNoDuplicates.sort(by: { $0.percentageCorrect < $1.percentageCorrect })
-//                for word in self.wordsNoDuplicates{
-//                    print("\(word.name) \(word.percentageCorrect)")
-//                }
-//                self.tableView.reloadData()
-//            }
-//        }
-//
-//        let sortByWrongAction = UIAlertAction(title: "Wrong Answered", style: .default) { (action) in
-//            if sortUp {
-//                self.wordsNoDuplicates.sort(by: { $0.percentageWrong > $1.percentageWrong })
-//                for word in self.wordsNoDuplicates{
-//                    print("\(word.name) \(word.percentageWrong)")
-//                }
-//
-//                self.tableView.reloadData()
-//            } else {
-//                self.wordsNoDuplicates.sort(by: { $0.percentageWrong < $1.percentageWrong })
-//                for word in self.wordsNoDuplicates{
-//                    print("\(word.name) \(word.percentageWrong)")
-//                }
-//                self.tableView.reloadData()
-//            }
-//        }
-//
-//        alert.addAction(sortByTotalAction)
-//        alert.addAction(sortByCorrectAction)
-//        alert.addAction(sortByWrongAction)
-//        alert.addAction(cancelAction)
-//
-//        present(alert, animated: true, completion: nil)
-//
-//    }
     
     func showSortAlert(sortUp : Bool) {
         
@@ -559,7 +463,7 @@ class GraphTableViewController: UITableViewController, MaterialShowcaseDelegate,
         let colorAlert = UIColor(named: "colorAlertEdit")
         let iconAlert = UIImage(named: "icon-sort")
         
-        alert.showCustom("Sort", subTitle: "What do you want to sort by?", color: colorAlert!, icon: iconAlert!)
+        alert.showCustom("Sort", subTitle: "What do you want to sort by?", color: colorAlert!, icon: iconAlert!, closeButtonTitle: "Close", animationStyle: .topToBottom)
         
         
     }
