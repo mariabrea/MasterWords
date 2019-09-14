@@ -145,7 +145,7 @@ class ListsEditViewController: SwipeTableViewController, MaterialShowcaseDelegat
     
     //function to check is a List name already exists for the user
     func checkListExist(listName: String) -> Bool {
-        
+
         listsCheck = selectedUser?.userLists.filter("name = %@", listName)
         if listsCheck?.count ?? 0 >= 1 {
             return true
@@ -251,30 +251,70 @@ class ListsEditViewController: SwipeTableViewController, MaterialShowcaseDelegat
         
     }
     
-    //MARK: Material Showcase Delegate Methods
-    
-    func showCaseDidDismiss(showcase: MaterialShowcase, didTapTarget: Bool) {
-        sequenceShowcases.showCaseWillDismis()
-    }
-    
-    //MARK: TextField Delegate Methods
-    
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+    func createDefaultListAlert() {
         
-        print("textfield delegate called")
-        let currentText = textField.text ?? ""
-        guard let stringRange = Range(range, in: currentText) else { return false }
+        var hasAllDefaultList = true
         
-        let updatedText = currentText.replacingCharacters(in: stringRange, with: string)
+        let appearance = SCLAlertView.SCLAppearance(
+            kButtonHeight: 50,
+            kTitleFont: UIFont(name: "Montserrat-SemiBold", size: 17)!,
+            kTextFont: UIFont(name: "Montserrat-Regular", size: 16)!,
+            kButtonFont: UIFont(name: "Montserrat-SemiBold", size: 17)!
+            
+        )
+        let alert = SCLAlertView(appearance: appearance)
+        let colorAlert = UIColor(named: "colorAlertEdit")
+        let iconAlert = UIImage(named: "icon-list")
         
-        return updatedText.count <= 15
+        if !checkListExist(listName: "Pre-K List") {
+            alert.addButton("Pre-K List") {
+                createPreKList(userName: self.selectedUser!.name)
+            }
+            hasAllDefaultList = false
+        }
         
-    }
+        if !checkListExist(listName: "Kindergarten List") {
+            alert.addButton("Kindergarten List") {
+                createKindergartenList(userName: self.selectedUser!.name)
+            }
+            hasAllDefaultList = false
+        }
+        
+        if !checkListExist(listName: "First Grade List") {
+            alert.addButton("First Grade List") {
+                createFirstGradeList(userName: self.selectedUser!.name)
+            }
+            hasAllDefaultList = false
+        }
+        
+        if !checkListExist(listName: "Second Grade List") {
+            alert.addButton("Second Grade List") {
+                createSecondGradeList(userName: self.selectedUser!.name)
+            }
+            hasAllDefaultList = false
+        }
+        
+        if !checkListExist(listName: "Third Grade List") {
+            alert.addButton("Third Grade List") {
+                createThirdGradeList(userName: self.selectedUser!.name)
+            }
+            hasAllDefaultList = false
+        }
 
+        if hasAllDefaultList == true {
+            self.createAddListAlert()
+        } else {
+            alert.addButton("My own List") {
+                self.createAddListAlert()
+            }
+            
+            alert.showCustom("Preloaded List", subTitle: "Would you like to create a preloaded list?", color: colorAlert!, icon: iconAlert!, closeButtonTitle: "Close", animationStyle: .topToBottom)
+        }
+        
+        
+    }
     
-    //MARK - IBAction Methods
-    
-    @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
+    func createAddListAlert() {
         
         let appearance = SCLAlertView.SCLAppearance(
             kButtonHeight: 50,
@@ -326,7 +366,7 @@ class ListsEditViewController: SwipeTableViewController, MaterialShowcaseDelegat
                 //notify to NotificacionCenter when data has changed
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "loadLists"), object: nil)
             }
-
+            
         }
         
         let colorAlert = UIColor(named: "colorAlertEdit")
@@ -335,6 +375,35 @@ class ListsEditViewController: SwipeTableViewController, MaterialShowcaseDelegat
         alert.showCustom("Create", subTitle: "Create a new list", color: colorAlert!, icon: iconAlert!, closeButtonTitle: "Close", animationStyle: .topToBottom)
         
         textField.delegate = self
+        
+    }
+    
+    //MARK: Material Showcase Delegate Methods
+    
+    func showCaseDidDismiss(showcase: MaterialShowcase, didTapTarget: Bool) {
+        sequenceShowcases.showCaseWillDismis()
+    }
+    
+    //MARK: TextField Delegate Methods
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        
+        print("textfield delegate called")
+        let currentText = textField.text ?? ""
+        guard let stringRange = Range(range, in: currentText) else { return false }
+        
+        let updatedText = currentText.replacingCharacters(in: stringRange, with: string)
+        
+        return updatedText.count <= 15
+        
+    }
+
+    
+    //MARK - IBAction Methods
+    
+    @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
+        
+        createDefaultListAlert()
         
     }
     @IBAction func helpButtonTapped(_ sender: UIBarButtonItem) {

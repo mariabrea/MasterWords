@@ -25,6 +25,7 @@
 		C12F024E2327FAFF00596D25 /* GelPenHeavy.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C12F024D2327FAFD00596D25 /* GelPenHeavy.ttf */; };
 		C1344A44231573D800BEB28C /* UserEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1344A43231573D800BEB28C /* UserEditViewController.swift */; };
 		C15EEB88232C2C4600FB6770 /* defaultCompactedMasterWords_v1.0.realm in Resources */ = {isa = PBXBuildFile; fileRef = C15EEB87232C2C4600FB6770 /* defaultCompactedMasterWords_v1.0.realm */; };
+		C15EEB8A232D5CCA00FB6770 /* DatabaseFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C15EEB89232D5CC900FB6770 /* DatabaseFunctions.swift */; };
 		C16182CE20606EF60025E6D1 /* 38798943_correct-answer-bell-gliss-01.wav in Resources */ = {isa = PBXBuildFile; fileRef = C16182CD20606EF60025E6D1 /* 38798943_correct-answer-bell-gliss-01.wav */; };
 		C16182D020606F070025E6D1 /* 38806077_wrong-answer-bong-spring-01.wav in Resources */ = {isa = PBXBuildFile; fileRef = C16182CF20606F070025E6D1 /* 38806077_wrong-answer-bong-spring-01.wav */; };
 		C16182D3206075070025E6D1 /* GraphTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16182D2206075060025E6D1 /* GraphTableViewController.swift */; };
@@ -63,6 +64,7 @@
 		C12F024D2327FAFD00596D25 /* GelPenHeavy.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = GelPenHeavy.ttf; sourceTree = "<group>"; };
 		C1344A43231573D800BEB28C /* UserEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserEditViewController.swift; sourceTree = "<group>"; };
 		C15EEB87232C2C4600FB6770 /* defaultCompactedMasterWords_v1.0.realm */ = {isa = PBXFileReference; lastKnownFileType = file; path = defaultCompactedMasterWords_v1.0.realm; sourceTree = "<group>"; };
+		C15EEB89232D5CC900FB6770 /* DatabaseFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseFunctions.swift; sourceTree = "<group>"; };
 		C16182CD20606EF60025E6D1 /* 38798943_correct-answer-bell-gliss-01.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "38798943_correct-answer-bell-gliss-01.wav"; sourceTree = "<group>"; };
 		C16182CF20606F070025E6D1 /* 38806077_wrong-answer-bong-spring-01.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "38806077_wrong-answer-bong-spring-01.wav"; sourceTree = "<group>"; };
 		C16182D2206075060025E6D1 /* GraphTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphTableViewController.swift; sourceTree = "<group>"; };
@@ -201,6 +203,7 @@
 				C12F023F231EBC4A00596D25 /* ListsNavigationController.swift */,
 				C12F0241231EBDA000596D25 /* FlashCardsNavigationController.swift */,
 				C12F02432320132200596D25 /* ShowcaseFunctions.swift */,
+				C15EEB89232D5CC900FB6770 /* DatabaseFunctions.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -363,6 +366,7 @@
 			files = (
 				C1344A44231573D800BEB28C /* UserEditViewController.swift in Sources */,
 				C12F0240231EBC4A00596D25 /* ListsNavigationController.swift in Sources */,
+				C15EEB8A232D5CCA00FB6770 /* DatabaseFunctions.swift in Sources */,
 				C12293B02062BE820080A810 /* User.swift in Sources */,
 				C16182D3206075070025E6D1 /* GraphTableViewController.swift in Sources */,
 				C12293AE2062BB3F0080A810 /* UsersViewController.swift in Sources */,
