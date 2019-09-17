@@ -9,6 +9,8 @@
 import UIKit
 import RealmSwift
 
+let defaults = UserDefaults()
+
 //MARK: - Copy default Realm Database
 
 func bundleURL(_ name: String) -> URL? {
@@ -31,26 +33,47 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {        //
         
+        //MARK: Migration block
+        let config = Realm.Configuration(
+            schemaVersion: 1,
+            migrationBlock: { migration, oldSchemaVersion in
+                if oldSchemaVersion < 1 {
+                    print("lower squema version")
+                    migration.enumerateObjects(ofType: User.className()) { (_, newUser) in
+                        newUser?["avatar"] = "happyAvatar"
+                    }
+                }
+        })
+        Realm.Configuration.defaultConfiguration = config
+        
+        
+        
+        //if UserDefaults audio doesn't exist (first launch) set it to true
+        if !defaults.exists(key: .audio) {
+            defaults.set(true, forKey: .audio)
+        }
+        
+        //increase 'timesAppLaunched'
+        defaults.set(defaults.integer(forKey: .timesAppLaunched)+1, forKey: .timesAppLaunched)
+        
         //set color of status bar
         UIApplication.shared.statusBarView?.backgroundColor = UIColor(named: "colorBarBackground")
         //set the text of status bar light
         
         //copy bundled realm file if it doesn't exist already
-        print("1")
+
         let initialURL = Bundle.main.url(forResource: "defaultCompactedMasterWords_v1.0", withExtension: "realm")
-        print("2")
+
         let defaultURL = Realm.Configuration.defaultConfiguration.fileURL!
-        print("3")
+
         print(FileManager.default)
         
         do {
-            try defaultURL.checkResourceIsReachable()
+            try _ = defaultURL.checkResourceIsReachable()
             print("The realm file already exists")
         } catch {
-            print("The file does not exist")
-            print("4")
+            print("The realm file does not exist")
             do {
-                print("5")
                 try FileManager.default.copyItem(at: initialURL!, to: defaultURL)
             } catch {
                 print("Error copying bundled realm file")
@@ -65,6 +88,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         } catch {
             print("Error initialising realm \(error)")
         }
+        
         
         return true
     }

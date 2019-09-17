@@ -20,7 +20,8 @@ class ListsEditViewController: SwipeTableViewController, MaterialShowcaseDelegat
     
     let realm = try! Realm()
     
-    var lists : Results<SightWordsList>?
+//    var lists : Results<SightWordsList>?
+    var lists : List<SightWordsList>?
     var listsCheck : Results<SightWordsList>?
     var wordsList : Results<SightWord>?
     
@@ -29,6 +30,8 @@ class ListsEditViewController: SwipeTableViewController, MaterialShowcaseDelegat
             loadLists()
         }
     }
+    
+    var lastListColor =  String()
     
     let sequenceShowcases = MaterialShowcaseSequence()
     let showcaseAddButton = MaterialShowcase()
@@ -118,19 +121,19 @@ class ListsEditViewController: SwipeTableViewController, MaterialShowcaseDelegat
     }
     
     func loadLists() {
-        
-        print("In ListsEditVc - loadlists()")
-        lists = selectedUser?.userLists.sorted(byKeyPath: "name", ascending: true)
-//        lists = selectedUser?.userLists
-        print(lists as Any)
+
+        lists = selectedUser?.userLists
+        if lists?.count ?? 0 > 0 {
+            lastListColor = lists?.last?.color ?? "#FFFFFF"
+        }
+
         tableView.reloadData()
         
     }
     
     //func to reload data when Lists have been added through the Graph window
     @objc func reloadLists(notification: NSNotification) {
-        
-        print("Reloading Lists")
+
         self.tableView.reloadData()
         
     }
@@ -348,12 +351,16 @@ class ListsEditViewController: SwipeTableViewController, MaterialShowcaseDelegat
             } else {
                 //create the new list
                 if let currentUser = self.selectedUser {
-                    //print("user \(self.selectedUser?.name)")
+
                     do {
                         try self.realm.write {
                             let newList = SightWordsList()
                             newList.name = textField.text!
-                            newList.color = UIColor.randomFlat.hexValue()
+                            //create a different color than last
+
+                            newList.color = UIColor.init(randomFlatColorExcludingColorsIn: [UIColor(hexString: self.lastListColor)!, UIColor.flatWhite]).hexValue()
+
+//                            newList.color = UIColor.randomFlat.hexValue()
                             currentUser.userLists.append(newList)
                         }
                     } catch {
@@ -387,8 +394,7 @@ class ListsEditViewController: SwipeTableViewController, MaterialShowcaseDelegat
     //MARK: TextField Delegate Methods
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        
-        print("textfield delegate called")
+
         let currentText = textField.text ?? ""
         guard let stringRange = Range(range, in: currentText) else { return false }
         

@@ -48,7 +48,6 @@ class ListsTableViewController: UITableViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
-//        navigationItem.prompt = selectedUser?.name
         if let navBar = self.navigationController?.navigationBar {
             navBar.barStyle = UIBarStyle.black
         }
@@ -91,8 +90,7 @@ class ListsTableViewController: UITableViewController {
         wordsList = selectedList?.sightWords.sorted(byKeyPath: "name", ascending: true)
 
         if wordsList?.count == 0 {
-            print("Lista vacia")
-            
+
             self.tableView.reloadData()
             
             //create alert
@@ -153,8 +151,7 @@ class ListsTableViewController: UITableViewController {
     //MARK: - DB Methods
     
     func loadLists() {
-        
-        //lists = realm.objects(SightWordsList.self).sorted(byKeyPath: "name", ascending: true)
+
         lists = selectedUser?.userLists.sorted(byKeyPath: "name", ascending: true)
 
         tableView.reloadData()
@@ -164,7 +161,6 @@ class ListsTableViewController: UITableViewController {
     //func to reload data when Lists have been added, updated or removed
     @objc func reloadLists(notification: NSNotification) {
 
-        print("Reloading Lists")
         self.tableView.reloadData()
         
     }

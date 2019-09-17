@@ -97,8 +97,7 @@ class SingleListEditViewController: SwipeTableViewController, MaterialShowcaseDe
     //MARK: TextField Delegate Methods
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        
-        print("textfield delegate called")
+
         let currentText = textField.text ?? ""
         guard let stringRange = Range(range, in: currentText) else { return false }
         

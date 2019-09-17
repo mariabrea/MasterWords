@@ -63,6 +63,7 @@ class FlashCardsViewController: UIViewController, MaterialShowcaseDelegate {
     let showcaseHappyFace = MaterialShowcase()
     let showcaseLeftCards = MaterialShowcase()
     
+    let defaults = UserDefaults()
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
@@ -104,9 +105,6 @@ class FlashCardsViewController: UIViewController, MaterialShowcaseDelegate {
         }
 
         leftCardsButton.setTitle(String(leftCardsToPractice), for: .normal)
-//        leftCardsButton.layer.borderWidth = 2
-//        leftCardsButton.layer.borderColor = UIColor(named: "F6ED02")?.cgColor
-//        leftCardsButton.layer.cornerRadius = leftCardsLabel.frame.width/2
         
     }
     
@@ -146,8 +144,7 @@ class FlashCardsViewController: UIViewController, MaterialShowcaseDelegate {
         
         designShowcase(showcase: showcaseLeftCards)
         showcaseLeftCards.delegate = self
-        
-            sequenceShowcases.temp(showcaseSightWordCard).temp(showcaseSadFace).temp(showcaseLeftCards).temp(showcaseHappyFace).start()
+ sequenceShowcases.temp(showcaseSightWordCard).temp(showcaseSadFace).temp(showcaseLeftCards).temp(showcaseHappyFace).start()
         
     }
     
@@ -208,6 +205,13 @@ class FlashCardsViewController: UIViewController, MaterialShowcaseDelegate {
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "loadGraph"), object: nil)
         
         performSegue(withIdentifier: "unwindToLists", sender: self)
+        
+        //ask for a review in the AppStore
+//        if defaults.integer(forKey: "timesAppLaunched") == 10 {
+//            AppStoreReviewManager.requestReviewIfAppropriate()
+//        }
+        
+        AppStoreReviewManager.requestReviewIfAppropriate()
     }
 
     func resetCounters() {
@@ -257,8 +261,6 @@ class FlashCardsViewController: UIViewController, MaterialShowcaseDelegate {
     
     func loadSightWords() {
         wordsList = selectedList?.sightWords.sorted(byKeyPath: "name", ascending: true)
-        print("loadSightWords")
-//        print(wordsList)
     }
     
     func updateModel(index: Int, correct : Bool) {
@@ -279,8 +281,7 @@ class FlashCardsViewController: UIViewController, MaterialShowcaseDelegate {
     }
     
     func updateModel2(wordName: String, correct : Bool) {
-        print("name == \(wordName)")
-        print(self.wordsList as Any)
+
         if let word = self.wordsList?.filter("name == %@", wordName).first {
             
             do{
@@ -305,8 +306,7 @@ class FlashCardsViewController: UIViewController, MaterialShowcaseDelegate {
 extension FlashCardsViewController: KolodaViewDelegate {
     
     func kolodaDidRunOutOfCards(_ koloda: KolodaView) {
-        print("No more cards")
-        
+
         cardView = koloda
         
         hangPopup()
@@ -321,16 +321,22 @@ extension FlashCardsViewController: KolodaViewDelegate {
         leftCardsToPractice -= 1
         leftCardsButton.setTitle(String(leftCardsToPractice), for: .normal)
         if direction == .left {
-            print("Left")
-            playSound(soundFileName: wrongAnswerSoundFileName, soundFileExtension: soundFileExtension)
+
+            if defaults.bool(forKey: .audio)!{
+                playSound(soundFileName: wrongAnswerSoundFileName, soundFileExtension: soundFileExtension)
+            }
+            
             numberWrong += 1
             sadLabel.text = String(numberWrong)
             updateModel2(wordName: listWordsToPractice[index].name, correct : false)
             listWordsWrong.append(listWordsToPractice[index])
             
         } else {
-            print("Right")
-            playSound(soundFileName: correctAnswerSoundFileName, soundFileExtension: soundFileExtension)
+
+            if defaults.bool(forKey: .audio)! {
+                playSound(soundFileName: correctAnswerSoundFileName, soundFileExtension: soundFileExtension)
+            }
+            
             numberCorrect += 1
             happyLabel.text = String(numberCorrect)
             updateModel2(wordName: listWordsToPractice[index].name, correct : true)
@@ -341,7 +347,6 @@ extension FlashCardsViewController: KolodaViewDelegate {
 extension FlashCardsViewController: KolodaViewDataSource {
     
     func kolodaNumberOfCards(_ koloda:KolodaView) -> Int {
-        //return wordsList?.count ?? 1
         return listWordsToPractice.count
     }
     

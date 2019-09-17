@@ -18,23 +18,11 @@ class UsersViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
     @IBOutlet weak var startButton: RoundButton!
     @IBOutlet weak var createButton: UIButton!
     @IBOutlet weak var deleteButton: UIButton!
+    @IBOutlet weak var settingsButton: UIButton!
     @IBOutlet weak var helpButton: UIButton!
-   
-    // MARK: - DB Migration
-    let config = Realm.Configuration(
-        schemaVersion: 1,
-        migrationBlock: { migration, oldSchemaVersion in
-            if oldSchemaVersion < 1 {
-                migration.enumerateObjects(ofType: User.className()) { (_, newUser) in
-                    newUser?["avatar"] = "happyAvatar"
-                }
-            }
-    })
+    
 
-    lazy var realm = try! Realm(configuration: config)
-    
-    
-//    lazy var realm = try! Realm()
+    lazy var realm = try! Realm()
     
     var user : String = ""
     
@@ -51,12 +39,14 @@ class UsersViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
     let showcaseCreateButton = MaterialShowcase()
     let showcaseDeleteButton = MaterialShowcase()
     
+    let defaults = UserDefaults.standard
+    
+    
     override func viewDidLoad() {
-        print("in pre viewDidLoad")
 
         super.viewDidLoad()
 
-
+        
 //        createDefaultDB()
         
         loadUsers()
@@ -64,10 +54,7 @@ class UsersViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
         updateUI()
     
     }
-    
-    override func viewDidAppear(_ animated: Bool) {
-//        helpButton.isUserInteractionEnabled = true
-    }
+
 
     //set the text of status bar light
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -103,7 +90,6 @@ class UsersViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return users?.count ?? 1
-//        return 4
     }
     
     // When user selects an option, this function will set the text of the text field to1 reflect
@@ -123,25 +109,21 @@ class UsersViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
     func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
         
         let userView = UIView(frame: CGRect(x: 0, y: 20, width: 150, height: 160))
-        
-        //        userView.backgroundColor = UIColor.blue
-        
+
         let userImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 150, height: 130))
-        //        userImageView.backgroundColor = UIColor.red
+
         userImageView.contentMode = .scaleAspectFit
         userView.addSubview(userImageView)
         
-//        userImageView.image = UIImage(named: "coolAvatar")
         userImageView.image = UIImage(named: users?[row].avatar ?? "happyAvatar")
         
         let userLabel = UILabel(frame: CGRect(x: 0, y: 130, width: 150, height: 30))
-//        userLabel.text = "Name"
+
         userLabel.text = users?[row].name
         userLabel.font = UIFont(name: "Montserrat-SemiBold", size: 20)
         userLabel.textColor = UIColor(named: "colorBarBackground")
         userLabel.textAlignment = .center
-        //        userLabel.backgroundColor = UIColor.yellow
-        
+
         userView.addSubview(userLabel)
         
         userView.transform = CGAffineTransform(rotationAngle: rotationAnglePositive)
@@ -168,9 +150,6 @@ class UsersViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
     func loadUsers(){
         
         users = realm.objects(User.self).sorted(byKeyPath: "name", ascending: true)
-        
-//        print(users?.count as Any)
-//        print(users as Any)
 
     }
     
@@ -279,6 +258,11 @@ class UsersViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
         deleteButton.setImage(deleteImageTinted, for: .normal)
         deleteButton.tintColor = UIColor.white
         
+        let settingsImage = UIImage(named: "iconSettings")
+        let settingsImageTinted = settingsImage?.withRenderingMode(.alwaysTemplate)
+        settingsButton.setImage(settingsImageTinted, for: .normal)
+        settingsButton.tintColor = UIColor.white
+        
         usersPickerView.delegate = self
         usersPickerView.dataSource = self
         
@@ -316,7 +300,7 @@ class UsersViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
         showcaseStartButton.delegate = self
         showcaseCreateButton.delegate = self
         showcaseDeleteButton.delegate = self
-    sequenceShowcases.temp(showcaseCreateButton).temp(showcaseDeleteButton).temp(showcaseStartButton).start()
+         sequenceShowcases.temp(showcaseCreateButton).temp(showcaseDeleteButton).temp(showcaseStartButton).start()
 
     }
     
@@ -339,15 +323,7 @@ class UsersViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
 
         performSegue(withIdentifier: "goToTabBarVC", sender: self)
     }
-    
-
-    
-    @IBAction func creditsButtonTapped(_ sender: UIButton) {
-        
-        performSegue(withIdentifier: "segueToCreditsVC", sender: self)
-        
-    }
-    
+   
     @IBAction func createButtonTapped(_ sender: UIButton) {
         
         //check that there are less than 4 users
@@ -407,6 +383,8 @@ class UsersViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
         
     }
     
+    @IBAction func settingsButtonTapped(_ sender: UIButton) {
+    }
     // MARK: - Segue Methods
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
