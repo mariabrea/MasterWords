@@ -35,6 +35,7 @@ class GraphTableViewController: UITableViewController, MaterialShowcaseDelegate,
     let realm = try! Realm()
     
     var lists : Results<SightWordsList>?
+    var listsCheck : Results<SightWordsList>?
     var words : Results<SightWord>?
     
     var selectedUser : User? {
@@ -52,6 +53,7 @@ class GraphTableViewController: UITableViewController, MaterialShowcaseDelegate,
     let showcaseSortDownButton = MaterialShowcase()
     let showcaseResultsRow = MaterialShowcase()
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -68,12 +70,17 @@ class GraphTableViewController: UITableViewController, MaterialShowcaseDelegate,
         super.viewDidAppear(true)
         
         self.tableView.reloadData()
+        
+        print("viewDidAppear Graph")
+        //observer set to notice user inactivity lo logOut
+        NotificationCenter.default.addObserver(self, selector: #selector(logOut), name: NSNotification.Name(rawValue: "logOut"), object: nil)
     }
     
     //set the text of status bar light
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
+    
     
     //MARK: - Database Methods
     
@@ -132,11 +139,10 @@ class GraphTableViewController: UITableViewController, MaterialShowcaseDelegate,
     func addList(name : String, numberOfWords : Int) {
         
         if let currentUser = self.selectedUser {
-            //print("user \(self.selectedUser?.name)")
             do {
                 try self.realm.write {
                     let newList = SightWordsList()
-                    newList.name = name
+                    newList.name = name.trimmingCharacters(in: .whitespacesAndNewlines)
                     newList.color = UIColor.randomFlat.hexValue()
                     
                     for i in 0...numberOfWords-1 {
@@ -152,11 +158,11 @@ class GraphTableViewController: UITableViewController, MaterialShowcaseDelegate,
             } catch {
                 print("Error saving word \(error)")
             }
-            
         }
         
         //notify to NotificacionCenter when data has changed
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "loadLists"), object: nil)
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "loadListsFlashCards"), object: nil)
         
     }
     
@@ -185,10 +191,25 @@ class GraphTableViewController: UITableViewController, MaterialShowcaseDelegate,
         
     }
     
-    
+    //function to check is a List name already exists for the user
+    func checkListExist(listName: String) -> Bool {
+        
+        listsCheck = selectedUser?.userLists.filter("name = %@", listName)
+        if listsCheck?.count ?? 0 >= 1 {
+            return true
+        } else {
+            return false
+        }
+        
+    }
+
     //MARK: - Navigation Methods
     
     //func called to reload the data when cancel button in FlashCards is clicked
+    @objc func logOut() {
+        performSegue(withIdentifier: "goToUserVC", sender: self)
+    }
+    
     @objc func reloadGraph(notification: NSNotification) {
         
         print("Reloading Graph")
@@ -248,52 +269,38 @@ class GraphTableViewController: UITableViewController, MaterialShowcaseDelegate,
 
     }
     
+    
     func updateUI() {
         
         tableView.rowHeight = 70
         tableView.separatorStyle = .singleLine
         
         userNameLabel.text = selectedUser?.name
-        
-//        addButton.layer.cornerRadius = 5
-//        addButton.layer.borderWidth = 1
-//        addButton.layer.borderColor = UIColor.white.cgColor
+
         let addImage = UIImage(named: "iconPlus")
         let addImageTinted = addImage?.withRenderingMode(.alwaysTemplate)
         addButton.setImage(addImageTinted, for: .normal)
         addButton.tintColor = UIColor.white
         addButton.contentMode = .center
-        
-//        eraseButton.layer.cornerRadius = 5
-//        eraseButton.layer.borderWidth = 1
-//        eraseButton.layer.borderColor = UIColor.white.cgColor
+
         let eraseImage = UIImage(named: "iconErase")
         let eraseImageTinted = eraseImage?.withRenderingMode(.alwaysTemplate)
         eraseButton.setImage(eraseImageTinted, for: .normal)
         eraseButton.tintColor = UIColor.white
         eraseButton.contentMode = .center
-        
-//        helpButton.layer.cornerRadius = 5
-//        helpButton.layer.borderWidth = 1
-//        helpButton.layer.borderColor = UIColor.white.cgColor
+
         let helpImage = UIImage(named: "iconHelp")
         let helpImageTinted = helpImage?.withRenderingMode(.alwaysTemplate)
         helpButton.setImage(helpImageTinted, for: .normal)
         helpButton.tintColor = UIColor.white
         helpButton.contentMode = .center
-        
-//        sortUpButton.layer.cornerRadius = 5
-//        sortUpButton.layer.borderWidth = 1
-//        sortUpButton.layer.borderColor = UIColor.white.cgColor
+ 
         let sortUpImage = UIImage(named: "iconSortUp")
         let sortUpImageTinted = sortUpImage?.withRenderingMode(.alwaysTemplate)
         sortUpButton.setImage(sortUpImageTinted, for: .normal)
         sortUpButton.tintColor = UIColor.white
         sortUpButton.contentMode = .center
-        
-//        sortDownButton.layer.cornerRadius = 5
-//        sortDownButton.layer.borderWidth = 1
-//        sortDownButton.layer.borderColor = UIColor.white.cgColor
+
         let sortDownImage = UIImage(named: "iconSortDown")
         let sortDownImageTinted = sortDownImage?.withRenderingMode(.alwaysTemplate)
         sortDownButton.setImage(sortDownImageTinted, for: .normal)
@@ -302,6 +309,19 @@ class GraphTableViewController: UITableViewController, MaterialShowcaseDelegate,
         
     }
 
+    //MARK: TextField Delegate Methods
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        
+        let currentText = textField.text ?? ""
+        guard let stringRange = Range(range, in: currentText) else { return false }
+        
+        let updatedText = currentText.replacingCharacters(in: stringRange, with: string)
+        
+        return updatedText.count <= 20
+        
+    }
+    
     //MARK: - Material Showcase Delegate Methods
     
     func showCaseDidDismiss(showcase: MaterialShowcase, didTapTarget: Bool) {
@@ -373,27 +393,57 @@ class GraphTableViewController: UITableViewController, MaterialShowcaseDelegate,
         listNameTextField.autocapitalizationType = .none
         
         alert.addButton("Use All") {
-            self.addList(name : listNameTextField.text!, numberOfWords : self.wordsNoDuplicates.count)
+            if listNameTextField.text != "" {
+                if self.checkListExist(listName: listNameTextField.text!) {
+                    createWarningAlert(title: "List exists", subtitle: "There is another list with that name. Chose a different name")
+                } else {
+                    self.addList(name : listNameTextField.text!, numberOfWords : self.wordsNoDuplicates.count)
+                }
+            }
         }
 
         if wordsNoDuplicates.count > 5 {
             alert.addButton("Use Top 5")  {
-                self.addList(name : listNameTextField.text!, numberOfWords : 5)
+                if listNameTextField.text != "" {
+                    if self.checkListExist(listName: listNameTextField.text!) {
+                        createWarningAlert(title: "List exists", subtitle: "There is another list with that name. Chose a different name")
+                    } else {
+                        self.addList(name : listNameTextField.text!, numberOfWords : 5)
+                    }
+                }
             }
         }
         if wordsNoDuplicates.count > 10 {
             alert.addButton("Use Top 10") {
-                self.addList(name : listNameTextField.text!, numberOfWords : 10)
+                if listNameTextField.text != "" {
+                    if self.checkListExist(listName: listNameTextField.text!) {
+                        createWarningAlert(title: "List exists", subtitle: "There is another list with that name. Chose a different name")
+                    } else {
+                        self.addList(name : listNameTextField.text!, numberOfWords : 10)
+                    }
+                }
             }
         }
         if wordsNoDuplicates.count > 15 {
             alert.addButton("Use Top 15") {
-                self.addList(name : listNameTextField.text!, numberOfWords : 15)
+                if listNameTextField.text != "" {
+                    if self.checkListExist(listName: listNameTextField.text!) {
+                        createWarningAlert(title: "List exists", subtitle: "There is another list with that name. Chose a different name")
+                    } else {
+                        self.addList(name : listNameTextField.text!, numberOfWords : 15)
+                    }
+                }
             }
         }
         if wordsNoDuplicates.count > 20 {
             alert.addButton("Use Top 20")  {
-                self.addList(name : listNameTextField.text!, numberOfWords : 20)
+                if listNameTextField.text != "" {
+                    if self.checkListExist(listName: listNameTextField.text!) {
+                        createWarningAlert(title: "List exists", subtitle: "There is another list with that name. Chose a different name")
+                    } else {
+                        self.addList(name : listNameTextField.text!, numberOfWords : 20)
+                    }
+                }
             }
         }
         
@@ -480,7 +530,7 @@ class GraphTableViewController: UITableViewController, MaterialShowcaseDelegate,
         
         cell.wordLabel.text = word.name
 
-        print("\(word.name) ✅ \(word.numberCorrect) ❌ \(word.numberWrong) %correct: \(word.percentageCorrect) %wrong: \(word.percentageWrong)")
+//        print("\(word.name) ✅ \(word.numberCorrect) ❌ \(word.numberWrong) %correct: \(word.percentageCorrect) %wrong: \(word.percentageWrong)")
 
         cell.correctCountLabel.text = String(word.percentageCorrect)+"%"
         cell.wrongCountLabel.text = String(word.percentageWrong)+"%"

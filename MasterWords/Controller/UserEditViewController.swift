@@ -55,6 +55,13 @@
             
         }
         
+        override func viewDidAppear(_ animated: Bool) {
+            super.viewDidAppear(true)
+            print("viewDidAppear UserEdit")
+            //observer set to notice user inactivity lo logOut
+            NotificationCenter.default.addObserver(self, selector: #selector(logOut), name: NSNotification.Name(rawValue: "logOut"), object: nil)
+        }
+        
         //set the text of status bar light
         override var preferredStatusBarStyle: UIStatusBarStyle {
             return .lightContent
@@ -226,6 +233,9 @@
         }
         
         //MARK: - Navigation Methods
+        @objc func logOut() {
+            performSegue(withIdentifier: "goToUsersVC", sender: self)
+        }
         
         func startShowcase() {
             
@@ -296,18 +306,19 @@
                 //check that there is no other user with the same name
                 if checkUserExist() {
                     print("User exists")
-                    let appearance = SCLAlertView.SCLAppearance(
-                        kButtonHeight: 50,
-                        kTitleFont: UIFont(name: "Montserrat-SemiBold", size: 17)!,
-                        kTextFont: UIFont(name: "Montserrat-Regular", size: 16)!,
-                        kButtonFont: UIFont(name: "Montserrat-SemiBold", size: 17)!
-                        
-                    )
-                    let alert = SCLAlertView(appearance: appearance)
-                    let colorAlert = UIColor(named: "colorAlertEdit")
-                    let iconAlert = UIImage(named: "icon-warning")
-                    
-                    alert.showCustom("User exists", subTitle: "The user already exists, choose a different user name", color: colorAlert!, icon: iconAlert!, closeButtonTitle: "Close", animationStyle: .topToBottom)
+//                    let appearance = SCLAlertView.SCLAppearance(
+//                        kButtonHeight: 50,
+//                        kTitleFont: UIFont(name: "Montserrat-SemiBold", size: 17)!,
+//                        kTextFont: UIFont(name: "Montserrat-Regular", size: 16)!,
+//                        kButtonFont: UIFont(name: "Montserrat-SemiBold", size: 17)!
+//
+//                    )
+//                    let alert = SCLAlertView(appearance: appearance)
+//                    let colorAlert = UIColor(named: "colorAlertEdit")
+//                    let iconAlert = UIImage(named: "icon-warning")
+//
+//                    alert.showCustom("User exists", subTitle: "The user already exists, choose a different user name", color: colorAlert!, icon: iconAlert!, closeButtonTitle: "Close", animationStyle: .topToBottom)
+                    createWarningAlert(title: "User exists", subtitle: "The user already exists, choose a different user name")
                 } else {
 
                     createUser()
@@ -321,18 +332,19 @@
                     print("a")
                     if checkUserExist() {
                         print("User exists")
-                        let appearance = SCLAlertView.SCLAppearance(
-                            kButtonHeight: 50,
-                            kTitleFont: UIFont(name: "Montserrat-SemiBold", size: 17)!,
-                            kTextFont: UIFont(name: "Montserrat-Regular", size: 16)!,
-                            kButtonFont: UIFont(name: "Montserrat-SemiBold", size: 17)!
-                            
-                        )
-                        let alert = SCLAlertView(appearance: appearance)
-                        let colorAlert = UIColor(named: "colorAlertEdit")
-                        let iconAlert = UIImage(named: "icon-warning")
-                        
-                        alert.showCustom("User exists", subTitle: "The user already exists, choose a different user name", color: colorAlert!, icon: iconAlert!, closeButtonTitle: "Close", animationStyle: .topToBottom)
+//                        let appearance = SCLAlertView.SCLAppearance(
+//                            kButtonHeight: 50,
+//                            kTitleFont: UIFont(name: "Montserrat-SemiBold", size: 17)!,
+//                            kTextFont: UIFont(name: "Montserrat-Regular", size: 16)!,
+//                            kButtonFont: UIFont(name: "Montserrat-SemiBold", size: 17)!
+//
+//                        )
+//                        let alert = SCLAlertView(appearance: appearance)
+//                        let colorAlert = UIColor(named: "colorAlertEdit")
+//                        let iconAlert = UIImage(named: "icon-warning")
+//
+//                        alert.showCustom("User exists", subTitle: "The user already exists, choose a different user name", color: colorAlert!, icon: iconAlert!, closeButtonTitle: "Close", animationStyle: .topToBottom)
+                        createWarningAlert(title: "User exists", subtitle: "The user already exists, choose a different user name")
                     } else {
                         print("b")
                         updateUserNameInSightWordsTable()

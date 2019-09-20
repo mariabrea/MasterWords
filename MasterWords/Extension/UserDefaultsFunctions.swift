@@ -16,6 +16,11 @@ extension UserDefaults {
         case reviewWorthyActionCount
         case lastReviewRequestAppVersion
         case reviewWorthyActionCountReseted
+        case timeUserStartSession
+        case timeUserStartCardsPractice
+        case secondsUserPracticedCardsSession
+        case numberCorrectCardsUserPracticedSession
+        case numberWrongCardsUserPracticedSession
     }
     
     func exists(key: Key) -> Bool {
@@ -34,12 +39,20 @@ extension UserDefaults {
         return bool(forKey: key.rawValue)
     }
     
+    func double(forKey key: Key) -> Double? {
+        return double(forKey: key.rawValue)
+    }
+    
     func set(_ integer: Int, forKey key: Key) {
         set(integer, forKey: key.rawValue)
     }
     
     func set(_ bool: Bool, forKey key: Key) {
         set(bool, forKey: key.rawValue)
+    }
+    
+    func set(_ double: Double, forKey key: Key) {
+        set(double, forKey: key.rawValue)
     }
     
     func set(_ object: Any?, forKey key: Key) {

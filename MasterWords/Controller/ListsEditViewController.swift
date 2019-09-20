@@ -20,7 +20,6 @@ class ListsEditViewController: SwipeTableViewController, MaterialShowcaseDelegat
     
     let realm = try! Realm()
     
-//    var lists : Results<SightWordsList>?
     var lists : List<SightWordsList>?
     var listsCheck : Results<SightWordsList>?
     var wordsList : Results<SightWord>?
@@ -46,16 +45,18 @@ class ListsEditViewController: SwipeTableViewController, MaterialShowcaseDelegat
         self.navigationItem.title = "\(selectedUser!.name)'s Lists"
         tableView.rowHeight = 70
         tableView.separatorStyle = .none
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
         
-//        navigationItem.prompt = selectedUser?.name
         if let navBar = self.navigationController?.navigationBar {
             navBar.barStyle = UIBarStyle.black
         }
-
+        
+        //observer set to notice user inactivity lo logOut
+        NotificationCenter.default.addObserver(self, selector: #selector(logOut), name: NSNotification.Name(rawValue: "logOut"), object: nil)
     }
     
     //set the text of status bar light
@@ -94,16 +95,6 @@ class ListsEditViewController: SwipeTableViewController, MaterialShowcaseDelegat
         performSegue(withIdentifier: "goToSingleListEditVC", sender: self)
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-        let destinationVC = segue.destination as! SingleListEditViewController
-
-        if let indexPath = tableView.indexPathForSelectedRow {
-            destinationVC.selectedList = self.lists?[indexPath.row]
-            destinationVC.selectedUser = (selectedUser?.name)!
-        }
-        
-    }
     
     //MARK: Data Manipulation Methods
     
@@ -182,6 +173,8 @@ class ListsEditViewController: SwipeTableViewController, MaterialShowcaseDelegat
                     print("Error deleting list \(error)")
                 }
             }
+            //notify to NotificacionCenter when data has changed
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "loadListsFlashCards"), object: nil)
             //we post in the notification Center 'loadGraph' so the graph is updated
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "loadGraph"), object: nil)
         } else {
@@ -199,19 +192,34 @@ class ListsEditViewController: SwipeTableViewController, MaterialShowcaseDelegat
             textField.autocapitalizationType = .none
             
             alert.addButton("Update") {
-                if let list = self.lists?[indexPath.row] {
-                    do{
-                        try self.realm.write {
-                            list.name = textField.text!
+                //check that a name has been introduced in textfield
+                if textField.text != "" {
+                    //first check if the user has another list with that name
+                    if self.checkListExist(listName: textField.text!) {
+                        //create alert saying that that list name already exists for the user
+                        createWarningAlert(title: "List exists", subtitle: "There is another list with that name. Chose a different name")
+                        self.tableView.reloadData()
+                    } else {
+                        if let list = self.lists?[indexPath.row] {
+                            do{
+                                try self.realm.write {
+                                    list.name = (textField.text?.trimmingCharacters(in: .whitespacesAndNewlines))!
+                                    list.name = textField.text!
+                                }
+                            } catch {
+                                print("Error updating list \(error)")
+                            }
                         }
-                    } catch {
-                        print("Error updating list \(error)")
+                        
+                        self.tableView.reloadData()
+                        //notify to NotificacionCenter when data has changed
+                        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "loadListsFlashCards"), object: nil)
                     }
+                    
+                } else {
+                    self.tableView.reloadData()
                 }
                 
-                self.tableView.reloadData()
-                //notify to NotificacionCenter when data has changed
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "loadLists"), object: nil)
             }
 
             let colorAlert = UIColor(named: "colorAlertEdit")
@@ -272,6 +280,8 @@ class ListsEditViewController: SwipeTableViewController, MaterialShowcaseDelegat
         if !checkListExist(listName: "Pre-K List") {
             alert.addButton("Pre-K List") {
                 createPreKList(userName: self.selectedUser!.name)
+                //we call loadLists to reload the tableview and update lastListColor
+                self.loadLists()
             }
             hasAllDefaultList = false
         }
@@ -279,6 +289,8 @@ class ListsEditViewController: SwipeTableViewController, MaterialShowcaseDelegat
         if !checkListExist(listName: "Kindergarten List") {
             alert.addButton("Kindergarten List") {
                 createKindergartenList(userName: self.selectedUser!.name)
+                //we call loadLists to reload the tableview and update lastListColor
+                self.loadLists()
             }
             hasAllDefaultList = false
         }
@@ -286,6 +298,8 @@ class ListsEditViewController: SwipeTableViewController, MaterialShowcaseDelegat
         if !checkListExist(listName: "First Grade List") {
             alert.addButton("First Grade List") {
                 createFirstGradeList(userName: self.selectedUser!.name)
+                //we call loadLists to reload the tableview and update lastListColor
+                self.loadLists()
             }
             hasAllDefaultList = false
         }
@@ -293,6 +307,8 @@ class ListsEditViewController: SwipeTableViewController, MaterialShowcaseDelegat
         if !checkListExist(listName: "Second Grade List") {
             alert.addButton("Second Grade List") {
                 createSecondGradeList(userName: self.selectedUser!.name)
+                //we call loadLists to reload the tableview and update lastListColor
+                self.loadLists()
             }
             hasAllDefaultList = false
         }
@@ -300,6 +316,8 @@ class ListsEditViewController: SwipeTableViewController, MaterialShowcaseDelegat
         if !checkListExist(listName: "Third Grade List") {
             alert.addButton("Third Grade List") {
                 createThirdGradeList(userName: self.selectedUser!.name)
+                //we call loadLists to reload the tableview and update lastListColor
+                self.loadLists()
             }
             hasAllDefaultList = false
         }
@@ -333,46 +351,39 @@ class ListsEditViewController: SwipeTableViewController, MaterialShowcaseDelegat
         
         alert.addButton("Create") {
             
-            //first check if the user has another list with that name
-            if self.checkListExist(listName: textField.text!) {
-                //create alert saying that that list name already exists for the user
-                let appearance = SCLAlertView.SCLAppearance(
-                    kButtonHeight: 50,
-                    kTitleFont: UIFont(name: "Montserrat-SemiBold", size: 17)!,
-                    kTextFont: UIFont(name: "Montserrat-Regular", size: 16)!,
-                    kButtonFont: UIFont(name: "Montserrat-SemiBold", size: 17)!
-                    
-                )
-                let alert = SCLAlertView(appearance: appearance)
-                let colorAlert = UIColor(named: "colorAlertEdit")
-                let iconAlert = UIImage(named: "icon-warning")
+            //check that a name has been introduced in textfield
+            if textField.text != "" {
                 
-                alert.showCustom("List exists", subTitle: "There is another list with that name. Chose a different name.", color: colorAlert!, icon: iconAlert!, closeButtonTitle: "Close", animationStyle: .topToBottom)
-            } else {
-                //create the new list
-                if let currentUser = self.selectedUser {
-
-                    do {
-                        try self.realm.write {
-                            let newList = SightWordsList()
-                            newList.name = textField.text!
-                            //create a different color than last
-
-                            newList.color = UIColor.init(randomFlatColorExcludingColorsIn: [UIColor(hexString: self.lastListColor)!, UIColor.flatWhite]).hexValue()
-
-//                            newList.color = UIColor.randomFlat.hexValue()
-                            currentUser.userLists.append(newList)
+                //first check if the user has another list with that name
+                if self.checkListExist(listName: textField.text!) {
+                    //create alert saying that that list name already exists for the user
+                    createWarningAlert(title: "List exists", subtitle: "There is another list with that name. Chose a different name")
+                    self.tableView.reloadData()
+                } else {
+                    //create the new list
+                    if let currentUser = self.selectedUser {
+                        
+                        do {
+                            try self.realm.write {
+                                let newList = SightWordsList()
+                                newList.name = (textField.text?.trimmingCharacters(in: .whitespacesAndNewlines))!
+                                //create a different color than last
+                                newList.color = UIColor.init(randomFlatColorExcludingColorsIn: [UIColor(hexString: self.lastListColor)!, UIColor.flatWhite]).hexValue()
+                                currentUser.userLists.append(newList)
+                            }
+                        } catch {
+                            print("Error saving list \(error)")
                         }
-                    } catch {
-                        print("Error saving list \(error)")
+                        
                     }
                     
+                    //we call loadLists to reload the tableview and update lastListColor
+                    self.loadLists()
+                    //notify to NotificacionCenter when data has changed
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "loadListsFlashCards"), object: nil)
                 }
-                
-                self.tableView.reloadData()
-                //notify to NotificacionCenter when data has changed
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "loadLists"), object: nil)
             }
+            
             
         }
         
@@ -384,6 +395,24 @@ class ListsEditViewController: SwipeTableViewController, MaterialShowcaseDelegat
         textField.delegate = self
         
     }
+
+    @objc func logOut() {
+        performSegue(withIdentifier: "goToUserVC", sender: self)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == "goToSingleListEditVC" {
+            let destinationVC = segue.destination as! SingleListEditViewController
+            
+            if let indexPath = tableView.indexPathForSelectedRow {
+                destinationVC.selectedList = self.lists?[indexPath.row]
+                destinationVC.selectedUser = (selectedUser?.name)!
+            }
+        }
+        
+    }
+    
     
     //MARK: Material Showcase Delegate Methods
     
@@ -400,7 +429,7 @@ class ListsEditViewController: SwipeTableViewController, MaterialShowcaseDelegat
         
         let updatedText = currentText.replacingCharacters(in: stringRange, with: string)
         
-        return updatedText.count <= 15
+        return updatedText.count <= 20
         
     }
 
@@ -413,6 +442,10 @@ class ListsEditViewController: SwipeTableViewController, MaterialShowcaseDelegat
         
     }
     @IBAction func helpButtonTapped(_ sender: UIBarButtonItem) {
+        
+        if (lists?.count)! > 0 {
+            tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
+        }
         
         startShowcase()
         

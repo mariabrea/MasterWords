@@ -24,11 +24,15 @@ class SettingsViewController: UITableViewController {
         
     }
     
+    
+    //MARK: - Navigation Methods
+    
     func updateUI() {
         
         audioSwitch.setOn(defaults.bool(forKey: .audio)!, animated: false)
         
     }
+    
     
     // MARK: - UITableViewDelegate
     
@@ -59,6 +63,10 @@ class SettingsViewController: UITableViewController {
         let activityViewController = UIActivityViewController(activityItems: [productURL],applicationActivities: nil)
         
         present(activityViewController, animated: true, completion: nil)
+
+        if let popOver = activityViewController.popoverPresentationController {
+            popOver.sourceView = self.view
+        }
     }
     
     @IBAction func audioSwitchTapped(_ sender: UISwitch) {

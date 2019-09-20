@@ -30,6 +30,7 @@ extension UIApplication {
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
+    var topWindow: CustomWindow?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {        //
         
@@ -46,6 +47,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         })
         Realm.Configuration.defaultConfiguration = config
         
+        //set topWindow to check user inactivity
+        topWindow = CustomWindow(frame: UIScreen.main.bounds)
+        topWindow?.rootViewController = UIViewController()
+        topWindow?.windowLevel = UIWindow.Level.normal + 1
+        topWindow?.isHidden = false
         
         
         //if UserDefaults audio doesn't exist (first launch) set it to true
@@ -58,7 +64,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         //set color of status bar
         UIApplication.shared.statusBarView?.backgroundColor = UIColor(named: "colorBarBackground")
-        //set the text of status bar light
         
         //copy bundled realm file if it doesn't exist already
 
@@ -88,11 +93,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         } catch {
             print("Error initialising realm \(error)")
         }
-        
-        
+ 
         return true
     }
 
-    
 }
 

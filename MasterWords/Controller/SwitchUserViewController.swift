@@ -9,6 +9,7 @@
 import UIKit
 import RealmSwift
 import MaterialShowcase
+import Charts
 
 
 class SwitchUserViewController: UIViewController {
@@ -16,6 +17,15 @@ class SwitchUserViewController: UIViewController {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var logoutButton: UIButton!
     @IBOutlet weak var helpButton: UIButton!
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var hrsLoggedInLabel: UILabel!
+    @IBOutlet weak var minLoggedInLabel: UILabel!
+    @IBOutlet weak var secLoggedInLabel: UILabel!
+    @IBOutlet weak var hrsPracticeLabel: UILabel!
+    @IBOutlet weak var minPracticeLabel: UILabel!
+    @IBOutlet weak var secPracticeLabel: UILabel!
+    @IBOutlet weak var numCardsPracticedLabel: UILabel!
+    @IBOutlet weak var chartView: PieChartView!
     
     let realm = try! Realm()
     
@@ -30,12 +40,37 @@ class SwitchUserViewController: UIViewController {
     
     let showcaseLogoutButton = MaterialShowcase()
     
+    var logoutTime : CFAbsoluteTime = 0.0
+    var startTime : Double = 0.0
+    var secondsUserSession : Double = 0.0
+    var secondsUserPracticedCardsSession : Double = 0.0
+    var h1 : Int = 0
+    var m1 : Int = 0
+    var s1 : Int = 0
+    var h2 : Int = 0
+    var m2 : Int = 0
+    var s2 : Int = 0
+    var numberCorrectCardsUserPracticedSession : Int = 0
+    var numberWrongCardsUserPracticedSession : Int = 0
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()
 
-        updateUI()
+//        updateUI()
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        updateUI()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        print("viewDidAppear SwitchUser")
+        //observer set to notice user inactivity lo logOut
+        NotificationCenter.default.addObserver(self, selector: #selector(logOut), name: NSNotification.Name(rawValue: "logOut"), object: nil)
     }
 
     //set the text of status bar light
@@ -45,6 +80,10 @@ class SwitchUserViewController: UIViewController {
     
     // MARK: - Navigation Methods
 
+    @objc func logOut() {
+        performSegue(withIdentifier: "goToUsersVC", sender: self)
+    }
+    
     func startShowcase() {
         
         showcaseLogoutButton.setTargetView(view: logoutButton)
@@ -68,12 +107,80 @@ class SwitchUserViewController: UIViewController {
         
         nameLabel.text = selectedUser?.name
         
+        calculateDataActivityLog()
+        
+        titleLabel.text = "Activity Log of \(selectedUser?.name ?? "User")"
+        hrsLoggedInLabel.text = String(h1)
+        minLoggedInLabel.text = String(m1)
+        secLoggedInLabel.text = String(s1)
+        hrsPracticeLabel.text = String(h2)
+        minPracticeLabel.text = String(m2)
+        secPracticeLabel.text = String(s2)
+        numCardsPracticedLabel.text = String(numberWrongCardsUserPracticedSession + numberCorrectCardsUserPracticedSession)
+        
+        if !(numberCorrectCardsUserPracticedSession == 0 && numberWrongCardsUserPracticedSession == 0) {
+            customizeChart(dataPoints: ["Correct", "Wrong"], values: [Double(numberCorrectCardsUserPracticedSession), Double(numberWrongCardsUserPracticedSession)])
+        } else {
+            chartView.isHidden = true
+        }
+        
+        
     }
+    
+    func customizeChart(dataPoints: [String], values: [Double]) {
+        
+        // 1. Set ChartDataEntry
+        var dataEntries: [ChartDataEntry] = []
+        for i in 0..<dataPoints.count {
+//            let dataEntry = PieChartDataEntry(value: values[i], label: dataPoints[i], data: dataPoints[i] as AnyObject)
+            let dataEntry = PieChartDataEntry(value: values[i], label: dataPoints[i])
+            dataEntries.append(dataEntry)
+        }
+        // 2. Set ChartDataSet
+        let pieChartDataSet = PieChartDataSet(entries: dataEntries, label: nil)
+        pieChartDataSet.colors = [UIColor(named: "colorButtonBackground"), UIColor(named: "colorAlertEdit")] as! [NSUIColor]
+        pieChartDataSet.xValuePosition = .outsideSlice
+        pieChartDataSet.sliceSpace = 4
+        pieChartDataSet.entryLabelColor = UIColor(named: "colorBarBackground")
+        pieChartDataSet.entryLabelFont = UIFont(name: "Montserrat", size: 13)
+        pieChartDataSet.valueFont = UIFont(name: "Montserrat", size: 13)!
 
+        // 3. Set ChartData
+        let pieChartData = PieChartData(dataSet: pieChartDataSet)
+        let format = NumberFormatter()
+        format.numberStyle = .none
+        let formatter = DefaultValueFormatter(formatter: format)
+        pieChartData.setValueFormatter(formatter)
+        // 4. Assign it to the chart’s data
+        chartView.data = pieChartData
+    }
+    
+
+    //MARK: Data Functions
+    func calculateDataActivityLog() {
+        print("Calculating Activity Log Data")
+        logoutTime = Double(CFAbsoluteTimeGetCurrent())
+        startTime = defaults.double(forKey: .timeUserStartSession)!
+        secondsUserSession = logoutTime - startTime
+        print("secondsUserSession: \(secondsUserSession)")
+        print("seconds rounded: \(secondsUserSession.rounded(.down))")
+        (h1, m1, s1) = secondsToHoursMinutesSeconds(seconds: Int(secondsUserSession.rounded(.down)))
+        print("\(h1)h \(m1)m \(s1)s")
+        
+        secondsUserPracticedCardsSession = defaults.double(forKey: .secondsUserPracticedCardsSession)!
+        (h2, m2, s2) = secondsToHoursMinutesSeconds(seconds: Int(secondsUserPracticedCardsSession.rounded(.down)))
+        print("\(h2)h \(m2)m \(s2)s")
+        
+        numberCorrectCardsUserPracticedSession = defaults.integer(forKey: .numberCorrectCardsUserPracticedSession)
+        numberWrongCardsUserPracticedSession = defaults.integer(forKey: .numberWrongCardsUserPracticedSession)
+        
+        print("Correct: \(numberCorrectCardsUserPracticedSession)  Wrong: \(numberWrongCardsUserPracticedSession)")
+    }
+    
     // MARK: - IBAction Methods
     
      @IBAction func logoutButtonTapped(_ sender: UIButton) {
-//        performSegue(withIdentifier: "unwindToUsersVC", sender: self)
+        
      }
     
     @IBAction func helpButtonTapped(_ sender: UIButton) {

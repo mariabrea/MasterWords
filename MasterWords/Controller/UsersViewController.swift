@@ -46,11 +46,9 @@ class UsersViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
 
         super.viewDidLoad()
 
-        
 //        createDefaultDB()
         
         loadUsers()
-
         updateUI()
     
     }
@@ -59,6 +57,11 @@ class UsersViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
     //set the text of status bar light
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
+    }
+    
+    //don't allow rotation in this view controller
+    override open var shouldAutorotate: Bool {
+        return false
     }
     
     //MARK: File DB Methods
@@ -321,6 +324,11 @@ class UsersViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
     
     @IBAction func startButtonTapped(_ sender: RoundButton) {
 
+        let startTime = Double(CFAbsoluteTimeGetCurrent())
+        defaults.set(startTime, forKey: .timeUserStartSession)
+        defaults.set(0, forKey: .secondsUserPracticedCardsSession)
+        defaults.set(0, forKey: .numberWrongCardsUserPracticedSession)
+        defaults.set(0, forKey: .numberCorrectCardsUserPracticedSession)
         performSegue(withIdentifier: "goToTabBarVC", sender: self)
     }
    
@@ -328,19 +336,8 @@ class UsersViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
         
         //check that there are less than 4 users
         if users?.count == 4 {
-            //create alert: no more than 4 users allowed
-            let appearance = SCLAlertView.SCLAppearance(
-                kButtonHeight: 50,
-                kTitleFont: UIFont(name: "Montserrat-SemiBold", size: 17)!,
-                kTextFont: UIFont(name: "Montserrat-Regular", size: 16)!,
-                kButtonFont: UIFont(name: "Montserrat-SemiBold", size: 17)!
-                
-            )
-            let alert = SCLAlertView(appearance: appearance)
-            let colorAlert = UIColor(named: "colorAlertEdit")
-            let iconAlert = UIImage(named: "icon-warning")
             
-            alert.showCustom("Limit reached", subTitle: "Only 4 users allowed", color: colorAlert!, icon: iconAlert!, closeButtonTitle: "Close", animationStyle: .topToBottom)
+            createWarningAlert(title: "Limit reached", subtitle: "Only 4 users allowed")
             
         } else {
 
@@ -354,7 +351,11 @@ class UsersViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
         
         //check that there are at least 2 users
         if users?.count == 1 {
-            //create alert: at least 1 user must exist
+        
+            createWarningAlert(title: "Last user", subtitle: "At least one user must exist")
+            
+        } else {
+            //show alert to confirm that the user want to be deleted
             let appearance = SCLAlertView.SCLAppearance(
                 kButtonHeight: 50,
                 kTitleFont: UIFont(name: "Montserrat-SemiBold", size: 17)!,
@@ -366,13 +367,14 @@ class UsersViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
             let colorAlert = UIColor(named: "colorAlertEdit")
             let iconAlert = UIImage(named: "icon-warning")
             
-            alert.showCustom("Last user", subTitle: "At least one user must exist", color: colorAlert!, icon: iconAlert!, closeButtonTitle: "Close", animationStyle: .topToBottom)
+            alert.addButton("Yes"){
+                self.deleteUser()
+                self.loadUsers()
+                self.usersPickerView.reloadAllComponents()
+            }
             
-        } else {
-            
-            deleteUser()
-            usersPickerView.reloadAllComponents()
-            
+            alert.showCustom("Delete User", subTitle: "Do you want to delete the user selected?", color: colorAlert!, icon: iconAlert!, closeButtonTitle: "No", animationStyle: .topToBottom)
+
         }
         
     }

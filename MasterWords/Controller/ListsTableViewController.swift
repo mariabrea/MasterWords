@@ -21,7 +21,7 @@ class ListsTableViewController: UITableViewController {
     
     var needToRefresh = false
     
-    var lists : Results<SightWordsList>?
+    var lists : List<SightWordsList>?
     var wordsList : Results<SightWord>?
     
     var selectedUser : User? {
@@ -38,7 +38,7 @@ class ListsTableViewController: UITableViewController {
         self.navigationItem.title = "\(selectedUser!.name)'s Lists"
         
         //set observer to detetct when Lists have been added, updated or removed
-        NotificationCenter.default.addObserver(self, selector: #selector(reloadLists), name: NSNotification.Name(rawValue: "loadLists"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadLists), name: NSNotification.Name(rawValue: "loadListsFlashCards"), object: nil)
         
         loadLists()
         
@@ -46,11 +46,15 @@ class ListsTableViewController: UITableViewController {
         tableView.separatorStyle = .none
     }
 
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
         if let navBar = self.navigationController?.navigationBar {
             navBar.barStyle = UIBarStyle.black
         }
+        print("viewDidAppear ListsTable")
+        //observer set to notice user inactivity lo logOut
+        NotificationCenter.default.addObserver(self, selector: #selector(logOut), name: NSNotification.Name(rawValue: "logOut"), object: nil)
     }
 
     //set the text of status bar light
@@ -93,27 +97,21 @@ class ListsTableViewController: UITableViewController {
 
             self.tableView.reloadData()
             
-            //create alert
-            let appearance = SCLAlertView.SCLAppearance(
-                kButtonHeight: 50,
-                kTitleFont: UIFont(name: "Montserrat-SemiBold", size: 17)!,
-                kTextFont: UIFont(name: "Montserrat-Regular", size: 16)!,
-                kButtonFont: UIFont(name: "Montserrat-SemiBold", size: 17)!
-                
-            )
-            let alert = SCLAlertView(appearance: appearance)
-            let colorAlert = UIColor(named: "colorAlertEdit")
-            let iconAlert = UIImage(named: "icon-warning")
-
-            alert.showCustom("List empty", subTitle: "Add some sight words to the list", color: colorAlert!, icon: iconAlert!, closeButtonTitle: "Close", animationStyle: .topToBottom)
+            createWarningAlert(title: "List empty", subtitle: "Add some sight words to the list")
             
         } else {
+            let startPracticeTime = Double(CFAbsoluteTimeGetCurrent())
+            defaults.set(startPracticeTime, forKey: .timeUserStartCardsPractice)
+            print("startPracticeTime: \(startPracticeTime)")
             performSegue(withIdentifier: "goToFlashCardsVC", sender: self)
         }
         
     }
     
     //MARK: Navigation Methods
+    @objc func logOut() {
+        performSegue(withIdentifier: "goToUserVC", sender: self)
+    }
     
     func startShowcase() {
         
@@ -140,19 +138,23 @@ class ListsTableViewController: UITableViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let destinationVC = segue.destination as! FlashCardsViewController
         
-        if let indexPath = tableView.indexPathForSelectedRow {
-            destinationVC.selectedList = self.lists?[indexPath.row]
-        }
+        if segue.identifier == "goToFlashCardsVC" {
+            let destinationVC = segue.destination as! FlashCardsViewController
+            
+            if let indexPath = tableView.indexPathForSelectedRow {
+                destinationVC.selectedList = self.lists?[indexPath.row]
+            }
 
+        }
+        
     }
     
     //MARK: - DB Methods
     
     func loadLists() {
 
-        lists = selectedUser?.userLists.sorted(byKeyPath: "name", ascending: true)
+        lists = selectedUser?.userLists
 
         tableView.reloadData()
         

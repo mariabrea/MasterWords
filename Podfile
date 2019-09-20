@@ -13,6 +13,7 @@ target 'MasterWords' do
     pod 'Koloda', '~> 5.0'
     pod 'MaterialShowcase'
     pod 'SCLAlertView'
+    pod 'Charts'
 end
 
 post_install do |installer|

@@ -23,7 +23,7 @@ class CreditsViewController: UIViewController {
         updateUI()
         
     }
-
+    
     // MARK: - Navigation Methods
 
     func updateUI() {
@@ -31,6 +31,7 @@ class CreditsViewController: UIViewController {
         creditsText.text = creditsTextContent
         
     }
+    
     
     @IBAction func cancelButtonTapped(_ sender: UIButton) {
         

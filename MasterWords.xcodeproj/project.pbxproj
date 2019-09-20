@@ -38,6 +38,9 @@
 		C199749A2316D8B7006467ED /* TextFieldMaxLengths.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19974992316D8B7006467ED /* TextFieldMaxLengths.swift */; };
 		C1AE3BAD20583E11005FA6A1 /* SightWordsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1AE3BAC20583E11005FA6A1 /* SightWordsList.swift */; };
 		C1AE3BAF2058412E005FA6A1 /* SwipeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1AE3BAE2058412E005FA6A1 /* SwipeTableViewController.swift */; };
+		C1CD514723328CA2008002D1 /* AlertFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1CD514623328CA2008002D1 /* AlertFunctions.swift */; };
+		C1CD51492333C41A008002D1 /* GlobalFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1CD51482333C41A008002D1 /* GlobalFunctions.swift */; };
+		C1CD514C2335276B008002D1 /* CustomWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1CD514B23352769008002D1 /* CustomWindow.swift */; };
 		C1E94DDC2058336C0077F6EB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1E94DDB2058336C0077F6EB /* AppDelegate.swift */; };
 		C1E94DDE2058336C0077F6EB /* ListsEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1E94DDD2058336C0077F6EB /* ListsEditViewController.swift */; };
 		C1E94DE32058336C0077F6EB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C1E94DE12058336C0077F6EB /* Main.storyboard */; };
@@ -80,6 +83,9 @@
 		C19974992316D8B7006467ED /* TextFieldMaxLengths.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldMaxLengths.swift; sourceTree = "<group>"; };
 		C1AE3BAC20583E11005FA6A1 /* SightWordsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SightWordsList.swift; sourceTree = "<group>"; };
 		C1AE3BAE2058412E005FA6A1 /* SwipeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeTableViewController.swift; sourceTree = "<group>"; };
+		C1CD514623328CA2008002D1 /* AlertFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertFunctions.swift; sourceTree = "<group>"; };
+		C1CD51482333C41A008002D1 /* GlobalFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalFunctions.swift; sourceTree = "<group>"; };
+		C1CD514B23352769008002D1 /* CustomWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomWindow.swift; sourceTree = "<group>"; };
 		C1E94DD82058336C0077F6EB /* MasterWords.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MasterWords.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1E94DDB2058336C0077F6EB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C1E94DDD2058336C0077F6EB /* ListsEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListsEditViewController.swift; sourceTree = "<group>"; };
@@ -150,6 +156,17 @@
 			path = Sound;
 			sourceTree = "<group>";
 		};
+		C1CD514A2333C694008002D1 /* Global Functions */ = {
+			isa = PBXGroup;
+			children = (
+				C12F02432320132200596D25 /* ShowcaseFunctions.swift */,
+				C15EEB89232D5CC900FB6770 /* DatabaseFunctions.swift */,
+				C1CD514623328CA2008002D1 /* AlertFunctions.swift */,
+				C1CD51482333C41A008002D1 /* GlobalFunctions.swift */,
+			);
+			path = "Global Functions";
+			sourceTree = "<group>";
+		};
 		C1DC04D5205C2DFF00F1BDC3 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
@@ -182,6 +199,7 @@
 		C1E94DDA2058336C0077F6EB /* MasterWords */ = {
 			isa = PBXGroup;
 			children = (
+				C1CD514A2333C694008002D1 /* Global Functions */,
 				C15EEB82232BF28000FB6770 /* Extension */,
 				C15EEB81232BF23700FB6770 /* Model */,
 				C1E94DEF205833A40077F6EB /* Controller */,
@@ -209,10 +227,9 @@
 				C12F01F323180EAD00596D25 /* CreditsViewController.swift */,
 				C12F023F231EBC4A00596D25 /* ListsNavigationController.swift */,
 				C12F0241231EBDA000596D25 /* FlashCardsNavigationController.swift */,
-				C12F02432320132200596D25 /* ShowcaseFunctions.swift */,
-				C15EEB89232D5CC900FB6770 /* DatabaseFunctions.swift */,
 				C15EEB8B232FD84700FB6770 /* AppStoreReviewManager.swift */,
 				C15EEB8F232FEB4500FB6770 /* SettingsViewController.swift */,
+				C1CD514B23352769008002D1 /* CustomWindow.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -342,6 +359,7 @@
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-MasterWords/Pods-MasterWords-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/ChameleonFramework/ChameleonFramework.framework",
+				"${BUILT_PRODUCTS_DIR}/Charts/Charts.framework",
 				"${BUILT_PRODUCTS_DIR}/Koloda/Koloda.framework",
 				"${BUILT_PRODUCTS_DIR}/MaterialShowcase/MaterialShowcase.framework",
 				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
@@ -353,6 +371,7 @@
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ChameleonFramework.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Charts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Koloda.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MaterialShowcase.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
@@ -377,8 +396,10 @@
 				C1344A44231573D800BEB28C /* UserEditViewController.swift in Sources */,
 				C12F0240231EBC4A00596D25 /* ListsNavigationController.swift in Sources */,
 				C15EEB8A232D5CCA00FB6770 /* DatabaseFunctions.swift in Sources */,
+				C1CD514C2335276B008002D1 /* CustomWindow.swift in Sources */,
 				C12293B02062BE820080A810 /* User.swift in Sources */,
 				C16182D3206075070025E6D1 /* GraphTableViewController.swift in Sources */,
+				C1CD514723328CA2008002D1 /* AlertFunctions.swift in Sources */,
 				C12293AE2062BB3F0080A810 /* UsersViewController.swift in Sources */,
 				C12293B22062CDA00080A810 /* SwitchUserViewController.swift in Sources */,
 				C12F0242231EBDA000596D25 /* FlashCardsNavigationController.swift in Sources */,
@@ -389,6 +410,7 @@
 				C178747E205AB89400C01B71 /* FlashCardsViewController.swift in Sources */,
 				C15EEB8C232FD84700FB6770 /* AppStoreReviewManager.swift in Sources */,
 				C199749A2316D8B7006467ED /* TextFieldMaxLengths.swift in Sources */,
+				C1CD51492333C41A008002D1 /* GlobalFunctions.swift in Sources */,
 				C17D56F420588CE900210586 /* SingleListEditViewController.swift in Sources */,
 				C1E99908206022670028564A /* TabBarViewController.swift in Sources */,
 				C128AEB52061696800A47E3F /* Word.swift in Sources */,

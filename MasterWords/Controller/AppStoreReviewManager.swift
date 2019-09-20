@@ -11,7 +11,7 @@ import StoreKit
 
 enum AppStoreReviewManager {
     // Declare a constant value to specify the number of times that user must perform a review-worthy action.
-    static let minimumReviewWorthyActionCount = 3
+    static let minimumReviewWorthyActionCount = 30
     
     static func requestReviewIfAppropriate() {
         let defaults = UserDefaults.standard

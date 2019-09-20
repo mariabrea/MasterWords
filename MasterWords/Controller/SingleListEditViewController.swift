@@ -51,6 +51,9 @@ class SingleListEditViewController: SwipeTableViewController, MaterialShowcaseDe
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
 
+        print("viewDidAppear ListsSingle")
+        //observer set to notice user inactivity lo logOut
+        NotificationCenter.default.addObserver(self, selector: #selector(logOut), name: NSNotification.Name(rawValue: "logOut"), object: nil)
     }
 
     //set the text of status bar light
@@ -144,6 +147,7 @@ class SingleListEditViewController: SwipeTableViewController, MaterialShowcaseDe
             }
             //we post in the notification Center 'loadGraph' so the graph is updated
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "loadGraph"), object: nil)
+//            loadSightWords()
         } else {
             let appearance = SCLAlertView.SCLAppearance(
                 kButtonHeight: 50,
@@ -157,18 +161,28 @@ class SingleListEditViewController: SwipeTableViewController, MaterialShowcaseDe
             let textField = alert.addTextField("Enter new sight word")
             textField.autocapitalizationType = .none
             alert.addButton("Update") {
-                
-                if let word = self.wordsList?[indexPath.row] {
-                    do{
-                        try self.realm.write {
-                            word.name = textField.text!
+                //check that a name has been introduced in textfield
+                if textField.text != "" {
+                    //first we check if the word already exists in the list
+                    if self.checkWordExist(wordName: textField.text!.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()) {
+                        createWarningAlert(title: "Word exists", subtitle: "The sight word already exists in this list.")
+                        self.tableView.reloadData()
+                    } else {
+                        if let word = self.wordsList?[indexPath.row] {
+                            do{
+                                try self.realm.write {
+                                    word.name = (textField.text?.trimmingCharacters(in: .whitespacesAndNewlines).lowercased())!
+                                }
+                            } catch {
+                                print("Error updating word list \(error)")
+                            }
                         }
-                    } catch {
-                        print("Error updating word list \(error)")
+                        
+                        self.tableView.reloadData()
                     }
+                
                 }
                 
-                self.tableView.reloadData()
             }
             
             let colorAlert = UIColor(named: "colorAlertEdit")
@@ -184,6 +198,25 @@ class SingleListEditViewController: SwipeTableViewController, MaterialShowcaseDe
 
 
     //MARK: Navigation Methods
+    
+//    func createAlertWordExists() {
+//        //create alert saying that that word name already exists for the list
+//        let appearance = SCLAlertView.SCLAppearance(
+//            kButtonHeight: 50,
+//            kTitleFont: UIFont(name: "Montserrat-SemiBold", size: 17)!,
+//            kTextFont: UIFont(name: "Montserrat-Regular", size: 16)!,
+//            kButtonFont: UIFont(name: "Montserrat-SemiBold", size: 17)!
+//
+//        )
+//        let alert = SCLAlertView(appearance: appearance)
+//        let colorAlert = UIColor(named: "colorAlertEdit")
+//        let iconAlert = UIImage(named: "icon-warning")
+//
+//        alert.showCustom("Word exists", subTitle: "The sight word already exists in this list.", color: colorAlert!, icon: iconAlert!, closeButtonTitle: "Close", animationStyle: .topToBottom)
+//    }
+    @objc func logOut() {
+        performSegue(withIdentifier: "goToUserVC", sender: self)
+    }
     
     func startShowcase() {
         
@@ -236,41 +269,37 @@ class SingleListEditViewController: SwipeTableViewController, MaterialShowcaseDe
         let textField = alert.addTextField("Enter sight word")
         textField.autocapitalizationType = .none
         alert.addButton("Add") {
-            //first we check if the word already exists in the list
-            if self.checkWordExist(wordName: textField.text!.lowercased()) {
-                //create alert saying that that word name already exists for the list
-                let appearance = SCLAlertView.SCLAppearance(
-                    kButtonHeight: 50,
-                    kTitleFont: UIFont(name: "Montserrat-SemiBold", size: 17)!,
-                    kTextFont: UIFont(name: "Montserrat-Regular", size: 16)!,
-                    kButtonFont: UIFont(name: "Montserrat-SemiBold", size: 17)!
-                    
-                )
-                let alert = SCLAlertView(appearance: appearance)
-                let colorAlert = UIColor(named: "colorAlertEdit")
-                let iconAlert = UIImage(named: "icon-warning")
-                
-                alert.showCustom("Word exists", subTitle: "The sight word already exists in this list.", color: colorAlert!, icon: iconAlert!, closeButtonTitle: "Close", animationStyle: .topToBottom)
-            } else {
-                //we add the word to the list
-                //we create a new object of type Item of the database, and we fill its attributes
-                if let currentList = self.selectedList {
-                    do {
-                        try self.realm.write {
-                            let newWord = SightWord()
-                            newWord.name = textField.text!.lowercased()
-                            newWord.index = 0
-                            newWord.userName = self.selectedUser
-                            currentList.sightWords.append(newWord)
+            //check that a name has been introduced in textfield
+            if textField.text != "" {
+                //first we check if the word already exists in the list
+                if self.checkWordExist(wordName: textField.text!.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()) {
+                    //create alert saying that that word name already exists for the list
+//                    self.createAlertWordExists()
+                    createWarningAlert(title: "Word exists", subtitle: "The sight word already exists in this list.")
+                    self.tableView.reloadData()
+                } else {
+                    //we add the word to the list
+                    //we create a new object of type Item of the database, and we fill its attributes
+                    if let currentList = self.selectedList {
+                        do {
+                            try self.realm.write {
+                                let newWord = SightWord()
+                                newWord.name = (textField.text?.trimmingCharacters(in: .whitespacesAndNewlines).lowercased())!
+//                                newWord.name = textField.text!.lowercased()
+                                newWord.index = 0
+                                newWord.userName = self.selectedUser
+                                currentList.sightWords.append(newWord)
+                            }
+                        } catch {
+                            print("Error saving word \(error)")
                         }
-                    } catch {
-                        print("Error saving word \(error)")
+                        
                     }
                     
+                    self.tableView.reloadData()
                 }
-                
-                self.tableView.reloadData()
             }
+            
             
         }
         
@@ -284,6 +313,10 @@ class SingleListEditViewController: SwipeTableViewController, MaterialShowcaseDe
     }
     
     @IBAction func helpButtonTapped(_ sender: UIBarButtonItem) {
+        
+        if (wordsList?.count)! > 0 {
+            tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
+        }
         
         startShowcase()
         

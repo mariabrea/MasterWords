@@ -31,6 +31,7 @@ class FlashCardsViewController: UIViewController, MaterialShowcaseDelegate {
     @IBOutlet weak var repeatAllButton: UIButton!
     @IBOutlet weak var repeatWrongButton: UIButton!
     @IBOutlet weak var cancelButton: UIButton!
+    var stopButton : UIBarButtonItem!
     
     //variable needed to play sound
     var audioPlayer : AVAudioPlayer!
@@ -62,6 +63,7 @@ class FlashCardsViewController: UIViewController, MaterialShowcaseDelegate {
     let showcaseSadFace = MaterialShowcase()
     let showcaseHappyFace = MaterialShowcase()
     let showcaseLeftCards = MaterialShowcase()
+    let showcaseStopButton = MaterialShowcase()
     
     let defaults = UserDefaults()
     
@@ -70,18 +72,40 @@ class FlashCardsViewController: UIViewController, MaterialShowcaseDelegate {
         
         cardView.delegate = self
         cardView.dataSource = self
-                
+        
+        //observer set to notice user inactivity lo logOut
+        NotificationCenter.default.addObserver(self, selector: #selector(logOut), name: NSNotification.Name(rawValue: "logOut"), object: nil)
     }
     
     override func viewDidLoad(){
         
         super.viewDidLoad()
         
+        updateUI()
+        
+    }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        print("viewWillAppear FlashCards")
+    }
+    
+    //set the text of status bar light
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+   
+    //MARK: - Navigation Methods
+    
+    func updateUI() {
+        
+//        self.tabBarController?.tabBar.isHidden = true
+        
         let helpButton = UIBarButtonItem(image: UIImage(named: "iconHelp"), style: .plain, target: self, action: #selector(startShowcase))
         helpButton.tintColor = .white
-        self.navigationItem.rightBarButtonItem = helpButton
-        
+        stopButton = UIBarButtonItem(image: UIImage(named: "iconCancel"), style: .plain, target: self, action: #selector(stopButtonTapped))
+        stopButton.tintColor = .white
+        self.navigationItem.rightBarButtonItems = [helpButton, stopButton]
         
         sadButton.setImage(UIImage(named: "sadFace") , for: .normal)
         sadButton.tintColor = UIColor.flatRed
@@ -103,19 +127,23 @@ class FlashCardsViewController: UIViewController, MaterialShowcaseDelegate {
                 listWordsToPractice.append(wordsList![i])
             }
         }
-
+        
         leftCardsButton.setTitle(String(leftCardsToPractice), for: .normal)
         
     }
     
-    //set the text of status bar light
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
+    @objc func logOut() {
+        performSegue(withIdentifier: "goToUserVC", sender: self)
     }
-   
-    //MARK: Navigation Methods
     
     @objc func startShowcase() {
+        
+        showcaseStopButton.setTargetView(barButtonItem: stopButton)
+        showcaseStopButton.primaryText = "Sad face"
+        showcaseStopButton.secondaryText = "Number of wrong answers."
+        
+        designShowcase(showcase: showcaseStopButton)
+        showcaseStopButton.delegate = self
         
         showcaseSightWordCard.setTargetView(view: cardView)
         showcaseSightWordCard.primaryText = "Sight word card"
@@ -150,6 +178,23 @@ class FlashCardsViewController: UIViewController, MaterialShowcaseDelegate {
     
     func showCaseDidDismiss(showcase: MaterialShowcase, didTapTarget: Bool) {
         sequenceShowcases.showCaseWillDismis()
+    }
+    
+    @objc func stopButtonTapped() {
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "loadGraph"), object: nil)
+        
+        stopPracticeTime()
+        
+//        self.tabBarController?.tabBar.isHidden = false
+        
+        performSegue(withIdentifier: "unwindToLists", sender: self)
+    }
+    
+    func stopPracticeTime() {
+        let timePracticeEnd = Double(CFAbsoluteTimeGetCurrent())
+        let timePracticeStart = defaults.double(forKey: .timeUserStartCardsPractice)
+        let secondsUserPracticedCards = defaults.double(forKey: .secondsUserPracticedCardsSession)
+        defaults.set(secondsUserPracticedCards! + (timePracticeEnd - timePracticeStart!), forKey: .secondsUserPracticedCardsSession)
     }
     
     //MARK: - IBAction Methods
@@ -204,12 +249,11 @@ class FlashCardsViewController: UIViewController, MaterialShowcaseDelegate {
         
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "loadGraph"), object: nil)
         
-        performSegue(withIdentifier: "unwindToLists", sender: self)
+        stopPracticeTime()
         
-        //ask for a review in the AppStore
-//        if defaults.integer(forKey: "timesAppLaunched") == 10 {
-//            AppStoreReviewManager.requestReviewIfAppropriate()
-//        }
+//        self.tabBarController?.tabBar.isHidden = false
+        
+        performSegue(withIdentifier: "unwindToLists", sender: self)
         
         AppStoreReviewManager.requestReviewIfAppropriate()
     }
@@ -328,6 +372,10 @@ extension FlashCardsViewController: KolodaViewDelegate {
             
             numberWrong += 1
             sadLabel.text = String(numberWrong)
+            
+            let numberWrongCardsUserPracticedSession = defaults.integer(forKey: .numberWrongCardsUserPracticedSession)
+            defaults.set(numberWrongCardsUserPracticedSession + 1, forKey: .numberWrongCardsUserPracticedSession)
+            
             updateModel2(wordName: listWordsToPractice[index].name, correct : false)
             listWordsWrong.append(listWordsToPractice[index])
             
@@ -339,6 +387,10 @@ extension FlashCardsViewController: KolodaViewDelegate {
             
             numberCorrect += 1
             happyLabel.text = String(numberCorrect)
+            
+            let numberCorrectCardsUserPracticedSession = defaults.integer(forKey: .numberCorrectCardsUserPracticedSession)
+            defaults.set(numberCorrectCardsUserPracticedSession + 1, forKey: .numberCorrectCardsUserPracticedSession)
+            
             updateModel2(wordName: listWordsToPractice[index].name, correct : true)
         }
     }
@@ -359,11 +411,16 @@ extension FlashCardsViewController: KolodaViewDataSource {
         view.backgroundColor = UIColor.randomFlat
         view.layer.cornerRadius = 15
         
-        let sightWordLabel = UILabel(frame: CGRect(x: 0 , y: (view.frame.height - 100)/2, width: view.frame.width, height: 100))
+        let sightWordLabel = UILabel(frame: CGRect(x: 0 , y: (view.frame.height - 150)/2, width: view.frame.width, height: 150))
         sightWordLabel.textAlignment = .center
         sightWordLabel.textColor = UIColor.init(contrastingBlackOrWhiteColorOn: view.backgroundColor!, isFlat: true)
         sightWordLabel.text = listWordsToPractice[index].name
-        sightWordLabel.font = UIFont (name: "GelPenHeavy", size: 80)
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            sightWordLabel.font = UIFont (name: "GelPenHeavy", size: 120)
+        } else {
+            sightWordLabel.font = UIFont (name: "GelPenHeavy", size: 80)
+        }
+        
         //adjust font size to fit in the card view, in case of too long words
         sightWordLabel.adjustsFontSizeToFitWidth = true
         view.addSubview(sightWordLabel)
