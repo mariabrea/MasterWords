@@ -36,7 +36,7 @@ class FlashCardsViewController: UIViewController, MaterialShowcaseDelegate {
     //variable needed to play sound
     var audioPlayer : AVAudioPlayer!
     let correctAnswerSoundFileName : String = "38798943_correct-answer-bell-gliss-01"
-    let wrongAnswerSoundFileName : String = "43162713_comical-rubber-squeak-01"
+    let wrongAnswerSoundFileName : String = "131657__bertrof__game-sound-wrong"
     let soundFileExtension : String = "wav"
 
     
@@ -59,7 +59,6 @@ class FlashCardsViewController: UIViewController, MaterialShowcaseDelegate {
     }
     
     let sequenceShowcases = MaterialShowcaseSequence()
-    let showcaseSightWordCard = MaterialShowcase()
     let showcaseSadFace = MaterialShowcase()
     let showcaseHappyFace = MaterialShowcase()
     let showcaseLeftCards = MaterialShowcase()
@@ -73,8 +72,6 @@ class FlashCardsViewController: UIViewController, MaterialShowcaseDelegate {
         cardView.delegate = self
         cardView.dataSource = self
         
-        //observer set to notice user inactivity lo logOut
-        NotificationCenter.default.addObserver(self, selector: #selector(logOut), name: NSNotification.Name(rawValue: "logOut"), object: nil)
     }
     
     override func viewDidLoad(){
@@ -87,7 +84,7 @@ class FlashCardsViewController: UIViewController, MaterialShowcaseDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        print("viewWillAppear FlashCards")
+//        print("viewWillAppear FlashCards")
     }
     
     //set the text of status bar light
@@ -125,6 +122,7 @@ class FlashCardsViewController: UIViewController, MaterialShowcaseDelegate {
             
             for i in 0...numberWordsToPractice - 1 {
                 listWordsToPractice.append(wordsList![i])
+                listWordsToPractice = listWordsToPractice.shuffled()
             }
         }
         
@@ -132,36 +130,25 @@ class FlashCardsViewController: UIViewController, MaterialShowcaseDelegate {
         
     }
     
-    @objc func logOut() {
-        performSegue(withIdentifier: "goToUserVC", sender: self)
-    }
-    
     @objc func startShowcase() {
         
         showcaseStopButton.setTargetView(barButtonItem: stopButton)
-        showcaseStopButton.primaryText = "Sad face"
-        showcaseStopButton.secondaryText = "Number of wrong answers."
+        showcaseStopButton.primaryText = "Stop Button"
+        showcaseStopButton.secondaryText = "Click here to stop de practice."
         
         designShowcase(showcase: showcaseStopButton)
         showcaseStopButton.delegate = self
         
-        showcaseSightWordCard.setTargetView(view: cardView)
-        showcaseSightWordCard.primaryText = "Sight word card"
-        showcaseSightWordCard.secondaryText = "Swipe to the left if the answer is wrong.\nSwipe it to the right if the answer is right."
-        
-        designShowcase(showcase: showcaseSightWordCard)
-        showcaseSightWordCard.delegate = self
-        
         showcaseSadFace.setTargetView(view: sadButton)
         showcaseSadFace.primaryText = "Sad face"
-        showcaseSadFace.secondaryText = "Number of wrong answers."
+        showcaseSadFace.secondaryText = "Number of wrong answers. Swipe the card to the left if the answer is wrong."
         
         designShowcase(showcase: showcaseSadFace)
         showcaseSadFace.delegate = self
         
         showcaseHappyFace.setTargetView(view: happyButton)
         showcaseHappyFace.primaryText = "Happy face"
-        showcaseHappyFace.secondaryText = "Number of right answers"
+        showcaseHappyFace.secondaryText = "Number of right answers. Swipe the card to the right if the answer is correct."
         
         designShowcase(showcase: showcaseHappyFace)
         showcaseHappyFace.delegate = self
@@ -172,7 +159,7 @@ class FlashCardsViewController: UIViewController, MaterialShowcaseDelegate {
         
         designShowcase(showcase: showcaseLeftCards)
         showcaseLeftCards.delegate = self
- sequenceShowcases.temp(showcaseSightWordCard).temp(showcaseSadFace).temp(showcaseLeftCards).temp(showcaseHappyFace).start()
+ sequenceShowcases.temp(showcaseStopButton).temp(showcaseSadFace).temp(showcaseLeftCards).temp(showcaseHappyFace).start()
         
     }
     
@@ -212,6 +199,7 @@ class FlashCardsViewController: UIViewController, MaterialShowcaseDelegate {
             leftCardsButton.setTitle(String(leftCardsToPractice), for: .normal)
             for i in 0...numberWordsToPractice - 1 {
                 listWordsToPractice.append(wordsList![i])
+                listWordsToPractice = listWordsToPractice.shuffled()
             }
         }
 
@@ -230,6 +218,7 @@ class FlashCardsViewController: UIViewController, MaterialShowcaseDelegate {
         
         for i in 0...numberWordsToPractice - 1 {
             listWordsToPractice.append(listWordsWrong[i])
+            listWordsToPractice = listWordsToPractice.shuffled()
         }
         
         listWordsWrong.removeAll()

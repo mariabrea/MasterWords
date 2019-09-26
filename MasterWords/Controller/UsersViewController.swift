@@ -317,7 +317,7 @@ class UsersViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
     
     @IBAction func unwindToUsersMenu(segue: UIStoryboardSegue) {
         
-        print("Segue unwindToUsersMenu performed")
+//        print("Segue unwindToUsersMenu performed")
         
     }
     
@@ -390,7 +390,7 @@ class UsersViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
     // MARK: - Segue Methods
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
+//        print("prepare for segue")
         if segue.identifier == "goToTabBarVC" {
             let barViewControllers = segue.destination as! UITabBarController
             

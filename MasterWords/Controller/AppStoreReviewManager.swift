@@ -34,7 +34,7 @@ enum AppStoreReviewManager {
         // Read the current number of actions that the user has performed since the last requested review from the User Defaults.
         var actionCount = defaults.integer(forKey: .reviewWorthyActionCount)
         
-        print("actionCount: \(actionCount)")
+//        print("actionCount: \(actionCount)")
         
         // Increment the action count value read from User Defaults
         actionCount += 1

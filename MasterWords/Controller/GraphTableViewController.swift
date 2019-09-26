@@ -71,9 +71,6 @@ class GraphTableViewController: UITableViewController, MaterialShowcaseDelegate,
         
         self.tableView.reloadData()
         
-        print("viewDidAppear Graph")
-        //observer set to notice user inactivity lo logOut
-        NotificationCenter.default.addObserver(self, selector: #selector(logOut), name: NSNotification.Name(rawValue: "logOut"), object: nil)
     }
     
     //set the text of status bar light
@@ -88,7 +85,7 @@ class GraphTableViewController: UITableViewController, MaterialShowcaseDelegate,
         
         words = realm.objects(SightWord.self).filter("userName = %@", selectedUser?.name as Any).sorted(byKeyPath: "name", ascending: true)
         
-        print(words as Any)
+//        print(words as Any)
         
         if let numberRows = words?.count {
             if numberRows > 0 {
@@ -205,14 +202,9 @@ class GraphTableViewController: UITableViewController, MaterialShowcaseDelegate,
 
     //MARK: - Navigation Methods
     
-    //func called to reload the data when cancel button in FlashCards is clicked
-    @objc func logOut() {
-        performSegue(withIdentifier: "goToUserVC", sender: self)
-    }
-    
     @objc func reloadGraph(notification: NSNotification) {
         
-        print("Reloading Graph")
+//        print("GraphViewController reloading Graph")
         
         wordsNoDuplicates.removeAll()
         loadWords()
@@ -480,15 +472,15 @@ class GraphTableViewController: UITableViewController, MaterialShowcaseDelegate,
         alert.addButton("Correct Answered"){
             if sortUp {
                 self.wordsNoDuplicates.sort(by: { $0.percentageCorrect > $1.percentageCorrect })
-                for word in self.wordsNoDuplicates{
-                    print("\(word.name) \(word.percentageCorrect)")
-                }
+//                for word in self.wordsNoDuplicates{
+////                    print("\(word.name) \(word.percentageCorrect)")
+//                }
                 self.tableView.reloadData()
             } else {
                 self.wordsNoDuplicates.sort(by: { $0.percentageCorrect < $1.percentageCorrect })
-                for word in self.wordsNoDuplicates{
-                    print("\(word.name) \(word.percentageCorrect)")
-                }
+//                for word in self.wordsNoDuplicates{
+//                    print("\(word.name) \(word.percentageCorrect)")
+//                }
                 self.tableView.reloadData()
             }
         }
@@ -496,16 +488,16 @@ class GraphTableViewController: UITableViewController, MaterialShowcaseDelegate,
     alert.addButton("Wrong Answered") {
             if sortUp {
                 self.wordsNoDuplicates.sort(by: { $0.percentageWrong > $1.percentageWrong })
-                for word in self.wordsNoDuplicates{
-                    print("\(word.name) \(word.percentageWrong)")
-                }
+//                for word in self.wordsNoDuplicates{
+//                    print("\(word.name) \(word.percentageWrong)")
+//                }
                 
                 self.tableView.reloadData()
             } else {
                 self.wordsNoDuplicates.sort(by: { $0.percentageWrong < $1.percentageWrong })
-                for word in self.wordsNoDuplicates{
-                    print("\(word.name) \(word.percentageWrong)")
-                }
+//                for word in self.wordsNoDuplicates{
+//                    print("\(word.name) \(word.percentageWrong)")
+//                }
                 self.tableView.reloadData()
             }
         }

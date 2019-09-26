@@ -65,11 +65,9 @@
                         <outlet property="addButton" destination="nlc-Ks-QDB" id="9FF-8W-RzX"/>
                         <outlet property="helpButton" destination="kkb-vQ-EFa" id="388-SV-EJX"/>
                         <segue destination="bDB-H6-s7T" kind="show" identifier="goToSingleListEditVC" id="DKW-hd-hBX"/>
-                        <segue destination="hO4-CW-Vec" kind="unwind" identifier="goToUserVC" unwindAction="unwindToUsersMenuWithSegue:" id="yLf-0S-n76"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
-                <exit id="hO4-CW-Vec" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="2442" y="-321"/>
         </scene>
@@ -115,11 +113,9 @@
                     <connections>
                         <outlet property="addButton" destination="Z2I-8z-eqz" id="amk-3F-SaY"/>
                         <outlet property="helpButton" destination="VFd-fw-jfY" id="fGA-Ce-KTg"/>
-                        <segue destination="glX-9O-6kW" kind="unwind" identifier="goToUserVC" unwindAction="unwindToUsersMenuWithSegue:" id="Hop-Cf-0BU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HKl-bZ-Cei" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="glX-9O-6kW" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="3172" y="-321.58920539730138"/>
         </scene>
@@ -157,11 +153,9 @@
                     <connections>
                         <outlet property="helpButton" destination="IXr-8J-0KS" id="Re1-Sv-sLO"/>
                         <segue destination="3Mm-9l-E01" kind="show" identifier="goToFlashCardsVC" id="oEG-md-MjU"/>
-                        <segue destination="Nei-Ks-Cim" kind="unwind" identifier="goToUserVC" unwindAction="unwindToUsersMenuWithSegue:" id="8xJ-Qe-n0y"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>
-                <exit id="Nei-Ks-Cim" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="2383.1999999999998" y="356.67166416791605"/>
         </scene>
@@ -337,7 +331,6 @@
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="5fb-4a-xts" firstAttribute="leading" secondItem="OhT-wk-Sxh" secondAttribute="trailing" constant="10" id="6Zi-XU-YWV"/>
                                     <constraint firstAttribute="bottom" secondItem="5fb-4a-xts" secondAttribute="bottom" id="GaN-mf-RP4"/>
@@ -387,7 +380,6 @@
                         <outlet property="sadButton" destination="zOk-e2-9p9" id="0fn-fL-Be0"/>
                         <outlet property="sadLabel" destination="0dY-7N-zfa" id="Ljf-Hr-mGI"/>
                         <segue destination="NXb-cE-bAR" kind="unwind" identifier="unwindToLists" unwindAction="prepareForUnwindWithSegue:" id="eiA-rY-npx"/>
-                        <segue destination="NXb-cE-bAR" kind="unwind" identifier="goToUserVC" unwindAction="unwindToUsersMenuWithSegue:" id="jdX-xe-l3i"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2wM-Pz-X2C" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1108,11 +1100,9 @@
                         <outlet property="sortDownButton" destination="LGj-3J-FUI" id="T51-Hd-Vq3"/>
                         <outlet property="sortUpButton" destination="pe7-dU-aey" id="cjG-Ks-5bq"/>
                         <outlet property="userNameLabel" destination="rX0-HW-lyt" id="udK-uy-qrC"/>
-                        <segue destination="Xib-nE-fVM" kind="unwind" identifier="goToUserVC" unwindAction="unwindToUsersMenuWithSegue:" id="jmN-Uf-dRJ"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BOS-Vq-l2G" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="Xib-nE-fVM" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="748" y="1037.6311844077961"/>
         </scene>
@@ -1148,7 +1138,6 @@
                                 </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="logoutButtonTapped:" destination="fOm-XD-bYP" eventType="touchUpInside" id="CUE-L0-Zdv"/>
-                                    <segue destination="dpN-uB-nrw" kind="show" identifier="goToUsersVC" id="Z5N-fW-kKS"/>
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7sy-FE-U93">
@@ -1196,7 +1185,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TIME LOGGED IN" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j7M-sF-vVt">
-                                <rect key="frame" x="20" y="99" width="374" height="30"/>
+                                <rect key="frame" x="20" y="104" width="374" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="tNX-Ju-etV"/>
                                 </constraints>
@@ -1205,23 +1194,26 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kWM-Dk-qOa" userLabel="Horizontal line 1">
-                                <rect key="frame" x="20" y="129" width="374" height="1"/>
+                                <rect key="frame" x="20" y="134" width="374" height="1"/>
                                 <color key="backgroundColor" name="colorBarBackground"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="zwF-Kf-YXn"/>
                                 </constraints>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="pJW-O9-xSR" userLabel="Time Logged Stack View">
-                                <rect key="frame" x="40" y="130" width="278.66666666666669" height="60"/>
+                                <rect key="frame" x="40" y="135" width="274.33333333333331" height="40"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T8f-Ia-T2I" userLabel="hoursLabel">
-                                        <rect key="frame" x="0.0" y="0.0" width="21.666666666666668" height="60"/>
-                                        <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="38"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="17.333333333333332" height="40"/>
+                                        <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="30"/>
                                         <color key="textColor" name="colorAppTitle"/>
                                         <nil key="highlightedColor"/>
+                                        <variation key="heightClass=regular-widthClass=regular">
+                                            <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="38"/>
+                                        </variation>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="hrs" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cpG-7C-Ldc">
-                                        <rect key="frame" x="27.666666666666671" y="0.0" width="32" height="60"/>
+                                        <rect key="frame" x="23.333333333333336" y="0.0" width="32" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="32" id="I6E-O1-dbx"/>
                                         </constraints>
@@ -1230,16 +1222,19 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="35" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vVE-On-SjQ" userLabel="minutesLabel">
-                                        <rect key="frame" x="65.666666666666671" y="0.0" width="60" height="60"/>
+                                        <rect key="frame" x="61.333333333333329" y="0.0" width="60" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="60" id="SRb-s8-8rp"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="38"/>
+                                        <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="30"/>
                                         <color key="textColor" name="colorAppTitle"/>
                                         <nil key="highlightedColor"/>
+                                        <variation key="heightClass=regular-widthClass=regular">
+                                            <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="38"/>
+                                        </variation>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="min" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5F7-KI-a9x">
-                                        <rect key="frame" x="131.66666666666666" y="0.0" width="41" height="60"/>
+                                        <rect key="frame" x="127.33333333333334" y="0.0" width="41" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="41" id="etY-w9-zAT"/>
                                         </constraints>
@@ -1248,16 +1243,19 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="49" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CsN-Yl-joT" userLabel="secondsLabel">
-                                        <rect key="frame" x="178.66666666666666" y="0.0" width="60" height="60"/>
+                                        <rect key="frame" x="174.33333333333334" y="0.0" width="60" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="60" id="6DD-VJ-agN"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="38"/>
+                                        <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="30"/>
                                         <color key="textColor" name="colorAppTitle"/>
                                         <nil key="highlightedColor"/>
+                                        <variation key="heightClass=regular-widthClass=regular">
+                                            <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="38"/>
+                                        </variation>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="sec" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j3N-yb-bNH">
-                                        <rect key="frame" x="244.66666666666669" y="0.0" width="34" height="60"/>
+                                        <rect key="frame" x="240.33333333333331" y="0.0" width="34" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="34" id="J9Q-5C-T5z"/>
                                         </constraints>
@@ -1267,12 +1265,14 @@
                                     </label>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="60" id="2qg-Rq-pL8"/>
+                                    <constraint firstAttribute="height" constant="40" id="2qg-Rq-pL8">
+                                        <variation key="heightClass=regular-widthClass=regular" constant="60"/>
+                                    </constraint>
                                     <constraint firstAttribute="width" relation="lessThanOrEqual" constant="350" id="Sf4-JJ-hZo"/>
                                 </constraints>
                             </stackView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TIME PRACTICED CARDS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FmV-ZT-mxd">
-                                <rect key="frame" x="20" y="198" width="374" height="30"/>
+                                <rect key="frame" x="20" y="183" width="374" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="FIh-uz-YNe"/>
                                 </constraints>
@@ -1281,23 +1281,26 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cqg-FG-efN" userLabel="Horizontal line 2">
-                                <rect key="frame" x="20" y="228" width="374" height="1"/>
+                                <rect key="frame" x="20" y="213" width="374" height="1"/>
                                 <color key="backgroundColor" name="colorBarBackground"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="y2f-P8-Z7X"/>
                                 </constraints>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="cwe-f9-vtc" userLabel="Time Cards Practiced Stack View">
-                                <rect key="frame" x="40" y="229" width="303" height="60"/>
+                                <rect key="frame" x="40" y="214" width="293.33333333333331" height="40"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="28" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MQ2-TB-ZDg" userLabel="hoursLabel">
-                                        <rect key="frame" x="0.0" y="0.0" width="46" height="60"/>
-                                        <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="38"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="36.333333333333336" height="40"/>
+                                        <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="30"/>
                                         <color key="textColor" name="colorAppTitle"/>
                                         <nil key="highlightedColor"/>
+                                        <variation key="heightClass=regular-widthClass=regular">
+                                            <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="38"/>
+                                        </variation>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="hrs" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Yp-na-BLD">
-                                        <rect key="frame" x="52" y="0.0" width="32" height="60"/>
+                                        <rect key="frame" x="42.333333333333329" y="0.0" width="32" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="32" id="jNl-26-bRf"/>
                                         </constraints>
@@ -1306,16 +1309,19 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="35" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uqZ-zG-KGW" userLabel="minutesLabel">
-                                        <rect key="frame" x="90" y="0.0" width="60" height="60"/>
+                                        <rect key="frame" x="80.333333333333329" y="0.0" width="59.999999999999986" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="60" id="utZ-tB-RPe"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="38"/>
+                                        <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="30"/>
                                         <color key="textColor" name="colorAppTitle"/>
                                         <nil key="highlightedColor"/>
+                                        <variation key="heightClass=regular-widthClass=regular">
+                                            <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="38"/>
+                                        </variation>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="min" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="39m-IK-ttI">
-                                        <rect key="frame" x="156" y="0.0" width="41" height="60"/>
+                                        <rect key="frame" x="146.33333333333334" y="0.0" width="41" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="41" id="oiO-1R-Buy"/>
                                         </constraints>
@@ -1324,16 +1330,19 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="49" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4hQ-TG-lUJ" userLabel="secondsLabel">
-                                        <rect key="frame" x="203" y="0.0" width="60" height="60"/>
+                                        <rect key="frame" x="193.33333333333334" y="0.0" width="60" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="60" id="IBr-v4-ULS"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="38"/>
+                                        <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="30"/>
                                         <color key="textColor" name="colorAppTitle"/>
                                         <nil key="highlightedColor"/>
+                                        <variation key="heightClass=regular-widthClass=regular">
+                                            <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="38"/>
+                                        </variation>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="sec" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uJu-Vh-Pv4">
-                                        <rect key="frame" x="269" y="0.0" width="34" height="60"/>
+                                        <rect key="frame" x="259.33333333333331" y="0.0" width="34" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="34" id="tcp-6S-SJH"/>
                                         </constraints>
@@ -1344,11 +1353,13 @@
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="lessThanOrEqual" constant="350" id="3QU-Zf-kWK"/>
-                                    <constraint firstAttribute="height" constant="60" id="kol-Ek-3Iy"/>
+                                    <constraint firstAttribute="height" constant="40" id="kol-Ek-3Iy">
+                                        <variation key="heightClass=regular-widthClass=regular" constant="60"/>
+                                    </constraint>
                                 </constraints>
                             </stackView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="RESULTS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TR0-Rj-Pmu">
-                                <rect key="frame" x="20" y="297" width="374" height="30"/>
+                                <rect key="frame" x="20" y="262" width="374" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="kgp-NW-uHe"/>
                                 </constraints>
@@ -1357,23 +1368,26 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="syc-nl-XXN" userLabel="Horizontal line 3">
-                                <rect key="frame" x="20" y="327" width="374" height="1"/>
+                                <rect key="frame" x="20" y="292" width="374" height="1"/>
                                 <color key="backgroundColor" name="colorBarBackground"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="og7-SQ-ILJ"/>
                                 </constraints>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="3sK-R2-G0R" userLabel="Number Cards Practiced">
-                                <rect key="frame" x="40" y="328" width="184" height="60"/>
+                                <rect key="frame" x="40" y="293" width="174.33333333333334" height="40"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="28" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E4J-o4-upL" userLabel="hoursLabel">
-                                        <rect key="frame" x="0.0" y="0.0" width="46" height="60"/>
-                                        <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="38"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="36.333333333333336" height="40"/>
+                                        <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="30"/>
                                         <color key="textColor" name="colorAppTitle"/>
                                         <nil key="highlightedColor"/>
+                                        <variation key="heightClass=regular-widthClass=regular">
+                                            <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="38"/>
+                                        </variation>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="cards practiced" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cbp-cF-cfY">
-                                        <rect key="frame" x="52" y="0.0" width="132" height="60"/>
+                                        <rect key="frame" x="42.333333333333329" y="0.0" width="132" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="132" id="V5Q-5V-AfA"/>
                                         </constraints>
@@ -1384,12 +1398,14 @@
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="lessThanOrEqual" constant="250" id="6e4-UA-jwj"/>
-                                    <constraint firstAttribute="height" constant="60" id="etf-SZ-dLP"/>
+                                    <constraint firstAttribute="height" constant="40" id="etf-SZ-dLP">
+                                        <variation key="heightClass=regular-widthClass=regular" constant="60"/>
+                                    </constraint>
                                 </constraints>
                                 <viewLayoutGuide key="safeArea" id="Njy-ab-vBv"/>
                             </stackView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mgQ-lY-ywE" userLabel="Chart View" customClass="PieChartView" customModule="Charts">
-                                <rect key="frame" x="20" y="398" width="374" height="195"/>
+                                <rect key="frame" x="20" y="333" width="374" height="275"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                         </subviews>
@@ -1401,7 +1417,7 @@
                             <constraint firstItem="7sy-FE-U93" firstAttribute="trailing" secondItem="8mI-sb-iux" secondAttribute="trailing" id="9Qb-LU-ZjW"/>
                             <constraint firstItem="TR0-Rj-Pmu" firstAttribute="top" secondItem="cwe-f9-vtc" secondAttribute="bottom" constant="8" id="B4h-uX-I5z"/>
                             <constraint firstItem="kWM-Dk-qOa" firstAttribute="width" secondItem="rht-hc-xvY" secondAttribute="width" id="EY0-gB-gaQ"/>
-                            <constraint firstItem="j7M-sF-vVt" firstAttribute="top" secondItem="rht-hc-xvY" secondAttribute="bottom" id="FXE-gi-Yhh"/>
+                            <constraint firstItem="j7M-sF-vVt" firstAttribute="top" secondItem="rht-hc-xvY" secondAttribute="bottom" constant="5" id="FXE-gi-Yhh"/>
                             <constraint firstItem="pJW-O9-xSR" firstAttribute="leading" secondItem="8mI-sb-iux" secondAttribute="leading" constant="40" id="GYa-i9-xFt"/>
                             <constraint firstItem="TR0-Rj-Pmu" firstAttribute="leading" secondItem="8mI-sb-iux" secondAttribute="leading" constant="20" id="IO0-FW-dbC"/>
                             <constraint firstItem="syc-nl-XXN" firstAttribute="top" secondItem="TR0-Rj-Pmu" secondAttribute="bottom" id="Imt-jN-2H3"/>
@@ -1423,7 +1439,9 @@
                             <constraint firstItem="8mI-sb-iux" firstAttribute="trailing" secondItem="rht-hc-xvY" secondAttribute="trailing" constant="20" id="fcQ-HO-YxN"/>
                             <constraint firstItem="syc-nl-XXN" firstAttribute="top" secondItem="TR0-Rj-Pmu" secondAttribute="bottom" id="g85-yp-TYR"/>
                             <constraint firstItem="pJW-O9-xSR" firstAttribute="top" secondItem="kWM-Dk-qOa" secondAttribute="bottom" id="hKM-j3-PW8"/>
-                            <constraint firstItem="qL1-Ue-eE7" firstAttribute="top" secondItem="mgQ-lY-ywE" secondAttribute="bottom" constant="20" id="iGK-tm-LUL"/>
+                            <constraint firstItem="qL1-Ue-eE7" firstAttribute="top" secondItem="mgQ-lY-ywE" secondAttribute="bottom" constant="5" id="iGK-tm-LUL">
+                                <variation key="heightClass=regular-widthClass=regular" constant="20"/>
+                            </constraint>
                             <constraint firstItem="3sK-R2-G0R" firstAttribute="top" secondItem="syc-nl-XXN" secondAttribute="bottom" id="iNy-Ya-JvK"/>
                             <constraint firstItem="8mI-sb-iux" firstAttribute="trailing" secondItem="TR0-Rj-Pmu" secondAttribute="trailing" constant="20" id="kzE-eI-JbT"/>
                             <constraint firstItem="FmV-ZT-mxd" firstAttribute="top" secondItem="pJW-O9-xSR" secondAttribute="bottom" constant="8" id="lYc-ZH-N7z"/>
@@ -1431,7 +1449,9 @@
                             <constraint firstItem="j7M-sF-vVt" firstAttribute="leading" secondItem="8mI-sb-iux" secondAttribute="leading" constant="20" id="pFb-6R-WHV"/>
                             <constraint firstItem="cqg-FG-efN" firstAttribute="leading" secondItem="8mI-sb-iux" secondAttribute="leading" constant="20" id="qcV-2d-fK1"/>
                             <constraint firstItem="3sK-R2-G0R" firstAttribute="leading" secondItem="8mI-sb-iux" secondAttribute="leading" constant="40" id="tdK-TQ-Bca"/>
-                            <constraint firstItem="mgQ-lY-ywE" firstAttribute="top" secondItem="3sK-R2-G0R" secondAttribute="bottom" constant="10" id="vGW-8M-XYe"/>
+                            <constraint firstItem="mgQ-lY-ywE" firstAttribute="top" secondItem="3sK-R2-G0R" secondAttribute="bottom" id="vGW-8M-XYe">
+                                <variation key="heightClass=regular-widthClass=regular" constant="10"/>
+                            </constraint>
                             <constraint firstItem="syc-nl-XXN" firstAttribute="leading" secondItem="0Jz-Ya-YOM" secondAttribute="leading" constant="20" id="z0x-sx-Ebg"/>
                             <constraint firstItem="j7M-sF-vVt" firstAttribute="width" secondItem="rht-hc-xvY" secondAttribute="width" id="zCE-Ij-WAa"/>
                         </constraints>
@@ -1451,18 +1471,19 @@
                         <outlet property="secLoggedInLabel" destination="CsN-Yl-joT" id="XBR-1s-P32"/>
                         <outlet property="secPracticeLabel" destination="4hQ-TG-lUJ" id="U1e-q3-l2i"/>
                         <outlet property="titleLabel" destination="rht-hc-xvY" id="zWB-2o-oVo"/>
+                        <segue destination="dpN-uB-nrw" kind="show" identifier="goToUsersVC" id="wDQ-tn-WvD"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="36J-ei-sJY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="747.82608695652175" y="1707.0652173913045"/>
+            <point key="canvasLocation" x="748" y="1720"/>
         </scene>
         <!--User Edit View Controller-->
         <scene sceneID="E72-h1-4r3">
             <objects>
                 <viewController id="8KK-A0-9qE" customClass="UserEditViewController" customModule="MasterWords" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="N1c-vf-xCK">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="687"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d9D-1B-bvA" userLabel="NameContainer">
@@ -1551,7 +1572,7 @@
                                 </connections>
                             </pickerView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HqS-Cx-b65" userLabel="ButtonsContainer">
-                                <rect key="frame" x="0.0" y="612" width="414" height="50"/>
+                                <rect key="frame" x="0.0" y="661" width="414" height="50"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RRL-Zr-0CA" customClass="RoundButton" customModule="MasterWords" customModuleProvider="target">
                                         <rect key="frame" x="25" y="0.0" width="169.66666666666666" height="50"/>
@@ -1724,8 +1745,8 @@
         </namedColor>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Rlc-fp-KT3"/>
-        <segue reference="dHD-GS-3fQ"/>
-        <segue reference="Z5N-fW-kKS"/>
+        <segue reference="5tT-hv-e6d"/>
+        <segue reference="wyA-Dy-Jkr"/>
+        <segue reference="wDQ-tn-WvD"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -21,6 +21,7 @@ extension UserDefaults {
         case secondsUserPracticedCardsSession
         case numberCorrectCardsUserPracticedSession
         case numberWrongCardsUserPracticedSession
+        case automaticLogOut
     }
     
     func exists(key: Key) -> Bool {

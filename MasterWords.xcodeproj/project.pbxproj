@@ -15,7 +15,6 @@
 		C128AEB52061696800A47E3F /* Word.swift in Sources */ = {isa = PBXBuildFile; fileRef = C128AEB42061696800A47E3F /* Word.swift */; };
 		C12F01F423180EAD00596D25 /* CreditsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12F01F323180EAD00596D25 /* CreditsViewController.swift */; };
 		C12F01F6231821F100596D25 /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12F01F5231821F100596D25 /* RoundedButton.swift */; };
-		C12F01F82319885D00596D25 /* 43162713_comical-rubber-squeak-01.wav in Resources */ = {isa = PBXBuildFile; fileRef = C12F01F72319885A00596D25 /* 43162713_comical-rubber-squeak-01.wav */; };
 		C12F0240231EBC4A00596D25 /* ListsNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12F023F231EBC4A00596D25 /* ListsNavigationController.swift */; };
 		C12F0242231EBDA000596D25 /* FlashCardsNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12F0241231EBDA000596D25 /* FlashCardsNavigationController.swift */; };
 		C12F02442320132200596D25 /* ShowcaseFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12F02432320132200596D25 /* ShowcaseFunctions.swift */; };
@@ -30,7 +29,6 @@
 		C15EEB90232FEB4500FB6770 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C15EEB8F232FEB4500FB6770 /* SettingsViewController.swift */; };
 		C15EEB9223311EE500FB6770 /* UserDefaultsFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C15EEB9123311EE500FB6770 /* UserDefaultsFunctions.swift */; };
 		C16182CE20606EF60025E6D1 /* 38798943_correct-answer-bell-gliss-01.wav in Resources */ = {isa = PBXBuildFile; fileRef = C16182CD20606EF60025E6D1 /* 38798943_correct-answer-bell-gliss-01.wav */; };
-		C16182D020606F070025E6D1 /* 38806077_wrong-answer-bong-spring-01.wav in Resources */ = {isa = PBXBuildFile; fileRef = C16182CF20606F070025E6D1 /* 38806077_wrong-answer-bong-spring-01.wav */; };
 		C16182D3206075070025E6D1 /* GraphTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16182D2206075060025E6D1 /* GraphTableViewController.swift */; };
 		C178747E205AB89400C01B71 /* FlashCardsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C178747D205AB89400C01B71 /* FlashCardsViewController.swift */; };
 		C17D56F420588CE900210586 /* SingleListEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17D56F320588CE900210586 /* SingleListEditViewController.swift */; };
@@ -41,6 +39,7 @@
 		C1CD514723328CA2008002D1 /* AlertFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1CD514623328CA2008002D1 /* AlertFunctions.swift */; };
 		C1CD51492333C41A008002D1 /* GlobalFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1CD51482333C41A008002D1 /* GlobalFunctions.swift */; };
 		C1CD514C2335276B008002D1 /* CustomWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1CD514B23352769008002D1 /* CustomWindow.swift */; };
+		C1CD5151233D00F4008002D1 /* 131657__bertrof__game-sound-wrong.wav in Resources */ = {isa = PBXBuildFile; fileRef = C1CD514E233D00A2008002D1 /* 131657__bertrof__game-sound-wrong.wav */; };
 		C1E94DDC2058336C0077F6EB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1E94DDB2058336C0077F6EB /* AppDelegate.swift */; };
 		C1E94DDE2058336C0077F6EB /* ListsEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1E94DDD2058336C0077F6EB /* ListsEditViewController.swift */; };
 		C1E94DE32058336C0077F6EB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C1E94DE12058336C0077F6EB /* Main.storyboard */; };
@@ -60,7 +59,6 @@
 		C128AEB42061696800A47E3F /* Word.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Word.swift; sourceTree = "<group>"; };
 		C12F01F323180EAD00596D25 /* CreditsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditsViewController.swift; sourceTree = "<group>"; };
 		C12F01F5231821F100596D25 /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
-		C12F01F72319885A00596D25 /* 43162713_comical-rubber-squeak-01.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "43162713_comical-rubber-squeak-01.wav"; sourceTree = "<group>"; };
 		C12F023F231EBC4A00596D25 /* ListsNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListsNavigationController.swift; sourceTree = "<group>"; };
 		C12F0241231EBDA000596D25 /* FlashCardsNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashCardsNavigationController.swift; sourceTree = "<group>"; };
 		C12F02432320132200596D25 /* ShowcaseFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowcaseFunctions.swift; sourceTree = "<group>"; };
@@ -75,7 +73,6 @@
 		C15EEB8F232FEB4500FB6770 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		C15EEB9123311EE500FB6770 /* UserDefaultsFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsFunctions.swift; sourceTree = "<group>"; };
 		C16182CD20606EF60025E6D1 /* 38798943_correct-answer-bell-gliss-01.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "38798943_correct-answer-bell-gliss-01.wav"; sourceTree = "<group>"; };
-		C16182CF20606F070025E6D1 /* 38806077_wrong-answer-bong-spring-01.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "38806077_wrong-answer-bong-spring-01.wav"; sourceTree = "<group>"; };
 		C16182D2206075060025E6D1 /* GraphTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphTableViewController.swift; sourceTree = "<group>"; };
 		C178747D205AB89400C01B71 /* FlashCardsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashCardsViewController.swift; sourceTree = "<group>"; };
 		C17D56F320588CE900210586 /* SingleListEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleListEditViewController.swift; sourceTree = "<group>"; };
@@ -86,6 +83,7 @@
 		C1CD514623328CA2008002D1 /* AlertFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertFunctions.swift; sourceTree = "<group>"; };
 		C1CD51482333C41A008002D1 /* GlobalFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalFunctions.swift; sourceTree = "<group>"; };
 		C1CD514B23352769008002D1 /* CustomWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomWindow.swift; sourceTree = "<group>"; };
+		C1CD514E233D00A2008002D1 /* 131657__bertrof__game-sound-wrong.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "131657__bertrof__game-sound-wrong.wav"; sourceTree = "<group>"; };
 		C1E94DD82058336C0077F6EB /* MasterWords.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MasterWords.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1E94DDB2058336C0077F6EB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C1E94DDD2058336C0077F6EB /* ListsEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListsEditViewController.swift; sourceTree = "<group>"; };
@@ -149,9 +147,8 @@
 		C16182D120606F0D0025E6D1 /* Sound */ = {
 			isa = PBXGroup;
 			children = (
-				C12F01F72319885A00596D25 /* 43162713_comical-rubber-squeak-01.wav */,
+				C1CD514E233D00A2008002D1 /* 131657__bertrof__game-sound-wrong.wav */,
 				C16182CD20606EF60025E6D1 /* 38798943_correct-answer-bell-gliss-01.wav */,
-				C16182CF20606F070025E6D1 /* 38806077_wrong-answer-bong-spring-01.wav */,
 			);
 			path = Sound;
 			sourceTree = "<group>";
@@ -317,16 +314,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				C12F024C2327E54A00596D25 /* Montserrat-Regular.ttf in Resources */,
-				C16182D020606F070025E6D1 /* 38806077_wrong-answer-bong-spring-01.wav in Resources */,
 				C15EEB88232C2C4600FB6770 /* defaultCompactedMasterWords_v1.0.realm in Resources */,
 				C12F02482327E50600596D25 /* Montserrat-Black.ttf in Resources */,
 				C1E94DE82058336C0077F6EB /* LaunchScreen.storyboard in Resources */,
+				C1CD5151233D00F4008002D1 /* 131657__bertrof__game-sound-wrong.wav in Resources */,
 				C1E94DE52058336C0077F6EB /* Assets.xcassets in Resources */,
 				C12F024E2327FAFF00596D25 /* GelPenHeavy.ttf in Resources */,
 				C1E94DE32058336C0077F6EB /* Main.storyboard in Resources */,
 				C16182CE20606EF60025E6D1 /* 38798943_correct-answer-bell-gliss-01.wav in Resources */,
 				C12F024A2327E54300596D25 /* Montserrat-SemiBold.ttf in Resources */,
-				C12F01F82319885D00596D25 /* 43162713_comical-rubber-squeak-01.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

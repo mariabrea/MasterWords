@@ -39,7 +39,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             schemaVersion: 1,
             migrationBlock: { migration, oldSchemaVersion in
                 if oldSchemaVersion < 1 {
-                    print("lower squema version")
+//                    print("lower squema version")
                     migration.enumerateObjects(ofType: User.className()) { (_, newUser) in
                         newUser?["avatar"] = "happyAvatar"
                     }
@@ -59,6 +59,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             defaults.set(true, forKey: .audio)
         }
         
+        //if UserDefaults automaticLogOut doesn't exist (first launch) set it to false
+//        print("setting default automatic logout to false on first launch")
+        defaults.set(false, forKey: .automaticLogOut)
+//        if !defaults.exists(key: .automaticLogOut) {
+//            defaults.set(false, forKey: .automaticLogOut)
+//        }
+        
         //increase 'timesAppLaunched'
         defaults.set(defaults.integer(forKey: .timesAppLaunched)+1, forKey: .timesAppLaunched)
         
@@ -71,13 +78,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         let defaultURL = Realm.Configuration.defaultConfiguration.fileURL!
 
-        print(FileManager.default)
+//        print(FileManager.default)
         
         do {
             try _ = defaultURL.checkResourceIsReachable()
-            print("The realm file already exists")
+//            print("The realm file already exists")
         } catch {
-            print("The realm file does not exist")
+//            print("The realm file does not exist")
             do {
                 try FileManager.default.copyItem(at: initialURL!, to: defaultURL)
             } catch {

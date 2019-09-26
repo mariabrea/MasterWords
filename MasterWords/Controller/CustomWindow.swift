@@ -13,17 +13,17 @@ class CustomWindow: UIWindow {
     var timer = Timer()
     
     override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
-        print("App active")
         resetTimer()
         return false
     }
     
     @objc func resetTimer() {
         timer.invalidate()
-        timer = Timer.scheduledTimer(timeInterval: 600, target: self, selector: #selector(logOutNotification), userInfo: nil, repeats: false)
+        timer = Timer.scheduledTimer(timeInterval: 180, target: self, selector: #selector(logOutNotification), userInfo: nil, repeats: false)
     }
     
     @objc func logOutNotification() {
+//        print("notifying logOut")
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "logOut"), object: nil)
     }
 

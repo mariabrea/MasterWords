@@ -48,14 +48,6 @@ class SingleListEditViewController: SwipeTableViewController, MaterialShowcaseDe
         
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(true)
-
-        print("viewDidAppear ListsSingle")
-        //observer set to notice user inactivity lo logOut
-        NotificationCenter.default.addObserver(self, selector: #selector(logOut), name: NSNotification.Name(rawValue: "logOut"), object: nil)
-    }
-
     //set the text of status bar light
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
@@ -214,9 +206,6 @@ class SingleListEditViewController: SwipeTableViewController, MaterialShowcaseDe
 //
 //        alert.showCustom("Word exists", subTitle: "The sight word already exists in this list.", color: colorAlert!, icon: iconAlert!, closeButtonTitle: "Close", animationStyle: .topToBottom)
 //    }
-    @objc func logOut() {
-        performSegue(withIdentifier: "goToUserVC", sender: self)
-    }
     
     func startShowcase() {
         

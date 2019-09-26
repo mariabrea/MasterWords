@@ -55,8 +55,6 @@ class ListsEditViewController: SwipeTableViewController, MaterialShowcaseDelegat
             navBar.barStyle = UIBarStyle.black
         }
         
-        //observer set to notice user inactivity lo logOut
-        NotificationCenter.default.addObserver(self, selector: #selector(logOut), name: NSNotification.Name(rawValue: "logOut"), object: nil)
     }
     
     //set the text of status bar light
@@ -124,7 +122,7 @@ class ListsEditViewController: SwipeTableViewController, MaterialShowcaseDelegat
     
     //func to reload data when Lists have been added through the Graph window
     @objc func reloadLists(notification: NSNotification) {
-
+//        print("ListsEditViewController reloading lists")
         self.tableView.reloadData()
         
     }
@@ -396,9 +394,6 @@ class ListsEditViewController: SwipeTableViewController, MaterialShowcaseDelegat
         
     }
 
-    @objc func logOut() {
-        performSegue(withIdentifier: "goToUserVC", sender: self)
-    }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         

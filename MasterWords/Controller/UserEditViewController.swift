@@ -55,13 +55,6 @@
             
         }
         
-        override func viewDidAppear(_ animated: Bool) {
-            super.viewDidAppear(true)
-            print("viewDidAppear UserEdit")
-            //observer set to notice user inactivity lo logOut
-            NotificationCenter.default.addObserver(self, selector: #selector(logOut), name: NSNotification.Name(rawValue: "logOut"), object: nil)
-        }
-        
         //set the text of status bar light
         override var preferredStatusBarStyle: UIStatusBarStyle {
             return .lightContent
@@ -78,13 +71,6 @@
             return userImages.count
         }
 
-        // This function sets the text of the picker view to the content of the "userImages" array
-//        func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-//            //in case the pickerView is not used (with the first avatar) the function didSelectRow won't be called, then we assign the first avatar as a default value
-//            selectedAvatarName = "coolAvatar"
-//            return userImages[row]
-//        }
-        
         func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
             
             return 100
@@ -115,37 +101,6 @@
         // When user selects an option, this function will set the text of the text field to reflect
         // the selected option.
         func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-            
-            selectedAvatarName = userImages[row]
-            
-//            switch userImages[row] {
-//            case "Cool":
-//                selectedAvatarName = "coolAvatar"
-//            case "Crying":
-//                selectedAvatarName = "cryingAvatar"
-//            case "Drooling":
-//                selectedAvatarName = "droolingAvatar"
-//            case "Grumpy":
-//                selectedAvatarName = "grumpyAvatar"
-//            case "Happy":
-//                selectedAvatarName = "happyAvatar"
-//            case "Mad":
-//                selectedAvatarName = "madAvatar"
-//            case "Scared":
-//                selectedAvatarName = "scaredAvatar"
-//            case "Sick":
-//                selectedAvatarName = "sickAvatar"
-//            case "Silly":
-//                selectedAvatarName = "sillyAvatar"
-//            case "Sleepy":
-//                selectedAvatarName = "sleepyAvatar"
-//            case "Smily":
-//                selectedAvatarName = "smilyAvatar"
-//            default:
-//                selectedAvatarName = "happyAvatar"
-//            }
-            
-            print(selectedAvatarName)
 
             avatarButton.setImage(UIImage(named: selectedAvatarName), for: .normal)
             
@@ -161,8 +116,8 @@
             
             users = realm.objects(User.self).sorted(byKeyPath: "name", ascending: true)
             
-            print(users?.count as Any)
-            print(users as Any)
+//            print(users?.count as Any)
+//            print(users as Any)
             
         }
         
@@ -197,7 +152,7 @@
         
         func createUser() {
  
-            print("createUser: \(nameTextField.text!) \(selectedAvatarName)")
+//            print("createUser: \(nameTextField.text!) \(selectedAvatarName)")
             
             do {
                 try self.realm.write {
@@ -233,9 +188,6 @@
         }
         
         //MARK: - Navigation Methods
-        @objc func logOut() {
-            performSegue(withIdentifier: "goToUsersVC", sender: self)
-        }
         
         func startShowcase() {
             
@@ -300,24 +252,11 @@
         
         @IBAction func saveButtonTapped(_ sender: UIButton) {
             
-            print("action: \(self.action)")
+//            print("action: \(self.action)")
             
             if self.action == "create" {
                 //check that there is no other user with the same name
                 if checkUserExist() {
-                    print("User exists")
-//                    let appearance = SCLAlertView.SCLAppearance(
-//                        kButtonHeight: 50,
-//                        kTitleFont: UIFont(name: "Montserrat-SemiBold", size: 17)!,
-//                        kTextFont: UIFont(name: "Montserrat-Regular", size: 16)!,
-//                        kButtonFont: UIFont(name: "Montserrat-SemiBold", size: 17)!
-//
-//                    )
-//                    let alert = SCLAlertView(appearance: appearance)
-//                    let colorAlert = UIColor(named: "colorAlertEdit")
-//                    let iconAlert = UIImage(named: "icon-warning")
-//
-//                    alert.showCustom("User exists", subTitle: "The user already exists, choose a different user name", color: colorAlert!, icon: iconAlert!, closeButtonTitle: "Close", animationStyle: .topToBottom)
                     createWarningAlert(title: "User exists", subtitle: "The user already exists, choose a different user name")
                 } else {
 
@@ -329,31 +268,15 @@
             } else {
                 //if the name is changed check that there is no other user with that name
                 if selectedUser?.name != nameTextField.text {
-                    print("a")
                     if checkUserExist() {
-                        print("User exists")
-//                        let appearance = SCLAlertView.SCLAppearance(
-//                            kButtonHeight: 50,
-//                            kTitleFont: UIFont(name: "Montserrat-SemiBold", size: 17)!,
-//                            kTextFont: UIFont(name: "Montserrat-Regular", size: 16)!,
-//                            kButtonFont: UIFont(name: "Montserrat-SemiBold", size: 17)!
-//
-//                        )
-//                        let alert = SCLAlertView(appearance: appearance)
-//                        let colorAlert = UIColor(named: "colorAlertEdit")
-//                        let iconAlert = UIImage(named: "icon-warning")
-//
-//                        alert.showCustom("User exists", subTitle: "The user already exists, choose a different user name", color: colorAlert!, icon: iconAlert!, closeButtonTitle: "Close", animationStyle: .topToBottom)
                         createWarningAlert(title: "User exists", subtitle: "The user already exists, choose a different user name")
                     } else {
-                        print("b")
                         updateUserNameInSightWordsTable()
                         updateUser()
                         selectedUser?.name == nameTextField.text
                         performSegue(withIdentifier: "goToListsTab", sender: self)
                     }
                 } else {
-                    print("c")
                     updateUser()
                     performSegue(withIdentifier: "goToListsTab", sender: self)
                 }

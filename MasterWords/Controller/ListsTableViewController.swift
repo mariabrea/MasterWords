@@ -52,9 +52,6 @@ class ListsTableViewController: UITableViewController {
         if let navBar = self.navigationController?.navigationBar {
             navBar.barStyle = UIBarStyle.black
         }
-        print("viewDidAppear ListsTable")
-        //observer set to notice user inactivity lo logOut
-        NotificationCenter.default.addObserver(self, selector: #selector(logOut), name: NSNotification.Name(rawValue: "logOut"), object: nil)
     }
 
     //set the text of status bar light
@@ -102,16 +99,13 @@ class ListsTableViewController: UITableViewController {
         } else {
             let startPracticeTime = Double(CFAbsoluteTimeGetCurrent())
             defaults.set(startPracticeTime, forKey: .timeUserStartCardsPractice)
-            print("startPracticeTime: \(startPracticeTime)")
+//            print("startPracticeTime: \(startPracticeTime)")
             performSegue(withIdentifier: "goToFlashCardsVC", sender: self)
         }
         
     }
     
     //MARK: Navigation Methods
-    @objc func logOut() {
-        performSegue(withIdentifier: "goToUserVC", sender: self)
-    }
     
     func startShowcase() {
         
@@ -163,6 +157,7 @@ class ListsTableViewController: UITableViewController {
     //func to reload data when Lists have been added, updated or removed
     @objc func reloadLists(notification: NSNotification) {
 
+//        print("ListsTableViewController reloading lists")
         self.tableView.reloadData()
         
     }

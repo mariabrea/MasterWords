@@ -57,20 +57,27 @@ class SwitchUserViewController: UIViewController {
         
         super.viewDidLoad()
 
-//        updateUI()
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+        //select tab of SwitchUser when logOut notofocation posted
+        NotificationCenter.default.addObserver(self, selector: #selector(logOut), name: NSNotification.Name(rawValue: "logOut"), object: nil)
+        
         updateUI()
+        
+        checkAutomaticLogOut()
+        
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(true)
-        print("viewDidAppear SwitchUser")
-        //observer set to notice user inactivity lo logOut
-        NotificationCenter.default.addObserver(self, selector: #selector(logOut), name: NSNotification.Name(rawValue: "logOut"), object: nil)
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(true)
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(true)
+        chartView.isHidden = false
     }
 
     //set the text of status bar light
@@ -80,8 +87,29 @@ class SwitchUserViewController: UIViewController {
     
     // MARK: - Navigation Methods
 
+    func checkAutomaticLogOut() {
+//        print("checking automatic logout")
+        if defaults.bool(forKey: .automaticLogOut)! {
+//            print("automatic logout")
+//            print("setting default automaticlogout to false")
+            defaults.set(false, forKey: .automaticLogOut)
+            DispatchQueue.main.async {
+                self.performSegue(withIdentifier: "goToUsersVC", sender: self)
+            }
+            
+        } else {
+//            print("regular logout")
+        }
+        
+    }
+    
     @objc func logOut() {
-        performSegue(withIdentifier: "goToUsersVC", sender: self)
+//        print("logging out")
+//        print("setting default automaticlogout to false")
+        defaults.set(false, forKey: .automaticLogOut)
+        DispatchQueue.main.async {
+            self.performSegue(withIdentifier: "goToUsersVC", sender: self)
+        }
     }
     
     func startShowcase() {
@@ -158,34 +186,26 @@ class SwitchUserViewController: UIViewController {
 
     //MARK: Data Functions
     func calculateDataActivityLog() {
-        print("Calculating Activity Log Data")
+//        print("Calculating Activity Log Data")
         logoutTime = Double(CFAbsoluteTimeGetCurrent())
         startTime = defaults.double(forKey: .timeUserStartSession)!
         secondsUserSession = logoutTime - startTime
-        print("secondsUserSession: \(secondsUserSession)")
-        print("seconds rounded: \(secondsUserSession.rounded(.down))")
         (h1, m1, s1) = secondsToHoursMinutesSeconds(seconds: Int(secondsUserSession.rounded(.down)))
-        print("\(h1)h \(m1)m \(s1)s")
         
         secondsUserPracticedCardsSession = defaults.double(forKey: .secondsUserPracticedCardsSession)!
         (h2, m2, s2) = secondsToHoursMinutesSeconds(seconds: Int(secondsUserPracticedCardsSession.rounded(.down)))
-        print("\(h2)h \(m2)m \(s2)s")
         
         numberCorrectCardsUserPracticedSession = defaults.integer(forKey: .numberCorrectCardsUserPracticedSession)
         numberWrongCardsUserPracticedSession = defaults.integer(forKey: .numberWrongCardsUserPracticedSession)
-        
-        print("Correct: \(numberCorrectCardsUserPracticedSession)  Wrong: \(numberWrongCardsUserPracticedSession)")
     }
     
     // MARK: - IBAction Methods
     
      @IBAction func logoutButtonTapped(_ sender: UIButton) {
-        
+        performSegue(withIdentifier: "goToUsersVC", sender: self)
      }
     
     @IBAction func helpButtonTapped(_ sender: UIButton) {
-        
         startShowcase()
-        
     }
 }
