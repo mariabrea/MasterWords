@@ -24,7 +24,6 @@
 		C12F024E2327FAFF00596D25 /* GelPenHeavy.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C12F024D2327FAFD00596D25 /* GelPenHeavy.ttf */; };
 		C1344A44231573D800BEB28C /* UserEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1344A43231573D800BEB28C /* UserEditViewController.swift */; };
 		C15EEB88232C2C4600FB6770 /* defaultCompactedMasterWords_v1.0.realm in Resources */ = {isa = PBXBuildFile; fileRef = C15EEB87232C2C4600FB6770 /* defaultCompactedMasterWords_v1.0.realm */; };
-		C15EEB8A232D5CCA00FB6770 /* DatabaseFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C15EEB89232D5CC900FB6770 /* DatabaseFunctions.swift */; };
 		C15EEB8C232FD84700FB6770 /* AppStoreReviewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C15EEB8B232FD84700FB6770 /* AppStoreReviewManager.swift */; };
 		C15EEB90232FEB4500FB6770 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C15EEB8F232FEB4500FB6770 /* SettingsViewController.swift */; };
 		C15EEB9223311EE500FB6770 /* UserDefaultsFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C15EEB9123311EE500FB6770 /* UserDefaultsFunctions.swift */; };
@@ -68,7 +67,6 @@
 		C12F024D2327FAFD00596D25 /* GelPenHeavy.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = GelPenHeavy.ttf; sourceTree = "<group>"; };
 		C1344A43231573D800BEB28C /* UserEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserEditViewController.swift; sourceTree = "<group>"; };
 		C15EEB87232C2C4600FB6770 /* defaultCompactedMasterWords_v1.0.realm */ = {isa = PBXFileReference; lastKnownFileType = file; path = defaultCompactedMasterWords_v1.0.realm; sourceTree = "<group>"; };
-		C15EEB89232D5CC900FB6770 /* DatabaseFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseFunctions.swift; sourceTree = "<group>"; };
 		C15EEB8B232FD84700FB6770 /* AppStoreReviewManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStoreReviewManager.swift; sourceTree = "<group>"; };
 		C15EEB8F232FEB4500FB6770 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		C15EEB9123311EE500FB6770 /* UserDefaultsFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsFunctions.swift; sourceTree = "<group>"; };
@@ -157,7 +155,6 @@
 			isa = PBXGroup;
 			children = (
 				C12F02432320132200596D25 /* ShowcaseFunctions.swift */,
-				C15EEB89232D5CC900FB6770 /* DatabaseFunctions.swift */,
 				C1CD514623328CA2008002D1 /* AlertFunctions.swift */,
 				C1CD51482333C41A008002D1 /* GlobalFunctions.swift */,
 			);
@@ -391,7 +388,6 @@
 				C15EEB9223311EE500FB6770 /* UserDefaultsFunctions.swift in Sources */,
 				C1344A44231573D800BEB28C /* UserEditViewController.swift in Sources */,
 				C12F0240231EBC4A00596D25 /* ListsNavigationController.swift in Sources */,
-				C15EEB8A232D5CCA00FB6770 /* DatabaseFunctions.swift in Sources */,
 				C1CD514C2335276B008002D1 /* CustomWindow.swift in Sources */,
 				C12293B02062BE820080A810 /* User.swift in Sources */,
 				C16182D3206075070025E6D1 /* GraphTableViewController.swift in Sources */,

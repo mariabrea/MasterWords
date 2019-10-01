@@ -91,9 +91,9 @@
             //        userImageView.image = UIImage(named: "coolAvatar")
             userImageView.image = UIImage(named: userImages[row])
 
-//            in case the pickerView is not used (with the first avatar) the function didSelectRow won't be called, then we assign the first avatar as a default value
-            selectedAvatarName = "coolAvatar"
-            
+//            in case the pickerView is not used the function didSelectRow won't be called, then we assign the avatar already has the user or the first avatar as a default value
+            selectedAvatarName = selectedUser?.avatar ?? "coolAvatar"
+ 
             return userView
             
         }
@@ -102,6 +102,9 @@
         // the selected option.
         func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
 
+            selectedAvatarName = userImages[row]
+//            print("pickerView didSelectRow")
+//            print("selectedAvatarName: \(selectedAvatarName)")
             avatarButton.setImage(UIImage(named: selectedAvatarName), for: .normal)
             
             //close the picker view once made a selection

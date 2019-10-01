@@ -815,11 +815,11 @@
             </objects>
             <point key="canvasLocation" x="938.39999999999998" y="-0.44977511244377816"/>
         </scene>
-        <!--Lists Navigation Controller-->
+        <!--LISTS-->
         <scene sceneID="qWm-3N-jhO">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="XOw-cs-JoN" customClass="ListsNavigationController" customModule="MasterWords" customModuleProvider="target" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="" image="iconList" selectedImage="iconList" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="LISTS" image="iconList" selectedImage="iconList" id="acW-dT-cKf"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="s5c-f9-snX">
                         <rect key="frame" x="0.0" y="20" width="414" height="44"/>
@@ -843,11 +843,11 @@
             </objects>
             <point key="canvasLocation" x="1687.2" y="-320.68965517241384"/>
         </scene>
-        <!--Flash Cards Navigation Controller-->
+        <!--CARDS-->
         <scene sceneID="Apd-ei-0h2">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Th0-54-Qd3" customClass="FlashCardsNavigationController" customModule="MasterWords" customModuleProvider="target" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="" image="iconCards" selectedImage="iconCards" id="cPa-gy-q4n"/>
+                    <tabBarItem key="tabBarItem" title="CARDS" image="iconCards" selectedImage="iconCards" id="cPa-gy-q4n"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="fAE-EH-KUu">
                         <rect key="frame" x="0.0" y="20" width="414" height="44"/>
@@ -871,7 +871,7 @@
             </objects>
             <point key="canvasLocation" x="1687.2" y="359.37031484257875"/>
         </scene>
-        <!--Graph Table View Controller-->
+        <!--RESULTS-->
         <scene sceneID="Sfr-FB-9QR">
             <objects>
                 <tableViewController id="7Gl-fE-5aC" customClass="GraphTableViewController" customModule="MasterWords" customModuleProvider="target" sceneMemberID="viewController">
@@ -879,12 +879,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="687"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <view key="tableHeaderView" contentMode="scaleToFill" id="g2D-2u-SW6" userLabel="Header View">
+                        <view key="tableHeaderView" contentMode="scaleToFill" misplaced="YES" id="g2D-2u-SW6" userLabel="Header View">
                             <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LGj-3J-FUI">
-                                    <rect key="frame" x="348" y="11" width="25" height="25"/>
+                                    <rect key="frame" x="348" y="-33" width="25" height="25"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="25" id="2kg-TY-IUf"/>
                                         <constraint firstAttribute="width" secondItem="LGj-3J-FUI" secondAttribute="height" multiplier="1:1" id="3wt-Fu-UEk"/>
@@ -898,7 +898,7 @@
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pe7-dU-aey">
-                                    <rect key="frame" x="315" y="11" width="25" height="25"/>
+                                    <rect key="frame" x="315" y="-33" width="25" height="25"/>
                                     <constraints>
                                         <constraint firstAttribute="width" secondItem="pe7-dU-aey" secondAttribute="height" multiplier="1:1" id="xVu-ln-bdK"/>
                                     </constraints>
@@ -911,7 +911,7 @@
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Hf-zZ-otg">
-                                    <rect key="frame" x="8" y="11" width="25" height="25"/>
+                                    <rect key="frame" x="8" y="-33" width="25" height="25"/>
                                     <constraints>
                                         <constraint firstAttribute="width" secondItem="3Hf-zZ-otg" secondAttribute="height" multiplier="1:1" id="EEN-VI-HdF"/>
                                     </constraints>
@@ -921,7 +921,7 @@
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Esf-vB-ItI" userLabel="Erase Button">
-                                    <rect key="frame" x="41" y="11" width="25" height="25"/>
+                                    <rect key="frame" x="41" y="-33" width="25" height="25"/>
                                     <constraints>
                                         <constraint firstAttribute="width" secondItem="Esf-vB-ItI" secondAttribute="height" multiplier="1:1" id="LmF-uA-7Be"/>
                                     </constraints>
@@ -931,7 +931,7 @@
                                     </connections>
                                 </button>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rX0-HW-lyt">
-                                    <rect key="frame" x="157" y="6" width="100" height="30"/>
+                                    <rect key="frame" x="157" y="-38" width="100" height="30"/>
                                     <constraints>
                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="Zic-My-W66"/>
                                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="tiJ-Jf-4VK"/>
@@ -941,7 +941,7 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QYz-Cl-NBA" userLabel="Help Button">
-                                    <rect key="frame" x="381" y="11" width="25" height="25"/>
+                                    <rect key="frame" x="381" y="-33" width="25" height="25"/>
                                     <constraints>
                                         <constraint firstAttribute="width" secondItem="QYz-Cl-NBA" secondAttribute="height" multiplier="1:1" id="hc0-dc-CEt"/>
                                     </constraints>
@@ -1092,7 +1092,7 @@
                             <outlet property="delegate" destination="7Gl-fE-5aC" id="3MZ-Y8-dLf"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="" image="iconGraph" selectedImage="iconGraph" id="R26-42-WRx"/>
+                    <tabBarItem key="tabBarItem" title="RESULTS" image="iconGraph" selectedImage="iconGraph" id="R26-42-WRx"/>
                     <connections>
                         <outlet property="addButton" destination="3Hf-zZ-otg" id="8kX-8B-NLZ"/>
                         <outlet property="eraseButton" destination="Esf-vB-ItI" id="G9T-Rs-h13"/>
@@ -1106,7 +1106,7 @@
             </objects>
             <point key="canvasLocation" x="748" y="1037.6311844077961"/>
         </scene>
-        <!--Switch User View Controller-->
+        <!--LOGOUT-->
         <scene sceneID="7ha-in-K5A">
             <objects>
                 <viewController id="fOm-XD-bYP" customClass="SwitchUserViewController" customModule="MasterWords" customModuleProvider="target" sceneMemberID="viewController">
@@ -1457,7 +1457,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="8mI-sb-iux"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="" image="iconLogout" selectedImage="iconLogout" id="lne-AI-QB8"/>
+                    <tabBarItem key="tabBarItem" title="LOGOUT" image="iconLogout" selectedImage="iconLogout" id="lne-AI-QB8"/>
                     <connections>
                         <outlet property="chartView" destination="mgQ-lY-ywE" id="4d0-gv-ffr"/>
                         <outlet property="helpButton" destination="EUF-4M-dVD" id="0t2-WO-P4H"/>
@@ -1478,12 +1478,12 @@
             </objects>
             <point key="canvasLocation" x="748" y="1720"/>
         </scene>
-        <!--User Edit View Controller-->
+        <!--PROFILE-->
         <scene sceneID="E72-h1-4r3">
             <objects>
                 <viewController id="8KK-A0-9qE" customClass="UserEditViewController" customModule="MasterWords" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="N1c-vf-xCK">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="687"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d9D-1B-bvA" userLabel="NameContainer">
@@ -1572,7 +1572,7 @@
                                 </connections>
                             </pickerView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HqS-Cx-b65" userLabel="ButtonsContainer">
-                                <rect key="frame" x="0.0" y="661" width="414" height="50"/>
+                                <rect key="frame" x="0.0" y="612" width="414" height="50"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RRL-Zr-0CA" customClass="RoundButton" customModule="MasterWords" customModuleProvider="target">
                                         <rect key="frame" x="25" y="0.0" width="169.66666666666666" height="50"/>
@@ -1692,7 +1692,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ACV-gz-q3f"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="" image="iconUser" selectedImage="iconUser" id="I53-rt-UbW"/>
+                    <tabBarItem key="tabBarItem" title="PROFILE" image="iconUser" selectedImage="iconUser" id="I53-rt-UbW"/>
                     <connections>
                         <outlet property="avatarButton" destination="afI-1P-iJH" id="5lu-eB-0CQ"/>
                         <outlet property="cancelButton" destination="Sjf-Yd-fhp" id="oJY-zS-myu"/>
@@ -1745,8 +1745,8 @@
         </namedColor>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="5tT-hv-e6d"/>
-        <segue reference="wyA-Dy-Jkr"/>
-        <segue reference="wDQ-tn-WvD"/>
+        <segue reference="Rlc-fp-KT3"/>
+        <segue reference="dHD-GS-3fQ"/>
+        <segue reference="uyL-7x-9EL"/>
     </inferredMetricsTieBreakers>
 </document>
