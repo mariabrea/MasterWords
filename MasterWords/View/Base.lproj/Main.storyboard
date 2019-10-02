@@ -326,9 +326,6 @@
                                         <constraints>
                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="60" id="wDw-hr-rEg"/>
                                         </constraints>
-                                        <connections>
-                                            <action selector="happyButtonTapped:" destination="3Mm-9l-E01" eventType="touchUpInside" id="NOI-oe-fzi"/>
-                                        </connections>
                                     </button>
                                 </subviews>
                                 <constraints>
