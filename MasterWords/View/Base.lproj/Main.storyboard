@@ -411,7 +411,7 @@
                             </constraints>
                         </view>
                         <button key="tableFooterView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="9HK-Yn-6lk">
-                            <rect key="frame" x="0.0" y="340" width="414" height="44"/>
+                            <rect key="frame" x="0.0" y="400" width="414" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" name="colorButtonBackground"/>
                             <fontDescription key="fontDescription" name="Montserrat-SemiBold" family="Montserrat" pointSize="20"/>
@@ -531,6 +531,28 @@
                                         <connections>
                                             <segue destination="D1e-uu-EEK" kind="show" id="EaV-s0-FPL"/>
                                         </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" rowHeight="60" id="iOG-x9-cjM" userLabel="Privacy Policy Table View Cell">
+                                        <rect key="frame" x="0.0" y="340" width="414" height="60"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="iOG-x9-cjM" id="4OP-eC-hZK">
+                                            <rect key="frame" x="0.0" y="0.0" width="376" height="59.666666666666664"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Privacy Policy" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vkt-61-WV9">
+                                                    <rect key="frame" x="32.000000000000007" y="0.0" width="115.66666666666669" height="59.666666666666664"/>
+                                                    <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="17"/>
+                                                    <color key="textColor" name="colorAppTitle"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="Vkt-61-WV9" firstAttribute="top" secondItem="4OP-eC-hZK" secondAttribute="top" id="6Jl-md-Hfc"/>
+                                                <constraint firstAttribute="bottom" secondItem="Vkt-61-WV9" secondAttribute="bottom" id="Oag-IU-cKc"/>
+                                                <constraint firstItem="Vkt-61-WV9" firstAttribute="leading" secondItem="4OP-eC-hZK" secondAttribute="leading" constant="32" id="Tq6-jk-i4a"/>
+                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Vkt-61-WV9" secondAttribute="trailing" constant="20" id="pCj-le-lXB"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>

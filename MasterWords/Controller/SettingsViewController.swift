@@ -16,6 +16,7 @@ class SettingsViewController: UITableViewController {
     let defaults = UserDefaults()
     
     private let productURL = URL(string: "https://itunes.apple.com/app/id958625272")!
+    private let appPageURL = URL(string: "https://sight-words-cards-app.herokuapp.com/public/home.html")!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,6 +44,8 @@ class SettingsViewController: UITableViewController {
             writeReview()
         } else if indexPath.row == 1 {
             share()
+        } else if indexPath.row == 3 {
+            openAppPage()
         }
     }
     
@@ -67,6 +70,10 @@ class SettingsViewController: UITableViewController {
         if let popOver = activityViewController.popoverPresentationController {
             popOver.sourceView = self.view
         }
+    }
+    
+    func openAppPage() {
+        UIApplication.shared.open(appPageURL)
     }
     
     @IBAction func audioSwitchTapped(_ sender: UISwitch) {
