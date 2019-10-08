@@ -70,6 +70,7 @@ class SwitchUserViewController: UIViewController {
         
     }
     
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(true)
         NotificationCenter.default.removeObserver(self)
@@ -172,7 +173,7 @@ class SwitchUserViewController: UIViewController {
         pieChartDataSet.entryLabelColor = UIColor(named: "colorBarBackground")
         pieChartDataSet.entryLabelFont = UIFont(name: "Montserrat", size: 13)
         pieChartDataSet.valueFont = UIFont(name: "Montserrat", size: 13)!
-
+        
         // 3. Set ChartData
         let pieChartData = PieChartData(dataSet: pieChartDataSet)
         let format = NumberFormatter()
@@ -181,6 +182,8 @@ class SwitchUserViewController: UIViewController {
         pieChartData.setValueFormatter(formatter)
         // 4. Assign it to the chart’s data
         chartView.data = pieChartData
+        chartView.extraRightOffset = 20
+        chartView.extraLeftOffset = 20
     }
     
 

@@ -1424,7 +1424,7 @@
                                 <viewLayoutGuide key="safeArea" id="Njy-ab-vBv"/>
                             </stackView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mgQ-lY-ywE" userLabel="Chart View" customClass="PieChartView" customModule="Charts">
-                                <rect key="frame" x="20" y="333" width="374" height="275"/>
+                                <rect key="frame" x="20" y="338" width="374" height="265"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                         </subviews>
@@ -1458,7 +1458,7 @@
                             <constraint firstItem="8mI-sb-iux" firstAttribute="trailing" secondItem="rht-hc-xvY" secondAttribute="trailing" constant="20" id="fcQ-HO-YxN"/>
                             <constraint firstItem="syc-nl-XXN" firstAttribute="top" secondItem="TR0-Rj-Pmu" secondAttribute="bottom" id="g85-yp-TYR"/>
                             <constraint firstItem="pJW-O9-xSR" firstAttribute="top" secondItem="kWM-Dk-qOa" secondAttribute="bottom" id="hKM-j3-PW8"/>
-                            <constraint firstItem="qL1-Ue-eE7" firstAttribute="top" secondItem="mgQ-lY-ywE" secondAttribute="bottom" constant="5" id="iGK-tm-LUL">
+                            <constraint firstItem="qL1-Ue-eE7" firstAttribute="top" secondItem="mgQ-lY-ywE" secondAttribute="bottom" constant="10" id="iGK-tm-LUL">
                                 <variation key="heightClass=regular-widthClass=regular" constant="20"/>
                             </constraint>
                             <constraint firstItem="3sK-R2-G0R" firstAttribute="top" secondItem="syc-nl-XXN" secondAttribute="bottom" id="iNy-Ya-JvK"/>
@@ -1468,7 +1468,7 @@
                             <constraint firstItem="j7M-sF-vVt" firstAttribute="leading" secondItem="8mI-sb-iux" secondAttribute="leading" constant="20" id="pFb-6R-WHV"/>
                             <constraint firstItem="cqg-FG-efN" firstAttribute="leading" secondItem="8mI-sb-iux" secondAttribute="leading" constant="20" id="qcV-2d-fK1"/>
                             <constraint firstItem="3sK-R2-G0R" firstAttribute="leading" secondItem="8mI-sb-iux" secondAttribute="leading" constant="40" id="tdK-TQ-Bca"/>
-                            <constraint firstItem="mgQ-lY-ywE" firstAttribute="top" secondItem="3sK-R2-G0R" secondAttribute="bottom" id="vGW-8M-XYe">
+                            <constraint firstItem="mgQ-lY-ywE" firstAttribute="top" secondItem="3sK-R2-G0R" secondAttribute="bottom" constant="5" id="vGW-8M-XYe">
                                 <variation key="heightClass=regular-widthClass=regular" constant="10"/>
                             </constraint>
                             <constraint firstItem="syc-nl-XXN" firstAttribute="leading" secondItem="0Jz-Ya-YOM" secondAttribute="leading" constant="20" id="z0x-sx-Ebg"/>
@@ -1766,6 +1766,6 @@
     <inferredMetricsTieBreakers>
         <segue reference="Rlc-fp-KT3"/>
         <segue reference="dHD-GS-3fQ"/>
-        <segue reference="uyL-7x-9EL"/>
+        <segue reference="wDQ-tn-WvD"/>
     </inferredMetricsTieBreakers>
 </document>
