@@ -15,7 +15,7 @@ class SettingsViewController: UITableViewController {
     
     let defaults = UserDefaults()
     
-    private let productURL = URL(string: "https://itunes.apple.com/app/id958625272")!
+    private let productURL = URL(string: "https://itunes.apple.com/app/id1482776189")!
     private let appPageURL = URL(string: "https://sight-words-cards-app.herokuapp.com/public/home.html")!
     
     override func viewDidLoad() {
